@@ -1,0 +1,379 @@
+\chapter{Lezione 5 - 20/10/2026}
+
+\section{Introduzione allo Smorzamento di Landau}
+L'argomento originariamente previsto per la lezione odierna era lo \textbf{smorzamento di Landau} (\textit{Landau damping}). Tuttavia, la comprensione di questo fenomeno richiede la padronanza di alcuni strumenti matematici avanzati. Pertanto, questa lezione sarà dedicata al ripasso e all'approfondimento delle tecniche matematiche essenziali per affrontare il problema.
+
+Il problema dello smorzamento di Landau è di fondamentale importanza poiché descrive una situazione fisica in cui un plasma mostra un comportamento completamente differente, e persino controintuitivo, rispetto alle dinamiche tipiche dei fluidi standard.
+
+Per trattare questo argomento, nel corso della lezione verranno richiamati i seguenti concetti:
+\begin{itemize}
+\item Teoria delle distribuzioni e soluzioni deboli;
+\item Funzioni di Green e teoria di Schwartz;
+\item Integrali singolari;
+\item Trasformate di Laplace e prolungamento analitico.
+\end{itemize}
+
+\section{La Relazione di Dispersione e il Contributo di Vlasov e Landau}
+
+\subsection{Definizione e Significato Fisico}
+Nella lezione precedente, analizzando le perturbazioni in un plasma, è emersa una \textbf{relazione di dispersione}. In termini generali, una relazione di dispersione è un'equazione che lega la pulsazione $\omega$ al numero d'onda $k$.
+
+Rispondendo al quesito sul suo significato fisico:
+\begin{itemize}
+\item Nel caso delle onde sonore, la relazione di dispersione descrive come l'onda si propaga in funzione della velocità del suono.
+\item Permette di determinare se un mezzo è \textbf{dispersivo} o dissipativo; in tali mezzi, ad esempio, la frequenza assume una parte immaginaria che descrive i fenomeni di smorzamento.
+\end{itemize}
+
+\subsection{L'Equazione di Vlasov e la Presenza della Singolarità}
+Il procedimento matematico che ha portato alla relazione di dispersione è partito dalla ricerca di soluzioni per l'\textbf{equazione di Vlasov}. Si è inizialmente trovata una soluzione di equilibrio, definita dalla distribuzione delle velocità $f_0(\mathbf{v})$. Successivamente, ci si è posti il problema di valutare la stabilità del sistema introducendo una perturbazione in questo plasma non collisionale.
+
+Intuitivamente, il sistema dovrebbe risultare stabile e presentare semplici oscillazioni. Tuttavia, i calcoli restituiscono una relazione di dispersione enigmatica, caratterizzata dalla presenza di un \textbf{polo} a una specifica frequenza (una singolarità del tipo $1/x$).
+
+La comprensione del significato fisico di questo polo ha impegnato figure del calibro di Vlasov, Landau e molti altri esperti di fisica dei plasmi per anni.
+Dal punto di vista matematico, la risoluzione richiede il calcolo di un integrale che deve attraversare tale singolarità. Esiste una precisa prescrizione fisica per aggirare il polo nel piano complesso.
+A livello storico, la soluzione originale proposta da Vlasov si rivelò errata o incompleta perché mancava degli strumenti matematici adeguati. Landau, impiegando il corretto formalismo per il calcolo dell'integrale singolare, formulò la soluzione esatta, che in seguito è stata confermata sperimentalmente.
+
+\section{Teoria delle Distribuzioni: La Delta di Dirac}
+
+\subsection{Rappresentazione Intuitiva e Limiti dell'Analisi Classica}
+Si richiama il concetto di \textbf{Delta di Dirac}, indicata con $\delta(x)$. Intuitivamente, essa può essere pensata come il limite di una funzione Gaussiana che diventa infinitamente stretta e infinitamente alta.
+Analizzando una sequenza di Gaussiane sempre più localizzate nell'origine, si osserva la tendenza verso una "funzione" che vale $0$ ovunque tranne che nell'origine, dove diverge all'infinito, ma tale che il suo integrale rimanga normalizzato a $1$.
+
+Tuttavia, dal punto di vista dell'analisi matematica rigorosa, questa definizione informale non è sufficiente. Il problema principale risiede nello scambio tra l'operazione di passaggio al limite e quella di integrazione. Utilizzando l'integrale di Riemann, se si esegue prima il limite della Gaussiana per ogni punto e successivamente si integra, si ottiene $0$ (poiché la funzione tende a zero ovunque tranne in un punto di misura nulla). Se si integra prima e si passa al limite dopo, si ottiene $1$.
+
+\subsection{Definizione Formale tramite Riscalamento}
+Per aggirare il problema, consideriamo una funzione $\delta_1(y)$ tale che la sua area sia normalizzata a $1$:
+\begin{equation}
+\int_{-\infty}^{+\infty} \delta_1(y) , dy = 1
+\end{equation}
+Si costruisce quindi una famiglia di funzioni riscalate $\delta_\epsilon(x)$ tramite la trasformazione $x/\epsilon$. In questo modo si garantisce che:
+\begin{equation}
+\int_{-\infty}^{+\infty} \delta_\epsilon(x) , dx = 1 \quad \forall \epsilon > 0
+\end{equation}
+L'obiettivo è dimostrare che, data una \textbf{funzione di test} $\phi(x)$ continua nell'origine e limitata, vale la seguente proprietà fondamentale:
+\begin{equation}
+\lim_{\epsilon \to 0} \int_{-\infty}^{+\infty} \delta_\epsilon(x) \phi(x) , dx = \phi(0)
+\end{equation}
+
+Come precedentemente anticipato, la difficoltà risiede nella mancata commutatività tra l'integrale e il limite, in quanto l'integrale della sequenza di funzioni non è uniformemente convergente. Si rende quindi necessario l'utilizzo del \textbf{Teorema della Convergenza Dominata di Lebesgue}.
+
+\section{Applicazione del Teorema della Convergenza Dominata}
+
+Il teorema della convergenza dominata permette di portare l'operazione di limite all'interno del segno di integrale. Per farlo, è necessario trovare un \textbf{maggiorante} integrabile della funzione integranda che non dipenda dal parametro $\epsilon$.
+
+\subsection{Passaggi Dimostrativi}
+\begin{enumerate}
+\item \textbf{Cambio di variabile:} Si pone $x = \epsilon y$, da cui deriva $dx = \epsilon dy$. Sostituendo nell'integrale originale, si ottiene:
+\begin{equation}
+\int_{-\infty}^{+\infty} \delta_1(y) \phi(\epsilon y) , dy
+\end{equation}
+Definiamo la funzione integranda dipendente dal parametro come:
+\begin{equation}
+g_\epsilon(y) = \delta_1(y) \phi(\epsilon y)
+\end{equation}
+
+```
+\item \textbf{Limite puntuale:} Poiché $\phi$ è per ipotesi continua in zero, per ogni $y$ fissato, il limite puntuale della funzione integranda è:
+\begin{equation}
+    \lim_{\epsilon \to 0} g_\epsilon(y) = \delta_1(y) \phi(0)
+\end{equation}
+
+\item \textbf{Maggiorazione (Dominazione):} Sia $M$ l'estremo superiore dei valori assoluti assunti dalla funzione test $\phi$. Affinché il teorema sia applicabile, deve valere che $\vert{}g_\epsilon(y)\vert{}$ sia dominata da una funzione $h(y)$ integrabile indipendente da $\epsilon$. Essendo $\phi$ limitata da $M$, possiamo scrivere:
+\begin{equation}
+    |g_\epsilon(y)| \leq M |\delta_1(y)|
+\end{equation}
+Affinché la dominazione sia valida, si richiede che $\delta_1(y)$ sia assolutamente integrabile:
+\begin{equation}
+    \int_{-\infty}^{+\infty} |\delta_1(y)| \, dy < +\infty
+\end{equation}
+
+```
+
+\end{enumerate}
+
+Se questa ipotesi è verificata, il Teorema della Convergenza Dominata garantisce che il limite dell'integrale coincida con l'integrale del limite:
+\begin{equation}
+\lim_{\epsilon \to 0} \int_{-\infty}^{+\infty} g_\epsilon(y) , dy = \int_{-\infty}^{+\infty} \lim_{\epsilon \to 0} g_\epsilon(y) , dy = \int_{-\infty}^{+\infty} \delta_1(y) \phi(0) , dy
+\end{equation}
+Essendo $\phi(0)$ una costante e sapendo che $\int \delta_1(y)dy = 1$, il risultato finale fornisce l'identità fondamentale:
+\begin{equation}
+\phi(0) \cdot 1 = \phi(0)
+\end{equation}
+
+\section{Validità delle Rappresentazioni della Delta}
+
+Il punto critico dell'intera dimostrazione risiede nella condizione di integrabilità del modulo di $\delta_1(y)$. A seconda della funzione generatrice scelta, si presentano scenari differenti:
+
+\begin{itemize}
+\item \textbf{Gaussiana e Lorentziana:} Entrambe queste famiglie di funzioni sono assolutamente integrabili e permettono di definire regolarmente una funzione delta. Il teorema della convergenza dominata si applica senza problemi per ogni funzione test $\phi$ continua nell'origine, consentendo di portare il limite sotto il segno di integrale.
+
+```
+\item \textbf{Rappresentazione Seno Cardinale $\left( \frac{\sin y}{y} \right)$:} Questa funzione generatrice presenta notevoli difficoltà analitiche. Infatti, il suo integrale del valore assoluto diverge:
+\begin{equation}
+    \int_{-\infty}^{+\infty} \left| \frac{\sin y}{y} \right| dy = +\infty
+\end{equation}
+Di conseguenza, \textbf{non esiste} una funzione maggiorante integrabile $h(y)$, e il Teorema della Convergenza Dominata non può essere applicato direttamente. 
+Per poter dare senso matematico a questa rappresentazione della Delta e poter passare il limite sotto il segno di integrale, è necessario ricorrere a un'ipotesi più restrittiva: la funzione test $\phi$ non deve limitarsi ad essere continua o \textit{smooth} (liscia), ma deve essere una \textbf{funzione analitica}. In tal caso, estendendo il problema nel piano complesso e utilizzando il \textbf{Teorema di Cauchy}, è possibile conferire rigore alla formulazione.
+
+```
+
+\end{itemize}
+
+\section{Spazio delle Funzioni Test e Distribuzioni}
+
+Per definire rigorosamente le funzioni di distribuzione, è necessario introdurre il concetto di \textbf{funzione test}. L'obiettivo è definire uno spazio di funzioni $\phi(x)$ ("ragionevoli") tali per cui la successione $\delta_\epsilon(x)$ converga alla distribuzione $\delta(x)$ anche nel caso in cui la funzione test presenti un comportamento oscillante.
+
+Non tutte le funzioni possono ammettere questo tipo di rappresentazione. È necessario restringere il campo alle cosiddette funzioni \textit{smooth}, ovvero funzioni \textbf{infinitamente differenziabili} ($C^\infty$) e a \textbf{supporto compatto} (oppure che decadono a zero all'infinito in maniera sufficientemente rapida). L'insieme di queste funzioni costituisce uno spazio vettoriale.
+
+\subsection{Definizione di Distribuzione}
+Una \textbf{distribuzione} è un'applicazione lineare, o funzionale, che prende in input una funzione test $\phi(x)$ e restituisce un numero reale. Questa operazione viene indicata formalmente con la notazione a parentesi angolari (analoga a un prodotto scalare):
+\begin{equation}
+\langle f, \phi \rangle = \int_{-\infty}^{+\infty} f(x) \phi(x) , dx
+\end{equation}
+Tale relazione vale per ogni funzione integrabile $f(x)$ e funzione test $\phi(x)$.
+Nel caso specifico della Delta di Dirac, l'applicazione del funzionale restituisce per definizione la funzione test valutata nell'origine:
+\begin{equation}
+\langle \delta, \phi \rangle = \phi(0)
+\end{equation}
+
+\section{Derivata di una Distribuzione}
+
+Qual è la proprietà fondamentale che definisce il calcolo differenziale per le distribuzioni? Affinché il formalismo sia coerente, si impone che debba valere la regola dell'\textbf{integrazione per parti}. Spostando la derivata dalla distribuzione alla funzione test, e considerando che le funzioni test si annullano all'infinito, il termine di bordo scompare, restituendo:
+\begin{equation}
+\langle f', \phi \rangle = - \langle f, \phi' \rangle
+\end{equation}
+
+\subsection{Esempio: La Funzione Gradino di Heaviside}
+Consideriamo la \textbf{funzione gradino di Heaviside} $\theta(x)$, definita come:
+\begin{itemize}
+\item $\theta(x) = 0 \quad \text{per } x < 0$
+\item $\theta(x) = 1 \quad \text{per } x > 0$
+\end{itemize}
+Calcoliamo la derivata di $\theta(x)$ applicando la definizione distribuzionale:
+\begin{equation}
+\langle \theta', \phi \rangle = - \int_{-\infty}^{+\infty} \theta(x) \phi'(x) , dx
+\end{equation}
+Data la definizione di $\theta(x)$, l'integrale si riduce all'intervallo $[0, +\infty)$ e la funzione vale $1$:
+\begin{equation}
+- \int_{0}^{+\infty} \phi'(x) , dx = - \Big[ \phi(x) \Big]_0^{+\infty}
+\end{equation}
+Poiché la funzione test $\phi$ va a zero all'infinito, il termine valutato all'estremo superiore è nullo. Rimane:
+\begin{equation}
+- (0 - \phi(0)) = \phi(0)
+\end{equation}
+Avendo ottenuto $\phi(0)$, che per definizione coincide con $\langle \delta, \phi \rangle$, si deduce l'identità fondamentale:
+\begin{equation}
+\theta'(x) = \delta(x)
+\end{equation}
+
+\subsection{Derivata della Delta di Dirac}
+Iterando questo medesimo procedimento, è possibile calcolare la derivata della stessa Delta di Dirac, indicata con $\delta'(x)$:
+\begin{equation}
+\langle \delta', \phi \rangle = - \langle \delta, \phi' \rangle = - \phi'(0)
+\end{equation}
+Il risultato straordinario è che le distribuzioni, pur essendo oggetti matematici singolari, \textbf{possono essere derivate un numero infinito di volte}. Il prezzo pagato per avere questa comodità analitica è stato l'allargamento dello spazio funzionale a enti matematici particolari.
+
+\section{Composizione e Cambiamento di Variabile nella Delta}
+Utilizzando le proprietà distribuzionali, si possono dimostrare rigorosamente regole di composizione, ad esempio il cambio di variabile $u = g(x)$. Se $g(x)$ ha degli zeri semplici nei punti $x_i$ (ovvero $g(x_i) = 0$ con derivata $g'(x_i) \neq 0$), vale la regola:
+\begin{equation}
+\delta(g(x)) = \sum_i \frac{\delta(x - x_i)}{|g'(x_i)|}
+\end{equation}
+
+Alcuni esempi pratici fondamentali:
+\begin{itemize}
+\item $\delta(ax) = \frac{\delta(x)}{\vert{}a\vert{}}$
+\item $\delta(x^2 - a^2) = \frac{\delta(x - a) + \delta(x + a)}{2\vert{}a\vert{}}$
+\end{itemize}
+Senza l'impiego del rigore matematico delle distribuzioni, l'applicazione meccanica e acritica (o "bovina") di questi calcoli porta inesorabilmente a errori. Nel corso abbiamo già sfruttato implicitamente queste proprietà, ad esempio:
+\begin{itemize}
+\item Nello studio della \textbf{sfera di Debye}, dove abbiamo usato la relazione $\nabla^2 \left(\frac{1}{r}\right) = -4\pi\delta(\mathbf{x})$.
+\item Nello studio della densità di \textbf{Klimontovich}, in cui abbiamo analizzato la derivata temporale della distribuzione applicando queste esatte regole di derivazione.
+\end{itemize}
+
+\section{Soluzioni Deboli e Spazi di Sobolev}
+
+Tutto questo discorso è propedeutico a un concetto centrale non solo per la fisica dei plasmi, ma per tutta la fisica moderna: le \textbf{soluzioni deboli} (spesso fraintese o scambiate inizialmente per patologie matematiche o discontinuità insormontabili).
+
+Nel 1936, il matematico russo \textbf{Sobolev} ha formalizzato matematicamente gli Spazi di Sobolev, che costituiscono l'ambiente in cui "vivono" le soluzioni di gran parte delle equazioni differenziali utilizzate in fisica matematica.
+
+\subsection{Definizione Formale di Soluzione Debole}
+Consideriamo un'equazione differenziale lineare del tipo:
+\begin{equation}
+L u = f
+\end{equation}
+dove $L$ è un operatore differenziale di ordine $k$.
+Moltiplicando per una funzione test $\phi(x)$ e integrando sull'intero dominio, è possibile integrare per parti $k$ volte. Poiché le funzioni test decadono a zero ai bordi più rapidamente di qualunque altra funzione, i termini di bordo si annullano sistematicamente. Si ottiene l'equazione:
+\begin{equation}
+\int_{-\infty}^{+\infty} u (L^* \phi) , dx = \int_{-\infty}^{+\infty} f \phi , dx
+\end{equation}
+dove $L^*$ è l'\textbf{operatore aggiunto} di $L$, definito proprio tramite l'integrazione per parti.
+
+Diremo che la funzione $u$ risolve \textit{debolmente} l'equazione $L u = f$ se tale equivalenza integrale è valida \textbf{per ogni funzione test} $\phi$.
+
+Il salto concettuale fondamentale è questo: imponendo l'uguaglianza integrale e caricando tutte le derivate sulla funzione test $\phi$ (grazie all'operatore aggiunto $L^*$), si richiede a $u$ esclusivamente di essere \textit{integrabile}. Ci si svincola così dall'obbligo di differenziabilità rigorosa per $u$, permettendole di presentare salti o discontinuità (come accade regolarmente, ad esempio, per le onde d'urto).
+
+\section{Le Funzioni di Green come Soluzioni Deboli}
+
+Un esempio eccellente di soluzione debole è la \textbf{Funzione di Green}. Dato un operatore lineare $L$, la funzione di Green $G(x, x')$ agisce come l'inverso dell'operatore, ed è definita come la soluzione debole dell'equazione:
+\begin{equation}
+L G(x, x') = \delta(x - x')
+\end{equation}
+
+\subsection{Esempio Unidimensionale: L'operatore Derivata Seconda}
+Consideriamo il problema sulla retta reale con l'operatore differenziale del secondo ordine $L = \frac{d^2}{dx^2}$. Vogliamo trovare la funzione di Green che risolve debolmente:
+\begin{equation}
+\frac{d^2}{dx^2} G(x) = \delta(x)
+\end{equation}
+La soluzione cercata è data dalla funzione:
+\begin{equation}
+G(x) = \frac{|x|}{2}
+\end{equation}
+Questa è una funzione continua ma dotata di un punto di discontinuità nella derivata (un punto angoloso). Calcolandone la derivata prima, si ottiene un gradino, e derivandola una seconda volta si ottiene proprio la Delta di Dirac.
+
+Verifichiamo rigorosamente che si tratti di una soluzione debole. Sfruttando il fatto che l'operatore derivata seconda è autoaggiunto ($L^* = L$), la formulazione debole richiede che:
+\begin{equation}
+\int_{-\infty}^{+\infty} \frac{|x|}{2} \phi''(x) , dx = \phi(0)
+\end{equation}
+Per dimostrarlo, si divide l'integrale in due parti per rimuovere il modulo:
+\begin{equation}
+\int_{-\infty}^{0} \left(-\frac{x}{2}\right) \phi''(x) , dx + \int_{0}^{+\infty} \frac{x}{2} \phi''(x) , dx
+\end{equation}
+Risolviamo l'integrale da $0$ a $+\infty$ integrando per parti due volte. Alla prima integrazione otteniamo un termine di bordo valutato all'infinito (che va a zero per le proprietà di $\phi$) e un termine valutato in zero. Proseguendo con la seconda integrazione per parti per scaricare l'ultima $x$, l'unico termine sopravvissuto restituirà:
+\begin{equation}
+\frac{1}{2} \phi(0)
+\end{equation}
+Ripetendo la medesima procedura simmetrica per l'integrale da $-\infty$ a $0$, si ottiene l'altro contributo:
+\begin{equation}
+\frac{1}{2} \phi(0)
+\end{equation}
+Sommando i due risultati si ottiene proprio $\phi(0)$, a dimostrazione del fatto che $\frac{\vert{}x\vert{}}{2}$ è effettivamente la Funzione di Green dell'operatore differenziale $\frac{d^2}{dx^2}$.
+
+Ripetendo un'operazione analoga in tre dimensioni, il risultato per $\nabla^2$ corrisponde a $-\frac{1}{4\pi r}$. Includendo gli effetti di schermo e di interazione tipici del plasma, si approda alla correzione esponenziale della lunghezza di Debye.
+
+In conclusione, analizzare le equazioni passo-passo attraverso le soluzioni deboli ci permette di comprendere l'origine fisica e matematica delle formule, acquisendo una consapevolezza critica che lo studio mnemonico — o la semplice interrogazione di intelligenze artificiali testuali come ChatGPT — non permettono di raggiungere.
+
+\section{L'Importanza delle Soluzioni Deboli: Le Onde d'Urto}
+
+Per quale motivo le equazioni integrali e le soluzioni deboli si rivelano di così cruciale importanza nella fisica? L'esempio emblematico è costituito dalle \textbf{onde d'urto}.
+
+Per molti anni, attorno alle onde d'urto si è animato un vero e proprio dibattito filosofico riguardo alla loro stessa esistenza fisica. Le onde d'urto emergono come soluzioni singolari dell'\textbf{equazione di Eulero}, la quale governa la fluidodinamica e possiede termini fortemente non lineari. Molti studiosi si chiedevano che senso potesse avere un'equazione in grado di produrre singolarità, dubitando della validità fisica di tali soluzioni.
+
+Spesso, in fisica, si incontra una riluttanza verso le singolarità. Basti pensare al potenziale Coulombiano, che presenta una singolarità nell'origine ($r=0$). Ci si potrebbe chiedere: \textit{"Come è possibile considerare fisico un oggetto singolare?"}. La risposta risiede proprio nel recuperare il suo senso fisico costruendone la \textbf{soluzione debole}. Se non ricorressimo a questo strumento, ci troveremmo costretti ad ammettere di non saper trattare matematicamente l'evoluzione fisica del sistema e a negare l'esistenza stessa di discontinuità.
+
+\subsection{Leggi di Conservazione e l'Equazione Non Lineare}
+Cerchiamo di comprendere il problema delle onde d'urto nell'esempio più semplice possibile, mostrando come la viscosità in molti casi ideali non possa intervenire ad "ammorbidire" la soluzione, rendendo l'approccio debole l'unico rigoroso.
+
+Consideriamo un'equazione alle derivate parziali che rappresenta una \textbf{legge di conservazione}. Si tratta di un'equazione in cui descriviamo la variazione temporale di una certa quantità materiale $u$. Fisicamente, l'equazione ci dice che il tasso di variazione temporale della quantità $u$ racchiusa in un volume $V$ è strettamente bilanciato dal \textbf{flusso} $F$ che attraversa i bordi (o le estremità) del volume stesso:
+\begin{equation}
+\frac{\partial u}{\partial t} + \frac{\partial F(u)}{\partial x} = 0
+\end{equation}
+Il problema matematico esplode quando il flusso $F$ è \textbf{non lineare}. Un caso di importanza capitale, ad esempio, si ha scegliendo il flusso pari all'energia cinetica per unità di massa, $F(u) = \frac{u^2}{2}$. Sostituendo, si ottiene:
+\begin{equation}
+\frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} = 0
+\end{equation}
+Questa è l'\textbf{Equazione di Burgers} non viscosa. Sebbene si presenti come un'equazione all'apparenza molto innocente (tanto che un matematico potrebbe liquidarla dicendo "Risolvi questa equazione"), nasconde delle insidie tremende. Questa dinamica si manifesta immediatamente non appena si studiano le onde sonore in un fluido ideale, ovvero un mezzo privo di dispersione e di viscosità.
+
+\section{Il Metodo delle Curve Caratteristiche}
+
+Per analizzare matematicamente l'equazione, introduciamo il concetto di \textbf{curva caratteristica}. Consideriamo una curva parametrizzata dal tempo $x(t)$ la cui velocità di propagazione sia esattamente pari a $u(x,t)$:
+\begin{equation}
+\frac{dx}{dt} = u(x,t)
+\end{equation}
+Lungo questa curva, proviamo a calcolare la derivata totale della soluzione $u$ rispetto al tempo. Applicando la regola della catena:
+\begin{equation}
+\frac{du}{dt} = \frac{\partial u}{\partial t} + \frac{\partial u}{\partial x} \frac{dx}{dt} = \frac{\partial u}{\partial t} + u \frac{\partial u}{\partial x} = 0
+\end{equation}
+Questo risultato, che azzera l'equazione originaria, ci dice una cosa fondamentale: \textbf{lungo le curve caratteristiche, la soluzione $u$ si mantiene costante}.
+
+Cosa determina allora l'evoluzione della soluzione? Esclusivamente il \textbf{dato iniziale}. Facendo variare il punto di partenza $x_0$, l'inviluppo di tutte queste caratteristiche determinerà la soluzione completa del sistema. Avendo appurato che $u$ è costante nel tempo lungo $x(t)$, il suo valore coinciderà perennemente con il valore assunto all'istante iniziale:
+\begin{equation}
+u(x,t) = u(x_0, 0) \equiv u_0(x_0)
+\end{equation}
+L'equazione oraria che descrive le rette caratteristiche nel piano spaziotemporale $(x,t)$ diviene quindi un moto rettilineo uniforme, dove la pendenza dipende dal punto di partenza:
+\begin{equation}
+x(t) = x_0 + u_0(x_0) t
+\end{equation}
+
+\subsection{L'Incrocio delle Caratteristiche (Wave Breaking)}
+Se il dato iniziale $u_0$ fosse una costante uniforme, il fluido si muoverebbe interamente in blocco con la stessa velocità, generando un caso banale. La complessità emerge dal fatto che la velocità inziale dipende dal punto $x_0$.
+Questo implica che ogni punto del profilo d'onda iniziale si propagherà alla propria specifica velocità locale.
+
+I tratti in cui la velocità locale è maggiore si muoveranno più in fretta, raggiungendo inevitabilmente i tratti di fluido più lenti che li precedono. Matematicamente, a un certo istante di tempo critico, due rette caratteristiche tenderanno a \textbf{incrociarsi}.
+
+Per dimostrarlo formalmente, prendiamo due direzioni caratteristiche che originano da due punti molto vicini: $x_0$ e $x_0 + \Delta x_0$. All'istante $t$, la distanza spaziale $\Delta x(t)$ che li separa sarà data dalla differenza delle loro traiettorie:
+\begin{equation}
+\Delta x(t) = [x_0 + \Delta x_0 + u_0(x_0 + \Delta x_0)t] - [x_0 + u_0(x_0)t]
+\end{equation}
+Espandendo al primo ordine per $\Delta x_0 \to 0$, si ricava:
+\begin{equation}
+\Delta x(t) \approx \Delta x_0 + u_0'(x_0) \Delta x_0 t = \Delta x_0 [1 + u_0'(x_0) t]
+\end{equation}
+L'incrocio avviene quando la distanza si annulla ($\Delta x(t) = 0$). Escludendo il caso $\Delta x_0 = 0$, questo avviene nell'istante di tempo:
+\begin{equation}
+t = -\frac{1}{u_0'(x_0)}
+\end{equation}
+Affinché questo tempo sia fisico (cioè $t > 0$), deve essere necessariamente $u_0'(x_0) < 0$. Questo significa che il \textbf{fluido retrostante viaggia più veloce di quello antistante}, comprimendosi.
+
+\subsection{Divergenza del Gradiente Spaziale}
+Il problema dell'incrocio è visibile calcolando analiticamente la derivata parziale $\frac{\partial u}{\partial x}$. Poiché la soluzione è descritta implicitamente dalle caratteristiche, usiamo la regola della catena:
+\begin{equation}
+\frac{\partial u}{\partial x} = \frac{\partial u_0}{\partial x_0} \frac{\partial x_0}{\partial x} = \frac{u_0'(x_0)}{\frac{\partial x}{\partial x_0}}
+\end{equation}
+Derivando la legge oraria rispetto a $x_0$, sappiamo che $\frac{\partial x}{\partial x_0} = 1 + u_0'(x_0)t$, quindi:
+\begin{equation}
+\frac{\partial u}{\partial x} = \frac{u_0'(x_0)}{1 + u_0'(x_0)t}
+\end{equation}
+Nel momento in cui il denominatore si annulla ($t = -1/u_0'$), il gradiente spaziale \textbf{diverge a infinito}.
+
+A livello pratico, ad esempio, se partite con un dato iniziale di forma \textbf{sinusoidale} a $t = 0$:
+\begin{itemize}
+\item A $t = 0.9$: il profilo d'onda comincia a deformarsi sensibilmente (fenomeno di ringiovanimento / \textit{steepening}).
+\item A $t = 2.0$: superato il punto di intersezione, si forma formalmente una discontinuità.
+\end{itemize}
+Nell'istante dell'incrocio si perde l'\textbf{unicità e l'invertibilità univoca} del dato iniziale. La curva diviene pluri-valuta (più valori di $u$ per la stessa coordinata spaziale).
+A questo punto l'analisi classica impazzisce: le regole di evoluzione sembrano fallire ed emerge una palese \textbf{violazione della causalità}, in quanto da uno stato del sistema non è più possibile tracciare a ritroso l'evoluzione in modo unilineare. Sembra che la fisica vada "a farsi friggere".
+
+\section{Condizioni di Raccordo e Formulazione Debole}
+
+Per secoli ci si è domandati come salvare la coerenza fisica. Il problema si risolve esclusivamente mediante le \textbf{soluzioni deboli}.
+
+Seguendo il trucco analitico visto in precedenza, moltiplichiamo l'equazione del fluido per una funzione test $\phi$, integriamo nel dominio spaziotemporale $(x,t)$, e scarichiamo tutte le derivate sulla funzione test $\phi$. In questo modo richiediamo che siano finiti solo gli integrali, ammettendo così soluzioni che includono "salti" (funzioni a gradino o costanti a tratti).
+
+Questa procedura conduce alla formulazione delle rigorose \textbf{condizioni di giunzione (matching)}.
+Supponiamo che in corrispondenza del salto esista un'onda d'urto posizionata in $x_s(t)$ che divide due stati. Ai due lati dell'urto, supponiamo che il fluido presenti velocità costanti a tratti: $u_L$ a monte (prima del salto) e $u_R$ a valle (dopo il salto).
+
+Per raccordarli, esprimiamo l'equazione in forma integrale rispetto a un intervallo $[a, b]$ che include all'interno la posizione del salto $x_s(t)$. Scrivendo la derivata integrale:
+\begin{equation}
+\frac{d}{dt} \int_a^b u , dx = F(a) - F(b)
+\end{equation}
+Stringiamo adesso progressivamente gli estremi di integrazione $a$ e $b$ collassandoli ai confini esatti della discontinuità: $a \to x_s^-$ e $b \to x_s^+$. Essendo $u$ localmente costante a destra e a sinistra, e tenendo conto che il punto di salto si sposta a velocità $s = \frac{dx_s}{dt}$, lo sviluppo limite dell'integrale restituisce la relazione algebrica:
+\begin{equation}
+s(u_R - u_L) = F(u_R) - F(u_L)
+\end{equation}
+Nota anche come \textbf{condizione di Rankine-Hugoniot}. Per il caso analizzato ($F=u^2/2$), il salto impone una velocità dell'urto pari alla media aritmetica dei due stati: $s = \frac{1}{2}(u_L + u_R)$.
+
+La soluzione debole per sé non garantisce immediatamente l'unicità pura (saranno poi necessari criteri di entropia), tuttavia \textbf{restituisce l'interpretazione fisica}. Queste condizioni di raccordo non sono astrazioni, ma incarnano il principio della \textbf{conservazione del flusso} macroscopico: il flusso di materiale che entra attraverso l'urto deve equivalere esattamente alla variazione cinematica dell'ammontare trasportato dalla discontinuità.
+
+\section{Selezione della Soluzione Fisica: Il Ruolo dell'Entropia}
+
+Con l'introduzione delle soluzioni deboli si apre una prospettiva concettuale del tutto nuova. Come si è visto, da un punto di vista strettamente matematico, nel momento in cui le caratteristiche si incrociano si perde l'\textbf{unicità} della soluzione (spesso fraintesa o trascritta erroneamente come "utilità"). Sebbene questa unicità classica non possa essere recuperata, l'approccio debole si rivela vincente perché ci permette di analizzare coerentemente la fenomenologia fisica del sistema.
+
+In queste condizioni, il formalismo debole ammette matematicamente molteplici configurazioni per l'evoluzione del profilo d'onda. Le due soluzioni principali che emergono sono:
+\begin{itemize}
+\item La soluzione caratterizzata da un \textbf{salto} netto, ovvero l'onda d'urto (o \textit{shock}).
+\item L'onda di \textbf{rarefazione} (o \textit{shock} di rarefazione).
+\end{itemize}
+
+\subsection{Il Criterio Entropico per le Onde d'Urto}
+
+Di fronte a questa molteplicità di soluzioni deboli matematicamente valide, come si seleziona quella reale? La discriminante fondamentale non è più puramente cinematica, bensì termodinamica.
+
+Sebbene non vi sia il tempo materiale per esporne la dimostrazione dettagliata, si può rigorosamente far vedere che la selezione avviene valutando la variazione di \textbf{entropia}. In particolare:
+\begin{itemize}
+\item La \textbf{soluzione con il salto} (l'onda d'urto) risulta essere l'unica \textbf{soluzione fisica}. Questo perché il transito del fluido attraverso lo \textit{shock} comporta un \textbf{aumento di entropia}. Da un punto di vista fenomenologico, l'onda d'urto non è altro che l'idealizzazione macroscopica di uno strato di transizione in cui avvengono processi fisici fortemente dissipativi.
+\item Al contrario, l'altra soluzione (lo \textit{shock} di rarefazione) comporterebbe una transizione con diminuzione di entropia, violando così i principi della termodinamica. Pertanto, tale soluzione viene scartata in quanto \textbf{non fisica} (o a-fisica).
+\end{itemize}
+
+\vspace{1em}
+\noindent \textit{Nota: A questo punto della trattazione, la lezione viene sospesa per alcuni minuti di pausa.}
+
