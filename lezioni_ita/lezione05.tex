@@ -377,3 +377,318 @@ Sebbene non vi sia il tempo materiale per esporne la dimostrazione dettagliata, 
 \vspace{1em}
 \noindent \textit{Nota: A questo punto della trattazione, la lezione viene sospesa per alcuni minuti di pausa.}
 
+\section{Integrali Singolari e Valore Principale di Cauchy}
+
+In questa lezione affrontiamo il tema degli \textbf{integrali singolari}, richiamando concetti fondamentali per il calcolo avanzato.
+
+Consideriamo il calcolo di un integrale che presenta una singolarità, come ad esempio:
+\begin{equation}
+\int_a^b \frac{\phi(x)}{x} , dx
+\end{equation}
+dove l'intervallo $[a, b]$ comprende l'origine (ad esempio $a < 0 < b$). Ovviamente, questo integrale diverge a $x=0$ da entrambi i lati, sebbene con segni opposti.
+
+Cosa significa calcolarlo e qual è l'approccio più semplice? La soluzione consiste nel definire l'integrale nel senso del \textbf{Valore Principale di Cauchy} (indicato con $\mathcal{P}$), prendendo un intorno simmetrico della singolarità ed eseguendo il limite:
+\begin{equation}
+\mathcal{P} \int_a^b \frac{\phi(x)}{x} , dx = \lim_{\epsilon \to 0^+} \left( \int_a^{-\epsilon} \frac{\phi(x)}{x} , dx + \int_{\epsilon}^b \frac{\phi(x)}{x} , dx \right)
+\end{equation}
+La presenza della funzione test $\phi(x)$ al numeratore è fondamentale per garantire la convergenza e mostrare quando il calcolo "funziona".
+
+Un esempio classico è l'integrale della funzione dispari $1/x$ su un dominio simmetrico, come l'intervallo $\left[-\frac{1}{2}, \frac{1}{2}\right]$. In questo caso, le due aree divergenti si elidono esattamente a vicenda e si cancellano.
+In maniera più elegante, riscrivendo i limiti di integrazione, l'operazione di Valore Principale su tutto l'asse reale può essere ricondotta alla forma:
+\begin{equation}
+\int_0^{+\infty} \frac{\phi(x) - \phi(-x)}{x} , dx
+\end{equation}
+Calcolando questo limite per $x \to 0$, si ottiene proporzionalità con $2\phi'(0)$. Da queste proprietà si evince che l'operatore $1/x$, inteso in questo senso, può essere trattato a tutti gli effetti come una \textbf{distribuzione}.
+
+\section{La Formula di Sokhotski-Plemelj}
+
+Un'altra formula di enorme utilità per risolvere le singolarità, alternativa all'uso diretto del Valore Principale, è la \textbf{Formula di Sokhotski-Plemelj}. L'idea alla base è quella di "spostare" la singolarità nel piano complesso, muovendola leggermente al di sopra o al di sotto dell'asse reale di una quantità $\epsilon$.
+
+Consideriamo l'espressione complessa $\frac{1}{x \mp i\epsilon}$ e separiamo parte reale e parte immaginaria moltiplicando per il complesso coniugato:
+\begin{equation}
+\frac{1}{x \mp i\epsilon} = \frac{x \pm i\epsilon}{x^2 + \epsilon^2} = \frac{x}{x^2 + \epsilon^2} \pm i \frac{\epsilon}{x^2 + \epsilon^2}
+\end{equation}
+Analizzando i due termini per $\epsilon \to 0^+$, notiamo due comportamenti distinti:
+\begin{itemize}
+\item La \textbf{parte reale} $\frac{x}{x^2 + \epsilon^2}$ presenta un taglio simmetrico ed è legata al limite del Valore Principale di $1/x$.
+\item La \textbf{parte immaginaria} contiene una curva Lorentziana $\frac{\epsilon}{x^2 + \epsilon^2}$. Il suo integrale vale $\pi$, pertanto per $\epsilon \to 0^+$ essa converge a $\pi$ volte una Delta di Dirac.
+\end{itemize}
+
+Sintetizzando queste proprietà, otteniamo la celebre formula distribuzionale:
+\begin{equation}
+\lim_{\epsilon \to 0^+} \frac{1}{x - x_0 \mp i\epsilon} = \mathcal{P} \left( \frac{1}{x - x_0} \right) \pm i\pi \delta(x - x_0)
+\end{equation}
+
+\subsection{Esempio di Calcolo e Confronto con i Residui}
+Consideriamo il calcolo del seguente integrale dipendente dal parametro reale $a$:
+\begin{equation}
+I = \lim_{\epsilon \to 0^+} \int_{-\infty}^{+\infty} \frac{x}{(x - a - i\epsilon)(1 + x^2)} , dx
+\end{equation}
+Applichiamo la scomposizione dettata dalla formula appena vista. L'integrale si divide in un termine in Valore Principale e in un termine contenente la Delta di Dirac. Scomponendo il denominatore in fratti semplici:
+\begin{enumerate}
+\item \textbf{Valore Principale:} La parte dispari in $x$ dell'integranda dà contributo nullo. Estraendo i termini costanti, il calcolo della parte principale si riduce alla valutazione di $\int \frac{1}{1+x^2} dx$, che restituisce $\pi$. Moltiplicando per i prefattori, si ottiene $-\frac{\pi a}{1+a^2}$.
+\item \textbf{Termine Delta:} La presenza di $+i\pi \delta(x-a)$ forza la valutazione della funzione residua nel punto $x=a$.
+\end{enumerate}
+
+Lo stesso identico risultato si sarebbe potuto ottenere utilizzando il \textbf{Teorema dei Residui} di Cauchy. Individuando i poli nel piano complesso nei punti $x = a + i\epsilon$ e $x = i$, e sommando i rispettivi residui moltiplicati per $2\pi i$, si ritrova l'esatta combinazione della parte in valore principale e della parte deltiforme ("non c'è trucco, non c'è inganno"). Questa formula si rivela particolarmente agevole e verrà impiegata estensivamente in futuro.
+
+\section{Significato Fisico del Contorno di Integrazione}
+
+Rispondendo a una domanda posta in aula: \textit{"Perché non usare semplicemente sempre il Teorema dei Residui scegliendo arbitrariamente un contorno?"}
+
+La scelta del contorno non è un mero vezzo matematico, ma possiede un \textbf{profondo significato fisico}. A seconda che il polo venga circumnavigato passando dal semipiano superiore o da quello inferiore, si ottengono risultati con segni opposti. Questo si traduce nella differenza tra un sistema \textbf{smorzato} (damped) e uno \textbf{esponenzialmente divergente} (instabile).
+
+\subsection{L'Oscillatore Armonico Forzato e la Causalità}
+Prendiamo come esempio l'equazione di un oscillatore armonico forzato soggetto a una forza esterna $F(t)$. La soluzione generale nello spazio delle frequenze dipende da una funzione di risposta $\kappa(\omega)$ che presenta un polo complesso $\gamma$.
+
+Se il sistema è fisicamente dissipativo ($\gamma > 0$), il polo si trova nel semipiano inferiore dell'asse reale. Se non scegliessimo la corretta prescrizione per aggirare il polo, otterremmo soluzioni divergenti in cui il sistema risponde "prima" ancora che la perturbazione della forza $F(t)$ agisca sullo spostamento $x$, violando palesemente il \textbf{principio di causalità}.
+
+Per preservare la causalità, la frequenza subisce la prescrizione $\omega \to \omega + i0^+$ (ci si avvicina a zero da valori positivi). Usando la formula di Sokhotski-Plemelj, la parte immaginaria fornisce il segno corretto per la risonanza, descrivendo l'assorbimento di energia (smorzamento). Se avessimo scelto il contorno sbagliato, il segno meno sulla parte immaginaria avrebbe descritto un sistema che auto-amplifica le proprie oscillazioni (instabilità a-fisica in quel contesto).
+
+\section{La Trasformata di Laplace e il Dominio Complesso}
+
+Per inglobare naturalmente questi comportamenti causali e trattare le condizioni iniziali, si introduce la \textbf{Trasformata di Laplace}, strumento fondamentale per questi problemi.
+
+Dato un problema a valori iniziali in cui una funzione $f(t)$ è definita solo per $t > 0$, e assumendo che la sua crescita sia limitata da un esponenziale ($\vert{}f(t)\vert{} \le C e^{\sigma t}$), la trasformata di Laplace è definita come:
+\begin{equation}
+\tilde{f}(\omega) = \int_0^{+\infty} f(t) e^{i\omega t} , dt
+\end{equation}
+Affinché questo integrale converga all'infinito, la variabile complessa $\omega$ deve avere una parte immaginaria sufficientemente alta. Imponendo la condizione affinché l'esponenziale sia decadente, l'integrale converge nel semipiano:
+\begin{equation}
+\text{Im}(\omega) > \sigma
+\end{equation}
+Questa restrizione di convergenza risponde direttamente alla domanda precedente: costringe l'analisi nel semipiano corretto, evitando a monte le soluzioni divergenti e fisicamente inaccettabili associate al semipiano negativo.
+
+\subsection{Dalla Trasformata di Fourier ai Poli di Laplace}
+Per cogliere la differenza rispetto a Fourier, consideriamo la funzione armonica $f(t) = e^{-i\omega_0 t}$. Calcolandone la trasformata di Laplace:
+\begin{equation}
+\tilde{f}(\omega) = \int_0^{+\infty} e^{-i\omega_0 t} e^{i\omega t} , dt = \left[ \frac{e^{i(\omega - \omega_0)t}}{i(\omega - \omega_0)} \right]_0^{+\infty} = \frac{i}{\omega - \omega_0}
+\end{equation}
+(Si noti che l'estremo all'infinito si annulla rigorosamente perché $\text{Im}(\omega) > \text{Im}(\omega_0)$).
+Mentre nella trasformata di Fourier i modi oscillanti puri si traducono in \textbf{funzioni Delta di Dirac}, nella trasformata di Laplace si manifestano come \textbf{poli} nel piano complesso.
+
+\section{Il Vantaggio di Laplace: L'Inclusione delle Condizioni Iniziali}
+
+Il motivo principale per cui si adotta la Trasformata di Laplace per risolvere equazioni differenziali complesse è la sua capacità di incorporare direttamente i dati iniziali.
+
+Calcoliamo la trasformata della derivata prima $\dot{f}(t)$ applicando l'integrazione per parti:
+\begin{equation}
+\int_0^{+\infty} \dot{f}(t) e^{i\omega t} , dt = \Big[ f(t) e^{i\omega t} \Big]_0^{+\infty} - \int_0^{+\infty} f(t) (i\omega e^{i\omega t}) , dt
+\end{equation}
+Poiché $\text{Im}(\omega) > 0$, il limite superiore (all'infinito) va a zero per costruzione. Il limite inferiore produce il termine $f(0)$. Risulta quindi:
+\begin{equation}
+\tilde{\dot{f}}(\omega) = -f(0) - i\omega \tilde{f}(\omega)
+\end{equation}
+A differenza della Trasformata di Fourier (che avrebbe restituito solo $-i\omega \tilde{f}$), il confine inferiore $t=0$ contribuisce esplicitamente immettendo il dato iniziale $f(0)$ nell'equazione algebrica trasformata. Reiterando per la derivata seconda $\ddot{f}$, si includerà similmente anche $\dot{f}(0)$.
+
+\subsection{Esempio Pratico: Decadimento Esponenziale}
+Prendiamo l'equazione differenziale del primo ordine:
+\begin{equation}
+\dot{x} = -\gamma x \quad \text{con condizione iniziale} \quad x(0) = x_0
+\end{equation}
+Applicando la Trasformata di Laplace a entrambi i membri:
+\begin{equation}
+-x_0 - i\omega \tilde{x}(\omega) = -\gamma \tilde{x}(\omega)
+\end{equation}
+Questa equazione puramente algebrica possiede un polo isolato che detta la dinamica temporale. Il polo indica matematicamente che la soluzione $x(t)$ decadrà nel tempo proporzionalmente a $e^{-\gamma t}$.
+
+Se applicaste questo stesso metodo all'equazione dell'oscillatore armonico citato in precedenza, vedreste che siete obbligati (dalla convergenza dell'integrale) a usare un contorno in cui il polo giace nel semipiano inferiore, garantendo una soluzione fisicamente smorzata anziché una esponenzialmente divergente. Sarà utile provare a svolgere questo calcolo come esercizio in vista della prossima lezione.
+
+\section{L'Antitrasformata di Laplace (Integrale di Bromwich)}
+
+Per tornare dal dominio complesso $\omega$ al dominio temporale $t$, si utilizza l'antitrasformata di Laplace, nota anche come \textbf{Integrale di Bromwich} (o integrale di Mellin-Fourier).
+
+Sia $\sigma'$ un valore maggiore dell'ascissa di convergenza $\sigma$. Si definisce un cammino di integrazione orizzontale nel piano complesso, parametrizzato dalla retta $\omega = u + i\sigma'$ con $u \in \mathbb{R}$ che varia da $-\infty$ a $+\infty$.
+La funzione nel dominio del tempo è ricostruita tramite l'integrale:
+\begin{equation}
+f(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \tilde{f}(u + i\sigma') e^{-i(u + i\sigma')t} , du
+\end{equation}
+Se $f(t) = 0$ per $t < 0$ e cresce meno di $e^{\sigma t}$, l'integrale converge per ogni $\sigma' > \sigma$. Questo integrale curvilineo chiude il cerchio formale, garantendo che l'applicazione della Trasformata di Laplace in avanti e l'antitrasformata di Bromwich all'indietro costituiscano una mappatura rigorosa e coerente per la risoluzione dei sistemi fisici analizzati.
+
+\section{La Scelta del Contorno e l'Importanza del Polo}
+
+Riprendendo il filo del discorso analitico, quando si calcola l'integrale singolare, quello che si deve fare è \textbf{scegliere il contorno di integrazione in maniera opportuna} in modo da racchiudere tutti i poli presenti in quella specifica regione del piano complesso. Questa è infatti l'unica regione in cui è garantito che l'integrale sia ben definito e decadente all'infinito.
+
+Senza dilungarci ulteriormente sui dettagli puramente matematici, andiamo ad applicare tutto questo al problema fisico che ci interessa: il problema del \textbf{Landau Damping} (smorzamento di Landau).
+
+Se vi ricordate, nella lezione precedente ci siamo scontrati con un integrale avente questa forma singolare:
+\begin{equation}
+\int_{-\infty}^{+\infty} \frac{\phi(v)}{\omega - kv} , dv
+\end{equation}
+Questa funzione è analitica sia al di sopra che al di sotto dell'asse reale, ma presenta un \textbf{salto} nel piano complesso perché abbiamo un polo situato a $v = \frac{\omega}{k}$. Valutando la differenza tra i limiti da sopra e da sotto, il salto è dato dalla relazione:
+\begin{equation}
+f(x + i0) - f(x - i0) = 2\pi i \phi(x)
+\end{equation}
+
+Per garantire la regolarità, dobbiamo \textbf{continuare analiticamente} la funzione dal semipiano superiore verso quello inferiore in modo da far sì che il contorno di integrazione avvolga il polo, mantenendolo sullo stesso lato del cammino.
+Questo è il contorno fisicamente accettabile che fu scelto e giustificato dal fisico sovietico \textbf{Lev Landau} per calcolare in maniera esatta questo integrale.
+
+\subsection{L'Applicazione della Formula di Plemelj}
+Qual è il risultato di questa operazione? Se si applica la \textbf{Formula di Sokhotski-Plemelj} — che è l'equivalente formale del calcolo di questo integrale di contorno — si ottiene che la nostra funzione in $\omega$ risulta continua e può essere scomposta in due termini:
+\begin{equation}
+\lim_{\epsilon \to 0^+} \int_{-\infty}^{+\infty} \frac{\phi(v)}{\omega - kv + i\epsilon} , dv = \mathcal{P} \int_{-\infty}^{+\infty} \frac{\phi(v)}{\omega - kv} , dv - i\pi \frac{\phi(\omega/k)}{|k|}
+\end{equation}
+Tutta la complessa divagazione matematica fatta finora serviva esattamente a questo: fornirvi la "ricetta" rigorosa per affrontare il calcolo di questo integrale. E la ricetta è proprio la formula di Plemelj: l'integrale si valuta prendendo il termine in senso del \textbf{Valore Principale di Cauchy} sommato al termine del \textbf{residuo} (il contributo della Delta di Dirac).
+
+La prescrizione che stiamo usando ($\omega \to \omega + i\epsilon$) è esattamente equivalente all'uso del Teorema dei Residui con un contorno specifico: aggiriamo il polo (che si trova sotto l'asse reale) facendovi passare l'integrazione al di sopra.
+Come già accennato, se utilizzassimo l'altra prescrizione, ci renderemmo subito conto di ottenere un segno opposto per il residuo, il che ci condurrebbe a descrivere fisicamente un \textbf{modo instabile} (esponenzialmente crescente) e non uno smorzato.
+
+\section{Il Paradosso del Landau Damping e la Disputa con Vlasov}
+
+A questo punto possiamo entrare nel vivo della discussione sul Landau Damping.
+
+Torniamo alla nostra equazione, che rappresenta la \textbf{relazione di dispersione} del plasma. Abbiamo capito che, grazie alla teoria delle distribuzioni, esiste un modo rigoroso per dare senso a questi integrali:
+\begin{itemize}
+\item Vi è una parte reale che va calcolata nel senso del valore principale (integrando sull'asse reale).
+\item Vi è un termine immaginario proporzionale a $\pm i\pi\delta$, che deriva dalla scomposizione Lorentziana. La \textbf{causalità} ci impone di usare rigorosamente la prescrizione col segno corretto, che fisicamente corrisponde al prolungamento analitico sotto l'asse reale.
+\end{itemize}
+
+Ciò che troveremo è un fenomeno noto come \textbf{phase mixing} (mescolamento delle fasi) o \textit{free streaming}. Questo mescolamento fa sì che la densità macroscopica del plasma decada nel tempo, \textbf{sebbene la funzione di distribuzione microscopica delle particelle non decada}.
+
+Questa rappresenta una delle proprietà più strane e controintuitive del plasma. Studiando le perturbazioni attorno a uno stato stazionario in un plasma non collisionale (ovvero privo di attriti fluidodinamici classici), si osserva che \textbf{la perturbazione di densità viene smorzata}.
+Perché questa cosa è così anomala? Perché, classicamente, ci si aspetterebbe che il decadimento di una perturbazione sia causato da una forma di \textbf{dissipazione} (viscosità, collisioni). Tuttavia, nel mezzo che stiamo descrivendo, non esiste dissipazione termodinamica convenzionale: l'\textbf{entropia totale del sistema rimane rigorosamente costante}.
+
+\subsection{L'Errore di Vlasov e l'Intuizione di Landau}
+Storicamente, \textbf{Anatoly Vlasov} affrontò l'equazione dicendo: \textit{"Risolvo semplicemente l'equazione calcolando l'integrale singolare tramite il solo valore principale"}.
+Tuttavia, calcolando esclusivamente la parte principale, si ottiene un risultato puramente reale. Una relazione di dispersione puramente reale descrive un sistema che oscilla indefinitamente senza alcuno smorzamento, una predizione fisicamente incompleta e qualitativamente diversa dalla realtà.
+
+L'intuizione geniale di Landau fu quella di \textbf{chiudere il contorno nel piano complesso}, includendo il polo e calcolandone il residuo. Egli dimostrò che: \textit{"Non c'è solo il valore principale; il contributo del residuo del polo mi restituisce una parte immaginaria"}.
+Questa parte immaginaria possiede un significato fisico profondissimo: genera un termine di \textbf{smorzamento} (\textit{damping}), pur in assenza di collisioni.
+
+Questo disaccordo teorico scatenò accese discussioni che si protrassero per decenni. Pensate che questo smorzamento non collisionale (il Landau Damping) è stato \textbf{verificato sperimentalmente solo nel 1964}, sancendo il trionfo della teoria di Landau. A livello puramente matematico, la dimostrazione rigorosa e completa (che coinvolge una parte molto complessa di teoria delle distribuzioni) è stata completata in tempi recenti da \textbf{Cédric Villani} (insigne matematico francese, vincitore della Medaglia Fields), a conferma di quanto la questione fosse profonda.
+
+\section{Formulazione Matematica: L'Approccio ai Valori Iniziali}
+
+Procediamo ora a verificare matematicamente l'effetto. Impostiamo il \textbf{Problema ai Valori Iniziali} (Initial Value Problem).
+Consideriamo un sistema unidimensionale di elettroni, assumendo gli ioni fermi a formare uno sfondo neutralizzante continuo. Scriviamo la funzione di distribuzione $f(x,v,t)$ come la somma di una distribuzione di equilibrio imperturbata $f_0(v)$ e di una piccola perturbazione $f_1(x,v,t)$:
+\begin{equation}
+f(x,v,t) = f_0(v) + f_1(x,v,t)
+\end{equation}
+All'istante iniziale $t=0$, la perturbazione avrà una sua forma assegnata $f_1(x,v,0) = g(x,v)$.
+
+\textbf{Linearizziamo l'equazione di Vlasov} attorno a $f_0$, mantenendo solo i termini del prim'ordine, ottenendo l'equazione differenziale per $f_1$. Questa equazione non è sufficiente da sola, ma deve essere accoppiata all'\textbf{Equazione di Poisson} per determinare il campo elettrico auto-consistente generato dalle particelle: $\nabla \cdot \mathbf{E} = 4\pi \rho$.
+Passando in trasformata di Fourier rispetto allo spazio (in cui la derivata spaziale $\nabla$ diventa $ik$), l'equazione di Poisson si scrive:
+\begin{equation}
+ik E(k,t) = 4\pi \rho(k,t)
+\end{equation}
+La densità di carica $\rho$ si ricava integrando la funzione di distribuzione perturbata sulle velocità. Ricordiamo infatti il significato della funzione di distribuzione nello spazio delle fasi: il numero di particelle contenute nel volume infinitesimo spaziale $dx$ aventi velocità nel range $dv$. Integrando su tutte le velocità $v$, si ottiene la densità spaziale delle particelle, da cui discende la carica:
+\begin{equation}
+\rho(k,t) = -e \int_{-\infty}^{+\infty} f_1(k,v,t) , dv
+\end{equation}
+
+\subsection{L'Impiego della Trasformata di Laplace}
+Per risolvere il sistema accoppiato di Vlasov-Poisson, si adotta il metodo di Landau: si applica la \textbf{Trasformata di Laplace} rispetto al tempo, poiché, come abbiamo ampiamente visto, Laplace permette di inserire in maniera naturale i dati iniziali.
+
+Sostituendo la trasformata $\tilde{f}_1(k,v,\omega)$ nell'equazione, sfruttando la regola di derivazione per cui $\mathcal{L}\{\dot{f}_1\} = -f_1(0) - i\omega \tilde{f}_1(\omega)$, l'equazione linearizzata restituisce un'espressione per $\tilde{f}_1$ che dipende esplicitamente dalla perturbazione inziale $f_1(k,v,0)$.
+
+Inserendo poi questa espressione per $\tilde{f}_1$ all'interno dell'integrale dell'equazione di Poisson, risolviamo rispetto al campo elettrico perturbato $\tilde{E}(k,\omega)$. Si ottiene la seguente espressione algebrica:
+\begin{equation}
+\tilde{E}(k,\omega) = \frac{4\pi e}{k} \frac{\displaystyle\int_{-\infty}^{+\infty} \frac{f_1(k,v,0)}{\omega - kv} , dv}{D(k,\omega)}
+\end{equation}
+dove $D(k,\omega)$ è la funzione dielettrica del plasma, la cui radice rappresenta la \textbf{relazione di dispersione}:
+\begin{equation}
+D(k,\omega) = 1 + \frac{\omega_p^2}{k} \int_{-\infty}^{+\infty} \frac{\frac{\partial f_0}{\partial v}}{\omega - kv} , dv = 0
+\end{equation}
+
+Se assumiamo che $\text{Im}(\omega) > 0$, l'integrale di Laplace è convergente e l'integrale in $dv$ risulta perfettamente regolare.
+
+\section{Risoluzione della Relazione di Dispersione}
+
+Per ricavare l'evoluzione temporale del campo elettrico $E(x,t)$, bisognerebbe calcolare l'antitrasformata di Laplace (Integrale di Bromwich). Pur omettendo i conti espliciti per ricavare la forma esatta dell'onda, a livello fisico ciò che importa a Landau è \textbf{risolvere l'equazione per i poli}, ovvero risolvere $D(k,\omega) = 0$.
+
+È qui che entra in gioco la correzione di Landau. Risolvendo l'integrale singolare che definisce $D(k,\omega)$, si applica la formula di Plemelj:
+\begin{equation}
+D(k,\omega) = 1 + \frac{\omega_p^2}{k} \mathcal{P} \int_{-\infty}^{+\infty} \frac{f_0'(v)}{\omega - kv} , dv - i\pi \frac{\omega_p^2}{|k| k} f_0'\left(\frac{\omega}{k}\right) = 0
+\end{equation}
+In questo modo, la funzione dielettrica si scinde in due componenti:
+\begin{itemize}
+\item Una \textbf{parte reale} $D_r$, corrispondente al termine calcolato col Valore Principale.
+\item Una \textbf{parte immaginaria} $D_i$, generata dal residuo del polo, legata alla derivata della distribuzione d'equilibrio calcolata nella velocità di fase dell'onda $\left(v_\phi = \omega/k\right)$.
+\end{itemize}
+
+Finalmente, grazie all'inclusione del polo, il sistema presenta una parte immaginaria matematicamente rigorosa. Come avevamo anticipato, è esattamente questo termine immaginario a causare lo smorzamento senza collisioni, noto come \textbf{Landau Damping} limitato dal valore di $f_0'(v_\phi)$.
+
+\section{Sviluppo in Serie della Relazione di Dispersione}
+
+A questo punto, Landau si spinge oltre. Avendo compreso la necessità di includere il contributo del polo, analizza la funzione dielettrica complessa $D(\omega)$ nel limite in cui lo smorzamento sia piccolo.
+
+Si procede espandendo in serie di Taylor la relazione di dispersione. Supponendo che la frequenza complessa sia $\omega = \omega_R + i\gamma$, e assumendo che il tasso di smorzamento (o crescita) sia molto minore della frequenza reale di oscillazione ($\vert{}\gamma\vert{} \ll \omega_R$), possiamo separare l'equazione $D(\omega) = 0$ in due componenti:
+\begin{itemize}
+\item L'annullamento della \textbf{parte reale} fornisce la frequenza di oscillazione del modo $\omega_R$.
+\item La \textbf{parte immaginaria} fornisce il parametro $\gamma$, che rappresenta la soppressione (smorzamento) o la crescita della perturbazione.
+\end{itemize}
+
+Questo risultato costituisce il cuore dell'intero fenomeno e fornisce una previsione sperimentale chiara.
+
+\subsection{Il Paradosso della Dissipazione Non Collisionale}
+Se si perturba un plasma ideale, avente una distribuzione stazionaria, la teoria prevede che le perturbazioni vengano smorzate (\textit{damped}) nel tempo. Questo avviene nonostante il sistema sia ideale: la distribuzione di fondo non cambia, l'entropia totale del sistema rimane costante, non vi è produzione di calore e non c'è dissipazione viscosa.
+
+Si tratta di un fenomeno estremamente peculiare. In fluidodinamica classica, la presenza di un'onda d'urto in un fluido genera dissipazione termica: il fluido si riscalda, trasformando l'energia cinetica in energia termica. Nel plasma non collisionale, questo non accade. È proprio per questa sua natura controintuitiva che per anni la comunità scientifica (incluso Vlasov) faticò ad accettare la previsione teorica di Landau.
+
+\section{Analisi della Parte Reale: Limite di Lunga Lunghezza d'Onda}
+
+Per comprendere appieno la fisica del fenomeno, dobbiamo analizzare quali elettroni interagiscono a questa frequenza e determinare il comportamento del sistema.
+
+Valutiamo la parte reale dell'integrale (nel senso del valore principale) nel limite in cui la velocità termica degli elettroni sia molto minore della velocità di fase dell'onda, ovvero $v \ll \omega_R/k$.
+Sotto questa ipotesi, si esegue un'espansione in serie dell'integranda e si integra per parti rispetto alle velocità. I momenti della funzione di distribuzione restituiscono i seguenti contributi:
+\begin{itemize}
+\item Il momento di ordine zero si annulla.
+\item Il primo momento fornisce un termine proporzionale a $1/m$.
+\item Calcolando i momenti successivi, si ottiene uno sviluppo in serie dipendente da $k$.
+\end{itemize}
+
+Arrestando lo sviluppo ai primi termini non nulli, la relazione per la frequenza assume la forma:
+\begin{equation}
+\omega_R^2 = \omega_p^2 + 3 k^2 v_{th}^2
+\end{equation}
+dove $\omega_p$ è la frequenza di plasma e $v_{th}$ è la velocità termica.
+Questa è la celebre relazione di dispersione di Bohm-Gross. Essa indica che la frequenza di risonanza $\omega_R$ è pari alla \textbf{frequenza di plasma} incrementata di una \textbf{correzione termica}. L'aumento della frequenza di plasma è quindi dovuto al moto di agitazione termica degli elettroni, e permette di definire una \textbf{velocità di fase} finita per l'onda: $v_\phi = \omega_R / k$.
+
+\section{Calcolo del Landau Damping (Parte Immaginaria)}
+
+La vera genialità di Landau risiede nella valutazione della parte immaginaria. Il tasso di smorzamento $\gamma$ è governato dalla derivata della funzione di distribuzione imperturbata valutata esattamente alla velocità di fase dell'onda:
+\begin{equation}
+\gamma \propto f_0'\left(\frac{\omega_R}{k}\right)
+\end{equation}
+
+Il segno di $\gamma$ dipende strettamente da questa derivata:
+\begin{itemize}
+\item Se $f_0'(v_\phi) < 0$ (come accade nella coda di una distribuzione standard decrescente), si ha \textbf{smorzamento} (\textit{damping}).
+\item Se $f_0'(v_\phi) > 0$ (ad esempio in presenza di fasci di particelle), si innesca invece un'instabilità (crescita dell'onda).
+\end{itemize}
+
+\subsection{Caso della Distribuzione Maxwelliana}
+Supponiamo che il plasma segua una distribuzione di equilibrio di tipo Maxwelliano. Calcolando la derivata rispetto alla velocità si ha:
+\begin{equation}
+f_0'(v) = -\frac{v}{v_{th}^2} f_0(v)
+\end{equation}
+Sostituendo questa espressione nella formula del residuo e valutandola per $v = \omega_R/k$, si ottiene l'espressione analitica per il tasso di smorzamento di Landau in un plasma Maxwelliano:
+\begin{equation}
+\gamma = - \sqrt{\frac{\pi}{8}} \omega_p \frac{1}{(k \lambda_D)^3} \exp\left(-\frac{1}{2(k \lambda_D)^2} - \frac{3}{2}\right)
+\end{equation}
+dove $\lambda_D$ è la lunghezza di Debye.
+
+Questa formula mostra che le onde di Langmuir subiscono uno smorzamento estremamente sensibile al parametro $k\lambda_D$.
+Se consideriamo un valore tipico come $k\lambda_D \approx 0.1$, il rapporto tra il tasso di smorzamento $\gamma$ e la frequenza di plasma $\omega_p$ è dell'ordine di $10^{-20}$. Il termine esponenziale domina, rendendo lo smorzamento trascurabile a grandi lunghezze d'onda (piccoli $k$), ma estremamente severo non appena $k\lambda_D$ si avvicina all'unità.
+
+\section{Verifica Sperimentale e Simulazioni Numeriche}
+
+Dal punto di vista numerico, l'evoluzione temporale del fenomeno può essere studiata integrando l'equazione di Vlasov su una griglia spaziale e di velocità. Pur non essendo un'operazione banale, le simulazioni moderne (impostando una perturbazione iniziale appropriata) permettono di visualizzare chiaramente un \textbf{damping lineare} esponenziale, ben visibile tracciando l'ampiezza del campo elettrico su scala logaritmica in funzione del tempo.
+
+\subsection{L'Esperimento di Malmberg e Wharton}
+A causa del valore numericamente elusivo dello smorzamento in molti regimi fisici, la dimostrazione sperimentale fu una sfida formidabile, vinta solo nel 1964 da Malmberg e Wharton.
+
+L'esperimento fu condotto utilizzando una colonna di plasma confinata magneticamente, con una densità di circa $10^8$ elettroni per centimetro cubo.
+\begin{itemize}
+\item Furono "sparate" (eccitate) onde di plasma lungo la colonna a una frequenza fissata.
+\item Una seconda sonda (\textit{probe}) mobile veniva fatta scorrere longitudinalmente per misurare l'evoluzione della fase e calcolare il \textbf{tasso di smorzamento spaziale} (\textit{spatial damping rate}).
+\item I dati sperimentali misurati confermarono con eccezionale precisione l'andamento previsto dalla formula di Landau.
+\end{itemize}
+
+La sfida sperimentale più grande fu dimostrare che lo smorzamento osservato fosse effettivamente \textit{collisionless} (non collisionale) e non un banale attrito termodinamico. I critici, infatti, avrebbero potuto obiettare: \textit{"State misurando un semplice smorzamento dovuto alle collisioni"}. Gli sperimentatori dovettero provare che il regime operativo presentava un tasso di collisioni troppo basso per giustificare la dissipazione misurata, dimostrando così la natura puramente cinetica del \textbf{vero Landau Damping}.
+
+Purtroppo, Landau non riuscì a godere appieno del trionfo sperimentale della sua teoria, a causa del grave incidente automobilistico occorsogli nel 1962, che lo portò alla morte all'età di 59 anni.
+
+\section{Conclusione}
+Il Landau Damping rappresenta una fisica complessa e affascinante, che si erge come uno dei più grandi trionfi teorici della fisica dei plasmi. Comprendere appieno la matematica sottostante — dalle distribuzioni, agli integrali complessi nel piano, fino alla fisica del phase mixing — richiede tempo e dedizione.
+Si raccomanda di consultare il materiale didattico e le slide fornite per esaminare in dettaglio i grafici dell'esperimento originale, poiché osservare in che modo questi concetti astratti abbiano trovato un solido riscontro in laboratorio è un passaggio fondamentale per la comprensione della materia.
