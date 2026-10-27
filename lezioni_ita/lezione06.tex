@@ -1,0 +1,450 @@
+\chapter{Lezione 6 - 26/10/2026}
+
+\section{Esercitazione: L'Oscillatore Armonico Forzato e Smorzato}
+
+In questa lezione riprenderemo insieme le tecniche di integrazione che abbiamo discusso la volta scorsa. L'idea è di affrontare l'argomento sotto forma di esercitazione.
+
+Il problema che vogliamo risolvere riguarda l'\textbf{oscillatore armonico forzato e smorzato}.
+L'equazione differenziale che governa il moto di questo sistema include un termine di attrito (o smorzamento), parametrizzato dal coefficiente $\gamma$, e un termine forzante. L'equazione del moto si presenta nella forma:
+\begin{equation}
+\ddot{x} + \gamma \dot{x} + \omega_0^2 x = \frac{F(t)}{m}
+\end{equation}
+
+Iniziamo analizzando le caratteristiche di questa equazione. Dal punto di vista matematico, ci troviamo di fronte a un'equazione differenziale ordinaria (ODE) lineare, del secondo ordine e non omogenea.
+
+Essendo un'equazione lineare, il metodo più naturale ed efficace per risolverla consiste nel passare nel dominio delle frequenze utilizzando la \textbf{trasformata di Fourier}.
+Definiamo la grandezza $x(t)$ attraverso la sua antitrasformata:
+\begin{equation}
+x(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \tilde{x}(\omega) e^{-i\omega t} , d\omega
+\end{equation}
+
+Calcolando le derivate temporali, ad ogni derivazione "scende" un fattore $(-i\omega)$ dall'esponenziale:
+\begin{itemize}
+\item La derivata prima $\dot{x}(t)$ corrisponde nel dominio di Fourier a moltiplicare $\tilde{x}(\omega)$ per $(-i\omega)$.
+\item La derivata seconda $\ddot{x}(t)$ corrisponde a moltiplicare $\tilde{x}(\omega)$ per $(-i\omega)^2 = -\omega^2$.
+\end{itemize}
+
+Sostituendo queste espressioni nell'equazione differenziale e trasformando anche la forzante in $\tilde{F}(\omega)$, l'equazione integro-differenziale si riduce a una semplice equazione algebrica nel dominio di Fourier. Raccogliendo $\tilde{x}(\omega)$, otteniamo:
+\begin{equation}
+\left(-\omega^2 - i\gamma\omega + \omega_0^2\right) \tilde{x}(\omega) = \frac{\tilde{F}(\omega)}{m}
+\end{equation}
+
+Da qui, possiamo isolare la trasformata dello spostamento $\tilde{x}(\omega)$:
+\begin{equation}
+\tilde{x}(\omega) = \frac{1}{-\omega^2 - i\gamma\omega + \omega_0^2} \frac{\tilde{F}(\omega)}{m}
+\end{equation}
+
+Il termine che moltiplica la forza, che chiameremo $\chi(\omega)$, prende il nome di \textbf{suscettività} (o funzione di risposta):
+\begin{equation}
+\chi(\omega) = \frac{1}{-\omega^2 - i\gamma\omega + \omega_0^2}
+\end{equation}
+Per cui la soluzione si può scrivere in forma compatta come:
+\begin{equation}
+\tilde{x}(\omega) = \chi(\omega) \frac{\tilde{F}(\omega)}{m}
+\end{equation}
+
+\subsection{Analisi dei Poli del Sistema}
+Questa soluzione formale presenta tuttavia un problema: la funzione di risposta $\chi(\omega)$ ammette dei \textbf{poli} complessi, ovvero i valori di $\omega$ per i quali il denominatore si annulla. Dobbiamo calcolare questi poli per attribuire un significato fisico all'evoluzione temporale del sistema.
+
+Il denominatore è un'equazione di secondo grado nella variabile $\omega$:
+\begin{equation}
+-\omega^2 - i\gamma\omega + \omega_0^2 = 0
+\end{equation}
+Cambiando segno per comodità e applicando la formula risolutiva per le equazioni quadratiche:
+\begin{equation}
+\omega^2 + i\gamma\omega - \omega_0^2 = 0
+\end{equation}
+Calcoliamo le radici, che indicheremo con $\omega_{\pm}$:
+\begin{equation}
+\omega_{\pm} = \frac{-i\gamma \pm \sqrt{(i\gamma)^2 - 4(1)(-\omega_0^2)}}{2} = \frac{-i\gamma \pm \sqrt{-\gamma^2 + 4\omega_0^2}}{2}
+\end{equation}
+Portando il fattore $2$ all'interno della radice e definendo una nuova frequenza di risonanza effettiva $\Omega$:
+\begin{equation}
+\Omega = \sqrt{\omega_0^2 - \left(\frac{\gamma}{2}\right)^2}
+\end{equation}
+Le due radici possono essere scritte in forma compatta come:
+\begin{equation}
+\omega_{\pm} = \pm \Omega - i\frac{\gamma}{2}
+\end{equation}
+Rappresentando questi due poli nel piano complesso, osserviamo che entrambi giacciono nel \textbf{semipiano inferiore} (avendo parte immaginaria $-\gamma/2 < 0$, dato che il coefficiente di smorzamento $\gamma$ è per definizione positivo).
+Ai fini di questo studio, stiamo inoltre supponendo che l'argomento della radice (il discriminante) sia strettamente positivo ($\gamma < 2\omega_0$), corrispondente al caso fisico di \textbf{smorzamento sottocritico}. Altrimenti si presenterebbero altri regimi (sovrasmorzato o critico) che per ora escludiamo.
+
+\subsection{Il Caso Non Forzato ($F=0$)}
+Se analizziamo il caso in cui la forza esterna è nulla, le soluzioni per l'oscillatore libero nel dominio del tempo sono combinate linearmente dagli esponenziali dei poli appena calcolati. In generale, lo spostamento $x(t)$ ha la forma:
+\begin{equation}
+x(t) \propto e^{-i \omega_{\pm} t}
+\end{equation}
+Sostituendo l'espressione di $\omega_{\pm}$:
+\begin{equation}
+e^{-i \left(\pm \Omega - i\frac{\gamma}{2}\right) t} = e^{\mp i \Omega t} e^{-\frac{\gamma}{2} t}
+\end{equation}
+Il risultato mostra fisicamente due comportamenti distinti che si sovrappongono:
+\begin{itemize}
+\item Il termine $e^{\mp i \Omega t}$ descrive \textbf{oscillazioni} con frequenza ridotta $\Omega$.
+\item Il termine reale $e^{-\frac{\gamma}{2} t}$ è un fattore esponenziale decadente che sopprime l'ampiezza dell'oscillazione nel tempo.
+\end{itemize}
+Il parametro $\gamma$ funge proprio da tasso (o fattore) di smorzamento temporale. Dunque, in assenza di forza, il sistema è perfettamente descritto da oscillazioni smorzate.
+
+\subsection{Il Caso Forzato con un Impulso di Dirac}
+Il problema diventa fisicamente molto interessante quando reintroduciamo la forzante. Per analizzare la risposta fondamentale del sistema, supponiamo che la forza $F(t)$ sia \textbf{impulsiva}, ovvero che colpisca il sistema in un tempo infinitesimo, trasferendo una certa quantità di moto.
+Matematicamente, la modelliamo attraverso la funzione \textbf{Delta di Dirac}:
+\begin{equation}
+F(t) = m \delta(t)
+\end{equation}
+Questa scelta ci spinge a chiederci quale sia la rappresentazione della Delta di Dirac nel dominio delle frequenze e in che modo questo impulso forzi la dinamica dell'oscillatore e influenzi il calcolo dell'integrale di trasformata.
+
+\section{Rappresentazione della Delta di Dirac nel Dominio delle Frequenze}
+
+Per risolvere analiticamente il problema dell'oscillatore armonico forzato con un impulso, è necessario innanzitutto comprendere la rappresentazione della \textbf{Delta di Dirac} nel dominio delle frequenze. La Delta di Dirac può essere scritta in forma integrale come:
+\begin{equation}
+\delta(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} e^{-i\omega t} , d\omega
+\end{equation}
+Per dimostrare la validità di questa espressione, si può ricorrere alle proprietà della trasformata di Fourier e della convoluzione. Se si inserisce questa definizione all'interno dell'integrale di trasformazione di una generica funzione $f(t)$, l'esponenziale filtrerà tutto il dominio annullandosi ovunque, tranne nel punto in cui l'argomento si azzera ($t=0$), restituendo esattamente $f(0)$.
+
+Da questa definizione integrale si evince immediatamente una proprietà fondamentale: la trasformata di Fourier della Delta di Dirac è pari a $1$. Essendo una costante su tutto lo spettro delle frequenze, l'impulso contiene in egual misura tutte le componenti frequenziali.
+
+\section{Risoluzione dell'Equazione Forzata in Trasformata di Fourier}
+
+Consideriamo ora l'equazione differenziale dell'oscillatore, in cui la forza esterna applicata sia un impulso istantaneo, modellato matematicamente come $F(t) = m\delta(t)$.
+Applicando la trasformata di Fourier a tutti i termini dell'equazione differenziale, per il membro di sinistra (che rappresenta la dinamica del sistema) si ottiene l'espressione algebrica già discussa:
+\begin{equation}
+\left(-\omega^2 - i\gamma\omega + \omega_0^2\right) \tilde{x}(\omega)
+\end{equation}
+Per il membro di destra, dobbiamo calcolare l'integrale di Fourier della forza impulsiva divisa per la massa:
+\begin{equation}
+\frac{1}{m} \int_{-\infty}^{+\infty} \left[ m\delta(t) \right] e^{-i\omega t} , dt = \int_{-\infty}^{+\infty} \delta(t) e^{-i\omega t} , dt = 1
+\end{equation}
+
+Uguagliando i due membri e portando tutto sotto un'unica struttura algebrica, otteniamo:
+\begin{equation}
+\left(-\omega^2 - i\gamma\omega + \omega_0^2\right) \tilde{x}(\omega) - 1 = 0
+\end{equation}
+Da cui si ricava banalmente la soluzione nello spazio delle frequenze:
+\begin{equation}
+\tilde{x}(\omega) = \frac{1}{-\omega^2 - i\gamma\omega + \omega_0^2} \equiv \tilde{\chi}(\omega)
+\end{equation}
+Questa quantità $\tilde{\chi}(\omega)$ prende il nome di \textbf{suscettività} (o funzione di risposta). In questo contesto, ricavare $\tilde{x}(\omega)$ equivale a invertire l'operatore differenziale lineare del sistema; pertanto, $\tilde{\chi}(\omega)$ rappresenta, nello spazio di Fourier, la \textbf{Funzione di Green} dell'operatore. Il metodo è concettualmente identico a quello utilizzato per invertire l'operatore laplaciano $\nabla^2$ nell'equazione di Poisson per ricavare il potenziale elettromagnetico.
+
+I poli di $\tilde{\chi}(\omega)$ sono gli zeri del denominatore calcolati in precedenza: $\omega_{\pm} = \pm \Omega - i\frac{\gamma}{2}$. Essendo le radici del denominatore, essi definiscono i punti di singolarità della funzione di risposta.
+
+\section{Antitrasformata e Funzione di Green nel Dominio del Tempo}
+
+Per trovare la soluzione nel dominio del tempo, che indicheremo con $G(t)$ essendo di fatto la Funzione di Green temporale del sistema, è necessario calcolare l'antitrasformata di Fourier di $\tilde{\chi}(\omega)$:
+\begin{equation}
+G(t) = \frac{1}{2\pi} \int_{-\infty}^{+\infty} \tilde{\chi}(\omega) e^{-i\omega t} , d\omega
+\end{equation}
+
+\subsection{Analisi della Convergenza nel Piano Complesso}
+Per dare un senso matematico a questo integrale in presenza di poli, dobbiamo estendere la variabile $\omega$ al piano complesso, scrivendola come $\omega = u + iv$.
+Sostituendo questa espressione nell'esponenziale dell'integrando, otteniamo:
+\begin{equation}
+e^{-i\omega t} = e^{-i(u+iv)t} = e^{-iut} e^{vt}
+\end{equation}
+Abbiamo così separato una parte complessa oscillante ($e^{-iut}$) e una parte reale esponenziale ($e^{vt}$). Affinché l'integrale sia convergente, l'esponenziale reale non deve divergere all'infinito. Questo impone una biforcazione nello studio del limite in base al segno del tempo $t$:
+\begin{itemize}
+\item Se $t > 0$, per evitare l'esplosione dell'esponenziale, è necessario che $v < 0$. Pertanto, dobbiamo chiudere il contorno di integrazione nel \textbf{semipiano inferiore}.
+\item Se $t < 0$, affinché l'esponenziale non diverga, è necessario che $v > 0$. Dobbiamo quindi chiudere il contorno nel \textbf{semipiano superiore}.
+\end{itemize}
+
+\subsection{Calcolo con il Teorema dei Residui e Principio di Causalità}
+Ora possiamo applicare il \textbf{Teorema dei Residui} nei due casi. Ricordiamo che entrambi i poli $\omega_+$ e $\omega_-$ possiedono una parte immaginaria negativa ($-\gamma/2$) e si trovano quindi nel semipiano inferiore.
+
+\textbf{Caso $t < 0$:}
+Chiudendo il cammino di integrazione nel semipiano superiore, il contorno non racchiude alcun polo. Di conseguenza, per il Teorema di Cauchy, l'integrale è identicamente nullo:
+\begin{equation}
+G(t) = 0 \quad \text{per } t < 0
+\end{equation}
+
+\textbf{Caso $t > 0$:}
+Chiudendo il contorno nel semipiano inferiore, racchiudiamo entrambi i poli $\omega_+$ e $\omega_-$. Poiché il cammino nel semipiano inferiore viene percorso in senso orario, il Teorema dei Residui introduce un segno negativo, fornendo come risultato $-2\pi i \sum \text{Res}$. Moltiplicando per il prefattore $1/(2\pi)$ dell'antitrasformata, l'integrale si riduce a $-i \sum \text{Res}$.
+
+Riscriviamo il denominatore di $\tilde{\chi}(\omega)$ fattorizzandolo rispetto alle sue radici:
+\begin{equation}
+-\omega^2 - i\gamma\omega + \omega_0^2 = - (\omega - \omega_+)(\omega - \omega_-)
+\end{equation}
+Calcoliamo i singoli residui:
+\begin{itemize}
+\item Residuo in $\omega_+$:
+\begin{equation}
+\text{Res}(\omega_+) = \frac{e^{-i\omega_+ t}}{-(\omega_+ - \omega_-)}
+\end{equation}
+\item Residuo in $\omega_-$:
+\begin{equation}
+\text{Res}(\omega_-) = \frac{e^{-i\omega_- t}}{-(\omega_- - \omega_+)} = \frac{e^{-i\omega_- t}}{\omega_+ - \omega_-}
+\end{equation}
+\end{itemize}
+
+Sommando i residui e moltiplicando per $-i$, la Funzione di Green diviene:
+\begin{equation}
+G(t) = -i \left[ - \frac{e^{-i\omega_+ t}}{\omega_+ - \omega_-} + \frac{e^{-i\omega_- t}}{\omega_+ - \omega_-} \right] = \frac{i}{\omega_+ - \omega_-} \left( e^{-i\omega_+ t} - e^{-i\omega_- t} \right)
+\end{equation}
+Ricordando che la differenza tra le radici è $\omega_+ - \omega_- = 2\Omega$, otteniamo:
+\begin{equation}
+G(t) = \frac{i}{2\Omega} \left( e^{-i\omega_+ t} - e^{-i\omega_- t} \right) \quad \text{per } t > 0
+\end{equation}
+
+Per esprimere la soluzione globale valida per ogni istante di tempo, possiamo moltiplicare il risultato per la \textbf{Funzione gradino di Heaviside} $\theta(t)$:
+\begin{equation}
+G(t) = \frac{i}{2\Omega} \left( e^{-i\omega_+ t} - e^{-i\omega_- t} \right) \theta(t)
+\end{equation}
+
+Questo risultato è fisicamente straordinario perché codifica in modo naturale il \textbf{Principio di Causalità} (o rapporto di causa-effetto). La funzione di risposta assicura che il sistema non presenti alcuna evoluzione ($G(t)=0$) prima che la forza impulsiva venga applicata a $t=0$. Solo per istanti successivi all'impulso ($t>0$), il sistema inizia a reagire seguendo la dinamica intrinseca dei suoi poli complessi, manifestando quelle oscillazioni smorzate nel tempo che avevamo previsto.
+
+\section{Il Significato Fisico del Contorno di Integrazione}
+
+Per prima cosa, ci tengo a chiarire un concetto emerso dalle domande poste precedentemente. La domanda era: \textit{"Perché scegliamo il contorno in questa maniera e non in un'altra?"}
+
+La risposta è legata al fatto che solo questa specifica prescrizione ci permette di rispettare la causalità. Esiste un unico contorno fisicamente accettabile: quando una forza impulsiva viene applicata, l'effetto nel sistema deve manifestarsi esclusivamente negli istanti temporali \textit{successivi} all'applicazione della forza. Scegliere il contorno opposto (chiudendo l'integrale dal lato sbagliato del piano complesso) produrrebbe un risultato completamente non fisico, poiché farebbe "rispondere" il sistema prima ancora che la forza esterna sia stata effettivamente applicata.
+
+\section{Note sui Metodi di Integrazione e lo Smorzamento di Landau}
+
+Tutti i metodi che abbiamo visto e applicato, comprese la prescrizione di $\epsilon$ e l'impiego della formula di Plemelj, forniscono risultati perfettamente coerenti e identici all'integrazione di base nel piano complesso. Spesso, acquisendo familiarità, non ci si mette a rifare l'intero integrale di Laplace o l'antitrasformata di Bromwich per ogni calcolo (a meno che non ci si trovi davanti a funzioni patologiche).
+
+Se ricordate la Formula di Sokhotski-Plemelj discussa la volta scorsa:
+\begin{equation}
+\lim_{\epsilon \to 0^+} \frac{1}{x - x_0 \mp i\epsilon} = \mathcal{P}\left(\frac{1}{x - x_0}\right) \pm i\pi\delta(x - x_0)
+\end{equation}
+Applicando direttamente il Valore Principale $\mathcal{P}$ lungo l'asse reale e sommandovi il contributo immaginario del residuo ($i\pi\delta$), otteniamo esattamente lo stesso risultato per il Landau Damping risparmiando moltissimo tempo, evitando l'intero formalismo dell'Integrale di Cauchy.
+
+L'obiettivo di aver derivato rigorosamente la soluzione per intero era per dimostrare che queste correzioni non "cascano dal cielo", ma si fondano su una giustificazione fisico-matematica assolutamente razionale.
+
+\subsection{Richiamo allo Smorzamento di Landau}
+Riprendiamo brevemente i risultati della volta scorsa. Nello studio della relazione di dispersione per le onde di plasma elettronico (oscillazioni di Langmuir), avevamo ottenuto due termini.
+
+La \textbf{parte reale} di $\omega$ ci fornisce la frequenza di oscillazione (Relazione di Bohm-Gross), che corrisponde alla frequenza di plasma corretta termicamente:
+\begin{equation}
+\omega_R^2 \approx \omega_p^2 + 3 k^2 v_{th}^2
+\end{equation}
+
+La \textbf{parte immaginaria} di $\omega$ fornisce il fattore di smorzamento di Landau ($\gamma$), ottenuto sfruttando l'espansione nel limite in cui la velocità termica sia molto minore della velocità di fase.
+Guardando il grafico ottenuto numericamente (con risolutori esatti), osserviamo che all'aumentare del parametro $k\lambda_D$ (il prodotto tra numero d'onda e lunghezza di Debye), lo smorzamento di Landau $\gamma$ cresce in modo spaventoso. Passando da $k\lambda_D = 0.1$ a $k\lambda_D = 0.5$, il tasso di smorzamento aumenta di quasi 20 ordini di grandezza, rendendo le perturbazioni a piccole lunghezze d'onda pesantemente soppresse.
+
+\section{Le Onde Iono-Acustiche nel Plasma}
+
+Oggi passiamo alla parte più interessante. Il plasma mostra il suo lato più affascinante (e per certi versi più complesso) quando si studiano fenomeni in cui la dinamica degli \textbf{elettroni} è fortemente accoppiata a quella degli \textbf{ioni}. In questo regime, il plasma si comporta in un modo totalmente nuovo rispetto alle semplici oscillazioni di Langmuir.
+
+Andremo a studiare la propagazione delle \textbf{Onde Iono-Acustiche} in un sistema formato da più specie (ioni ed elettroni).
+Essendo presenti due specie attive, la suscettività totale del plasma si ottiene come somma delle suscettività delle singole specie (s), ed è posta uguale a zero nella relazione di dispersione:
+\begin{equation}
+D(k, \omega) = 1 + \chi_e(k,\omega) + \chi_i(k,\omega) = 0
+\end{equation}
+
+La suscettività per ogni singola specie si esprime mediante la funzione di dispersione del plasma, parametrizzata dalla variabile adimensionale $\zeta_s$:
+\begin{equation}
+\zeta_s = \frac{\omega / k}{v_{th, s}}
+\end{equation}
+Questo parametro $\zeta_s$ possiede un significato fisico lampante: rappresenta il rapporto esatto tra la \textbf{velocità di fase} dell'onda ($\omega/k$, ovvero la velocità con cui si propaga la "cresta" dell'onda) e la \textbf{velocità termica} ($v_{th, s}$) delle particelle di quella specifica specie.
+
+\subsection{Gerarchia delle Scale e Limiti Asintotici}
+Per risolvere analiticamente la dispersione senza incappare in equazioni trascendenti impossibili, ci poniamo nel regime fisico in cui si instaura la seguente \textbf{gerarchia di scale} temporali/cinematiche:
+\begin{equation}
+k v_{th, i} \ll \omega \ll k v_{th, e}
+\end{equation}
+Questa disuguaglianza indica che la velocità di fase dell'onda ($\omega/k$) si colloca esattamente "a metà strada" tra la lenta agitazione termica degli ioni e la rapidissima agitazione termica degli elettroni:
+\begin{equation}
+v_{th, i} \ll \frac{\omega}{k} \ll v_{th, e}
+\end{equation}
+
+Questa netta separazione ci consente di espandere le funzioni di suscettività nei due limiti asintotici discussi la volta scorsa:
+
+\begin{enumerate}
+\item \textbf{Elettroni ("Fast", limite statico):} Essendo gli elettroni estremamente caldi e leggeri, la velocità di fase è per loro quasi nulla ($\zeta_e \to 0$). Come abbiamo visto in precedenza, in questo limite la relazione di dispersione degenera nello \textbf{schermo di Debye}. La suscettività elettronica diventa puramente reale e costante nello spazio delle frequenze:
+\begin{equation}
+\chi_e \approx \frac{1}{(k \lambda_{De})^2}
+\end{equation}
+
+```
+\item \textbf{Ioni ("Slow", limite veloce):} Gli ioni sono invece molto più pesanti e lenti dell'onda, per cui per loro l'onda viaggia a velocità altissime ($\zeta_i \gg 1$). In questo regime, possiamo utilizzare l'espansione asintotica valida per grandi $\zeta$, che fa emergere una dipendenza non banale dalla componente termica e un polo del secondo ordine in $\omega$:
+\begin{equation}
+    \chi_i \approx - \frac{\omega_{pi}^2}{\omega^2} + \dots \text{ (correzioni termiche)}
+\end{equation}
+
+```
+
+\end{enumerate}
+
+\subsection{Velocità del Suono Iono-Acustica}
+Sostituendo queste approssimazioni nella relazione di dispersione generale, il risultato che si ottiene (trascurando per il momento il damping immaginario di Landau) è una relazione per la frequenza di oscillazione reale che assume la forma:
+\begin{equation}
+\omega^2 = \frac{k^2 C_s^2}{1 + k^2 \lambda_{De}^2}
+\end{equation}
+dove abbiamo definito $C_s$, la \textbf{velocità del suono iono-acustica}, come:
+\begin{equation}
+C_s = \sqrt{\frac{Z T_e}{m_i}}
+\end{equation}
+Nel limite di grandi lunghezze d'onda ($k \lambda_{De} \ll 1$), la dispersione diventa puramente acustica (lineare in $k$), con una velocità di fase costante:
+\begin{equation}
+\frac{\omega}{k} \approx C_s
+\end{equation}
+
+Per quanto semplice, questa formula possiede implicazioni fisiche importantissime: ci sta dicendo che, in questo regime, elettroni e ioni perdono la loro completa indipendenza e si comportano dinamicamente come se fossero un \textbf{unico fluido} o un unico mezzo, supportando onde di compressione analoghe alle onde sonore ordinarie.
+
+Analizzeremo il calcolo matematico dettagliato per giungere a questo risultato nei prossimi passaggi.
+
+\section{Derivazione della Relazione di Dispersione Iono-Acustica}
+
+Vediamo all'atto pratico come si ottiene analiticamente la formula della relazione di dispersione per il nostro sistema a due specie.
+
+\subsection{Suscettività Elettronica e Ionica}
+In questa approssimazione, la \textbf{suscettività elettronica} è puramente statica (limite "fast") ed è data da:
+\begin{equation}
+\chi_e = \frac{1}{k^2 \lambda_{De}^2}
+\end{equation}
+Per gli ioni (limite "slow"), lo sviluppo restituisce invece la \textbf{suscettività ionica}:
+\begin{equation}
+\chi_i = - \frac{\omega_{pi}^2}{\omega^2} - \frac{3 \omega_{pi}^2 k^2 v_{ti}^2}{\omega^4} = - \frac{\omega_{pi}^2}{\omega^2} \left( 1 + \frac{3 k^2 v_{ti}^2}{\omega^2} \right)
+\end{equation}
+dove $\omega_{pi}$ è la \textbf{frequenza di plasma ionica} e $v_{ti}$ è la velocità termica degli ioni.
+In questa espressione, il primo termine ($-\omega_{pi}^2/\omega^2$) rappresenta il contributo puramente \textbf{inerziale} degli ioni, mentre il secondo termine descrive la \textbf{correzione termica}.
+
+La relazione di dispersione generale si ottiene imponendo l'annullamento della funzione dielettrica totale, che è la somma delle singole suscettività:
+\begin{equation}
+1 + \chi_e + \chi_i = 0
+\end{equation}
+Sostituendo le espressioni appena viste, otteniamo un'equazione che incontrerete decine di volte in questo corso. Riorganizzando i termini e moltiplicando per $\omega^4$, si perviene a un'equazione biquadratica (o quadratica in $\omega^2$):
+\begin{equation}
+A \omega^4 - \omega_{pi}^2 \omega^2 - 3 \omega_{pi}^2 k^2 v_{ti}^2 = 0
+\end{equation}
+dove abbiamo definito il coefficiente $A$ come:
+\begin{equation}
+A = 1 + \frac{1}{k^2 \lambda_{De}^2}
+\end{equation}
+Risolvendo questa equazione quadratica in $\omega^2$, si ottengono le soluzioni rigorose per la frequenza del modo.
+
+\subsection{Limiti Asintotici e Velocità del Suono}
+I risultati si rivelano particolarmente interessanti se analizzati in due limiti asintotici:
+\begin{itemize}
+\item \textbf{Limite di piccola lunghezza d'onda (grandi numeri d'onda $k$):} Se consideriamo $k \lambda_{De} \gg 1$, il coefficiente $A \to 1$ e la frequenza di oscillazione $\omega$ tende asintoticamente alla \textbf{frequenza di plasma ionica} ($\omega \to \omega_{pi}$).
+\item \textbf{Limite di grande lunghezza d'onda (piccoli numeri d'onda $k$):} Se analizziamo numeri d'onda molto piccoli e trascuriamo il contributo della correzione termica degli ioni (assumendo $v_{ti} \to 0$), l'equazione si semplifica drasticamente, fornendo la relazione:
+\begin{equation}
+\omega^2 = k^2 C_s^2
+\end{equation}
+\end{itemize}
+Quest'ultima ha l'esatta struttura formale della relazione di dispersione di un \textbf{fluido classico} in regime acustico, dove la frequenza è linearmente proporzionale al numero d'onda e la velocità di fase è costante.
+
+Tuttavia, occorre fare molta attenzione al significato fisico. In un fluido ideale classico, il quadrato della velocità del suono termodinamica è determinato dalla derivata della pressione rispetto alla densità a \textbf{entropia costante}:
+\begin{equation}
+c_s^2 = \left( \frac{\partial p}{\partial \rho} \right)_S
+\end{equation}
+Nel nostro plasma, invece, la quantità $C_s^2$ (che abbiamo definito come \textbf{velocità del suono iono-acustica}) assume una forma completamente diversa:
+\begin{equation}
+C_s^2 = \frac{Z T_e}{m_i}
+\end{equation}
+Si tratta del rapporto tra la temperatura degli elettroni (che fornisce la pressione termica) e la massa degli ioni (che fornisce l'inerzia). Sebbene si comporti cinematicamente come un'onda sonora fluida, fisicamente è un oggetto di natura molto più complessa, peculiare dello stato di plasma, in cui l'accoppiamento tra le due specie genera questa dinamica collettiva.
+
+\section{Condizioni di Propagazione delle Onde Iono-Acustiche}
+
+La condizione fondamentale di validità affinché le onde iono-acustiche possano esistere e propagarsi è l'esistenza di un forte squilibrio termico tra le specie:
+\begin{equation}
+T_e \gg T_i
+\end{equation}
+Ovvero, la temperatura elettronica deve essere molto maggiore di quella ionica. Se ci trovassimo in una situazione termodinamica di puro equilibrio con $T_e \approx T_i$, le onde verrebbero completamente soppresse (smorzate) nell'arco di una singola frazione di periodo a causa dello smorzamento di Landau degli ioni.
+Le onde iono-acustiche si propagano esclusivamente quando $T_e$ è parecchio più grande di $T_i$, una condizione molto ricorrente in svariati scenari della fisica dei plasmi che già conoscete. Sotto questa condizione asintotica, possiamo trascurare molti effetti secondari e concentrarci sul fenomeno fondamentale: lo \textbf{smorzamento di Landau} (Landau Damping).
+
+\section{Interpretazione Fisica dello Smorzamento di Landau}
+
+Avendo già trattato lo smorzamento di Landau dal punto di vista matematico ed essendo giunti alla formula rigorosa tramite il formalismo complesso, cerchiamo ora di comprenderlo in termini prettamente fisici e intuitivi. Vogliamo spiegare a livello fenomenologico cosa significa scambiare energia senza ricorrere ad attriti classici.
+
+\subsection{Dinamica nello Spazio delle Fasi e Trappolamento}
+Per fare ciò, operiamo un cambio di sistema di riferimento, passando dal sistema del laboratorio al sistema di riferimento solidale con la \textbf{cresta dell'onda} (o, in generale, solidale all'onda stazionaria). Introduciamo la nuova coordinata spaziale $\xi$:
+\begin{equation}
+\xi = x - v_\phi t
+\end{equation}
+dove $v_\phi = \omega/k$ è la velocità di fase dell'onda. In questo nuovo riferimento, assumiamo che il campo elettrico elettrostatico spaziale generato dal sistema sia stazionario e definito da un potenziale periodico del tipo:
+\begin{equation}
+\phi(\xi) = \phi_0 \cos(k\xi)
+\end{equation}
+
+L'\textbf{Hamiltoniana} (ovvero l'energia totale) per una singola particella (elettrone) in questo sistema in moto risulta essere:
+\begin{equation}
+H = E = \frac{1}{2} m (v - v_\phi)^2 - e \phi_0 \cos(k\xi)
+\end{equation}
+Il primo termine è l'energia cinetica valutata rispetto alla velocità di fase dell'onda, mentre il secondo è l'energia potenziale del campo elettrostatico statico.
+
+L'energia totale del sistema si conserva ($E = \text{costante}$). Se tracciamo le orbite nello \textbf{spazio delle fasi} $(\xi, v)$, le traiettorie sono descritte da iso-superfici di energia costante.
+Le particelle che non possiedono energia cinetica sufficiente per superare le barriere di potenziale dell'onda rimangono "intrappolate" (\textbf{trapping} delle particelle). Queste particelle compiono un moto confinato all'interno delle "buche" di potenziale.
+
+Definiamo la velocità relativa della particella rispetto all'onda come $u = v - v_\phi$. La condizione di intrappolamento impone che la velocità $u$ non superi una certa velocità di soglia $u_m$, ricavabile uguagliando l'energia cinetica massima al dislivello potenziale:
+\begin{equation}
+\frac{1}{2} m u_m^2 = e \phi_0 \implies u_m = \sqrt{\frac{2e\phi_0}{m}}
+\end{equation}
+
+Quando una particella entra nella buca e viene riflessa dalle pareti di potenziale, la sua velocità relativa subisce un'inversione. Se $u_i$ è la velocità relativa iniziale, a seguito della riflessione elastica la velocità relativa finale sarà:
+\begin{equation}
+u_f = - u_i
+\end{equation}
+
+\subsection{Scambio di Energia tra Onda e Particelle Risonanti}
+Torniamo ora nel sistema di riferimento del laboratorio per valutare il bilancio energetico. Le velocità nel sistema fisso sono:
+\begin{itemize}
+\item Velocità iniziale: $v_i = v_\phi + u_i$
+\item Velocità finale: $v_f = v_\phi + u_f = v_\phi - u_i$
+\end{itemize}
+
+Lo scambio di energia $\Delta E$ (variazione di energia cinetica) della singola particella nel sistema del laboratorio è:
+\begin{equation}
+\Delta E = \frac{1}{2} m \left( v_f^2 - v_i^2 \right) = \frac{1}{2} m \left[ (v_\phi - u_i)^2 - (v_\phi + u_i)^2 \right]
+\end{equation}
+Svolgendo i quadrati:
+\begin{equation}
+\Delta E = \frac{1}{2} m \left[ v_\phi^2 - 2v_\phi u_i + u_i^2 - (v_\phi^2 + 2v_\phi u_i + u_i^2) \right] = - 2 m v_\phi u_i
+\end{equation}
+Ricordando che $u_i = v_i - v_\phi$, otteniamo:
+\begin{equation}
+\Delta E = - 2 m v_\phi (v_i - v_\phi)
+\end{equation}
+
+Il segno di questo scambio di energia è cruciale per comprendere la direzione del trasferimento:
+\begin{itemize}
+\item Se $v_i < v_\phi \implies u_i < 0 \implies \Delta E > 0$: La particella (leggermente più lenta dell'onda) riceve energia dall'onda e viene \textbf{accelerata}.
+\item Se $v_i > v_\phi \implies u_i > 0 \implies \Delta E < 0$: La particella (leggermente più veloce dell'onda) cede energia all'onda e viene \textbf{rallentata}.
+\end{itemize}
+\textit{Nota: Spesso in letteratura o in alcune diapositive potreste trovare definito il $\Delta E$ dell'onda anziché della particella, per cui i segni appaiono invertiti (es. $\Delta E_{\text{onda}} = 2m v_\phi(v_i - v_\phi)$).}
+
+\subsection{Stima Analitica del Tasso di Smorzamento ($\gamma$)}
+Per quantificare l'effetto globale sul plasma, stimiamo il ritmo al quale avviene questo scambio. Il \textbf{tempo caratteristico di interazione} (o di attraversamento della lunghezza d'onda $\lambda$) per una particella è:
+\begin{equation}
+\tau_{int} = \frac{\lambda}{|v - v_\phi|}
+\end{equation}
+La frequenza di interazione (numero di interazioni per unità di tempo) è quindi:
+\begin{equation}
+\nu_{int} = \frac{|v - v_\phi|}{\lambda}
+\end{equation}
+Considerando la distribuzione delle velocità $f_0(v) dv$, il tasso differenziale di interazione per unità di volume è:
+\begin{equation}
+d\Gamma = \frac{|v - v_\phi|}{\lambda} f_0(v) , dv
+\end{equation}
+
+La potenza netta trasferita all'onda (variazione di energia dell'onda nel tempo) si ottiene integrando il prodotto tra lo scambio di energia $\Delta E_{\text{onda}} = -\Delta E_{\text{particella}}$ e il tasso di interazione su tutte le particelle intrappolate (per $v$ compreso tra $v_\phi - u_m$ e $v_\phi + u_m$). Sostituendo $v - v_\phi = u$, abbiamo:
+\begin{equation}
+\frac{dW}{dt} \approx \frac{2m v_\phi}{\lambda} \left[ \int_{0}^{u_m} u^2 f_0(v_\phi + u) , du - \int_{-u_m}^{0} u^2 f_0(v_\phi + u) , du \right]
+\end{equation}
+
+Sviluppiamo la funzione di distribuzione in \textbf{Serie di Taylor} attorno alla velocità di fase:
+\begin{equation}
+f_0(v_\phi + u) \approx f_0(v_\phi) + f_0'(v_\phi) u
+\end{equation}
+Inserendo l'espansione negli integrali, il termine di ordine zero dipendente da $f_0(v_\phi)$ si cancella esattamente per simmetria. Sopravvive solo il termine contenente la derivata prima:
+\begin{equation}
+\frac{dW}{dt} \propto \frac{2m v_\phi}{\lambda} f_0'(v_\phi) \int_{0}^{u_m} u^4 , du
+\end{equation}
+
+Essendo l'energia dell'onda $W \propto E^2 \propto e^{2\gamma t}$, la derivata temporale della densità di energia è legata al tasso di smorzamento da:
+\begin{equation}
+\frac{dW}{dt} = 2\gamma W \implies \gamma = \frac{1}{2W} \frac{dW}{dt}
+\end{equation}
+
+Svolgendo i passaggi algebrici finali e sostituendo il valore di $u_m$, si ottiene una stima approssimata per il \textbf{tasso di smorzamento di Landau}:
+\begin{equation}
+\gamma \approx \frac{1}{\pi} \frac{\omega_p^3}{k^3} f_0'(v_\phi)
+\end{equation}
+Se eseguiamo il calcolo tramite l'integrazione cinetica esatta nel piano complesso vista la volta precedente, il pre-fattore risulta essere $\frac{\pi}{2}$ anziché $\frac{1}{\pi}$. C'è una differenza di un fattore $\approx 5$ tra l'approssimazione fenomenologica e il conto esatto, ma la cosa fondamentale è che questa stima restituisce la \textbf{corretta dipendenza fisica} da $f_0'(v_\phi)$.
+
+Abbiamo dimostrato che il \textbf{Landau Damping} non è un artificio matematico, ma il risultato diretto dello \textbf{scambio netto di energia in condizioni risonanti} (nello spazio delle fasi) tra le particelle intrappolate e il campo elettrostatico.
+
+\section{Conclusioni e Prospettive Astrofisiche}
+
+Per oggi ci fermiamo qui, in quanto la difficoltà di questi argomenti non risiede nei tecnicismi dell'analisi matematica (i conti, una volta capiti i passaggi, sono standard), ma nella \textbf{sottile complessità concettuale della fenomenologia fisica} che li governa. Lo sviluppo dell'intuizione fisica richiede tempo e metabolizzazione.
+
+Nella prossima lezione esploreremo un paradosso astrofisico: in che modo il fenomeno del Landau Damping diviene un \textbf{fenomeno osservabile} (ad esempio nella corona solare o in altri scenari astrofisici)?
+Il dubbio sorge spontaneo: le oscillazioni di cui stiamo discutendo, le onde di plasma, sono intrinsecamente \textbf{onde longitudinali}, mentre la radiazione che riusciamo a captare tramite i telescopi è costituita da \textbf{onde elettromagnetiche trasversali}. Vedremo quindi i meccanismi di accoppiamento che rendono manifesta l'impronta dello smorzamento di Landau nell'emissione di radiazione osservabile.
