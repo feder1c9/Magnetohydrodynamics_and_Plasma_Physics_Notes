@@ -1,1 +1,295 @@
-\chapter{Lezione 2b - }
+\chapter{Lezione 2b - 13/10/2026}
+
+\section{Introduzione: resistività e radiazione nei plasmi collisionali}
+In questa lezione si analizza cosa fanno le collisioni coulombiane alle correnti nel plasma (resistività, diffusione del campo magnetico, elettroni \textit{runaway}) e come un plasma collisionale irraggia (\textit{bremsstrahlung}, righe, funzione di raffreddamento). Le letture di riferimento sono Spitzer (1962), cap.~5, Fitzpatrick, cap.~3, e Rybicki \& Lightman, cap.~5. I riferimenti bibliografici sono quelli citati nelle slide e vanno verificati sui testi originali.
+
+Si usano unità gaussiane (CGS); la temperatura è espressa in unità di energia ($k_B=1$) nelle formule teoriche, mentre le formule numeriche usano $T_{\rm eV}$ o $T_{\rm K}$ come indicato.
+
+\section{Richiami: le collisioni come diffusione nello spazio delle velocità}
+Dalla parte precedente della lezione si ricordano i risultati seguenti. La deflessione di Rutherford è data da
+\begin{equation}
+\tan\frac{\theta}{2}=\frac{b_{90}}{b},\qquad b_{90}=\frac{q_1q_2}{m_ru^2},
+\end{equation}
+dove $b_{90}$ è il parametro d'impatto a $90^\circ$. Nell'approssimazione di piccolo angolo ($b\gg b_{90}$) si integra la forza lungo la traiettoria rettilinea: la componente parallela è dispari nel tempo e non dà effetto cumulativo, resta quella perpendicolare, e l'angolo di deflessione è $\theta\simeq 2b_{90}/b$.
+La sezione d'urto per trasferimento di momento e il logaritmo di Coulomb sono
+\begin{equation}
+\sigma_m=4\pi b_{90}^2\ln\Lambda,\qquad \Lambda=\frac{12\pi n_e\lambda_{De}^3}{Z},\qquad \ln\Lambda\in[10,40].
+\end{equation}
+Ogni decade di parametro d'impatto contribuisce ugualmente al logaritmo: dominano le collisioni lontane e deboli, la cui intensità è controllata da $\ln\Lambda$.
+La frequenza di collisione elettrone--ione e la sua dipendenza dalla velocità sono
+\begin{equation}
+\nu_{ei}=2.91\times10^{-6}\,Z\,n_e\ln\Lambda\,T_{\rm eV}^{-3/2}\ \mathrm{s^{-1}},\qquad \nu(v)\propto v^{-3}.
+\end{equation}
+Lo scambio di energia tra specie diverse è più lento di un fattore $2m_e/m_i$, e la gerarchia dei tempi di rilassamento è $1:(m_i/m_e)^{1/2}:m_i/m_e$.
+Come detto in aula, gli elettroni diventano maxwelliani con la scala dei tempi di collisione elettrone--ione, gli ioni dopo circa $43\approx(m_i/m_e)^{1/2}$ volte più tempo, e le temperature di elettroni e ioni si eguagliano dopo circa $2000\approx m_i/m_e$ volte.
+
+Le collisioni coulombiane introducono dunque una temperatura (la distribuzione tende a una maxwelliana), uno scambio di energia tra le specie, e due elementi centrali per tutto il corso: la \textbf{resistività}, inverso della conducibilità, e l'\textbf{emissione di radiazione}.
+La resistività è il legame fondamentale con la descrizione fluida del plasma, perché seleziona la diffusività magnetica e il numero di Reynolds magnetico: nella maggior parte delle condizioni astrofisiche rilevanti il plasma si può descrivere come un fluido.
+
+\section{La resistività del plasma}
+
+\subsection{La legge di Ohm dalla frizione}
+Si considera un campo elettrico uniforme $\mathbf{E}$, ioni fermi ed elettroni che derivano con velocità $\mathbf{u}_e$. L'equazione del moto elettronico con attrito è
+\begin{equation}
+m_en_e\frac{d\mathbf{u}_e}{dt}=-en_e\mathbf{E}-m_en_e\,\nu_{ei}\,\mathbf{u}_e .
+\end{equation}
+Dopo qualche tempo di collisione si raggiunge lo stato stazionario ($d\mathbf{u}_e/dt=0$):
+\begin{equation}
+\mathbf{u}_e=-\frac{e\mathbf{E}}{m_e\nu_{ei}},\qquad \mathbf{j}=-en_e\mathbf{u}_e=\frac{n_ee^2}{m_e\nu_{ei}}\,\mathbf{E}\equiv\sigma\mathbf{E} .
+\end{equation}
+La densità si cancella: nella resistività contano solo $T$ e $\ln\Lambda$,
+\begin{equation}
+\eta_{\rm res}=\frac{1}{\sigma}=\frac{m_e\nu_{ei}}{n_ee^2}=\frac{4\sqrt{2\pi}}{3}\,\frac{Ze^2m_e^{1/2}\ln\Lambda}{T_e^{3/2}} .
+\end{equation}
+Per ottenere l'espressione esplicita si usa la frequenza di collisione media su una maxwelliana,
+\begin{equation}
+\nu_{ei}=\frac{4\sqrt{2\pi}}{3}\,\frac{Zn_ee^4\ln\Lambda}{m_e^{1/2}T_e^{3/2}},
+\end{equation}
+che riproduce il coefficiente $2.91\times10^{-6}$ con $T$ in eV e $n_e$ in $\mathrm{cm^{-3}}$.
+La ragione fisica dell'indipendenza da $n_e$ è semplice: raddoppiare la densità raddoppia i portatori di carica, ma anche i bersagli che li frenano.
+
+\subsection{Resistività di Spitzer}
+La corrente è trasportata soprattutto dagli elettroni più veloci, che collidono meno (perché $\nu\propto v^{-3}$): la stima semplice sovrastima quindi la resistività.
+La teoria cinetica (Spitzer \& H\"arm 1953, cap.~7) dà, lungo $\mathbf{B}$ e per $Z=1$, un valore inferiore di un fattore $1.96$:
+\begin{equation}
+\eta_\parallel\simeq0.51\,\frac{m_e\nu_{ei}}{n_ee^2}=5.9\times10^{-15}\,Z\,\ln\Lambda\,T_{\rm eV}^{-3/2}\ \mathrm{s} .
+\end{equation}
+In unità SI il coefficiente è $5.2\times10^{-5}\,Z\ln\Lambda\,T_{\rm eV}^{-3/2}\ \Omega\,\mathrm{m}$; in unità gaussiane la resistività ha le dimensioni di un tempo, e il passaggio è $\eta_{\rm SI}=\eta_G/(4\pi\varepsilon_0)=8.99\times10^{9}\,\eta_G$.
+Perpendicolarmente al campo si ha $\eta_\perp\simeq2\eta_\parallel$.
+
+Per $T=10^7$~K ($T_{\rm eV}\simeq862$) e $\ln\Lambda=20$ si ottiene $\eta_{\rm SI}\simeq4\times10^{-8}\,\Omega\,\mathrm{m}$, confrontabile con il rame a 300~K ($1.7\times10^{-8}\,\Omega\,\mathrm{m}$): un plasma a $10^7$~K conduce circa come il rame, mentre la corona a $10^6$~K ha una resistività circa $100$ volte maggiore.
+
+Come ricordato in aula, Spitzer calcola esattamente la resistività del plasma classico, e la sua formula è ancora oggi quella usata nei vari contesti astrofisici. Un collega dello Ioffe Institute di San Pietroburgo ha dedicato la carriera al calcolo della resistività in sistemi più complessi, come il nucleo delle giganti rosse e la crosta delle stelle di neutroni.
+Si distinguono due tipi di $\eta$: quella \textbf{resistiva} (microscopica, Spitzer) e quella \textbf{turbolenta}, molto più importante e creativa, che verrà trattata più avanti nel corso.
+
+\section{Diffusione del campo magnetico}
+
+\subsection{L'equazione di induzione resistiva}
+Si combinano la legge di Ohm $\mathbf{E}=\eta_{\rm res}\mathbf{j}$, la legge di Amp\`ere (senza corrente di spostamento) $\mathbf{j}=\frac{c}{4\pi}\nabla\times\mathbf{B}$ e la legge di Faraday $\partial_t\mathbf{B}=-c\,\nabla\times\mathbf{E}$. Per $\eta_{\rm res}$ uniforme:
+\begin{align}
+\frac{\partial\mathbf{B}}{\partial t}
+&=-c\,\nabla\times\left(\eta_{\rm res}\,\frac{c}{4\pi}\,\nabla\times\mathbf{B}\right)
+=-\frac{c^2\eta_{\rm res}}{4\pi}\,\nabla\times\nabla\times\mathbf{B} \nonumber\\
+&=\frac{c^2\eta_{\rm res}}{4\pi}\,\nabla^2\mathbf{B} ,
+\end{align}
+dove si è usata l'identità $\nabla\times\nabla\times\mathbf{B}=\nabla(\nabla\cdot\mathbf{B})-\nabla^2\mathbf{B}=-\nabla^2\mathbf{B}$, perché $\nabla\cdot\mathbf{B}=0$.
+Si ottiene $\partial_t\mathbf{B}=\eta\nabla^2\mathbf{B}$ con la diffusività magnetica di Spitzer
+\begin{equation}
+\eta=\frac{c^2\eta_{\rm res}}{4\pi}\simeq4.2\times10^{5}\,\frac{Z\ln\Lambda}{T_{\rm eV}^{3/2}}\ \mathrm{cm^2\,s^{-1}}
+\simeq10^{13}\left(\frac{\ln\Lambda}{20}\right)T_{\rm K}^{-3/2}\ \mathrm{cm^2\,s^{-1}} .
+\end{equation}
+Verifica dei coefficienti: $c^2/(4\pi)=7.15\times10^{19}\ \mathrm{cm^2\,s^{-2}}$ e $7.15\times10^{19}\times5.9\times10^{-15}=4.2\times10^{5}$ (con $Z=1$); inoltre $T_{\rm eV}^{-3/2}=1.25\times10^{6}\,T_{\rm K}^{-3/2}$, quindi con $\ln\Lambda=20$ si ha $4.2\times10^5\times1.25\times10^6\times20\simeq10^{13}$.
+
+\subsection{Analogia con la diffusione del calore}
+Se la resistività non dipende dalla posizione, ciascuna componente di $\mathbf{B}$ obbedisce alla stessa equazione di diffusione del calore, $\partial_tT=\kappa\nabla^2T$; che le componenti siano tre non cambia nulla. È un'equazione \textbf{parabolica}: le equazioni alle derivate parziali del second'ordine si classificano in paraboliche, iperboliche ed ellittiche.
+Nelle equazioni paraboliche (diffusione) la velocità di propagazione è formalmente infinita (una perturbazione si avverte subito ovunque, con ampiezza esponenzialmente piccola); in quelle iperboliche (onde) è finita; quelle ellittiche (Poisson) descrivono situazioni stazionarie. Nella trascrizione i primi due casi risultano scambiati per un lapsus.
+
+Come esempio intuitivo, un profilo unidimensionale di temperatura $T(x,0)$ si allarga e si abbassa ai tempi successivi. Un pezzo di ferro arroventato lasciato per ore si raffredda e la temperatura finale è quella dell'ambiente: matematicamente il decadimento esponenziale non la raggiunge mai, ma fisicamente sì, e la scala di tempo è fissata dal coefficiente di diffusione.
+
+Soluzioni elementari in una dimensione, per $\partial_tB=\eta\,\partial_x^2B$. Un modo di Fourier è $B=B_0\,e^{ikx}e^{-\eta k^2t}$, con tempo di decadimento $1/(\eta k^2)$: le piccole scale decadono più in fretta. La funzione di Green (condizione iniziale $\delta(x)$) è
+\begin{equation}
+G(x,t)=\frac{1}{\sqrt{4\pi\eta t}}\exp\left(-\frac{x^2}{4\eta t}\right),
+\end{equation}
+una gaussiana di larghezza $\sigma=\sqrt{2\eta t}$. Per una struttura di dimensione $L$ si assume $k\sim\pi/L$, da cui il tempo di decadimento libero $L^2/(\pi^2\eta)$.
+
+\subsection{Tempo ohmico e numero di Reynolds magnetico}
+Il decadimento ohmico di una struttura di dimensione $L$ avviene su una scala di tempo
+\begin{equation}
+\tau_\eta\sim\frac{L^2}{\eta},
+\end{equation}
+mentre l'avvezione da parte di un flusso di velocità $U$ compete con la diffusione secondo il numero di Reynolds magnetico
+\begin{equation}
+R_m=\frac{UL}{\eta}.
+\end{equation}
+Il motivo è che, in presenza di un flusso $\mathbf{u}$, l'equazione di induzione diventa
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{u}\times\mathbf{B})+\eta\nabla^2\mathbf{B},
+\end{equation}
+e i due termini hanno ordine di grandezza $UB/L$ e $\eta B/L^2$, con rapporto $UL/\eta=R_m$. Per $R_m\gg1$ le linee di campo sono congelate nel fluido (cap.~12 delle note); per $R_m\lesssim1$ domina la diffusione ohmica.
+
+\section{La diffusività magnetica nell'Universo}
+
+\subsection{Valori tipici}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|c|}
+\hline
+Ambiente & $T$ [K] & $\eta$ [$\mathrm{cm^2\,s^{-1}}$] & $L$ [cm] & $\tau_\eta=L^2/\eta$ & $R_m=UL/\eta$\\
+\hline
+Corona solare (arco) & $10^{6}$ & $10^{4}$ & $10^{9}$ & $3\times10^{6}$ yr & $10^{12}$\\
+Base della zona convettiva solare & $2\times10^{6}$ & $5\times10^{2}$ & $2\times10^{10}$ & $3\times10^{10}$ yr & $10^{11}$\\
+ISM caldo ionizzato & $10^{4}$ & $10^{7}$ & $3\times10^{18}$ & $3\times10^{22}$ yr & $10^{17}$\\
+Mezzo intra-ammasso & $10^{8}$ & $20$ & $3\times10^{23}$ & $10^{38}$ yr & $10^{29}$\\
+Nucleo esterno terrestre (Fe liquido) & $5\times10^{3}$ & $10^{4}$ & $3.5\times10^{8}$ & $4\times10^{5}$ yr & $10^{3}$\\
+\hline
+\end{tabular}
+\end{center}
+Controllo di due righe: per la corona $\tau=10^{18}/10^{4}=10^{14}$~s $\simeq3\times10^{6}$~yr; per il nucleo terrestre $\tau=(3.5\times10^{8})^2/10^{4}\simeq1.2\times10^{13}$~s $\simeq4\times10^{5}$~yr, e con il fattore $1/\pi^2$ del decadimento libero si ha $\simeq4\times10^{4}$~yr.
+
+\subsection{Terra, Sole e plasmi astrofisici}
+\begin{itemize}
+\item \textbf{Terra.} Il decadimento libero richiede $\approx4\times10^{4}$~yr, molto meno dei $4.5$~Gyr dell'età del pianeta, eppure il campo esiste da almeno $3.5$~Gyr; quindi deve essere rigenerato, e serve una \textbf{dinamo} (in aula l'ordine di grandezza citato era $10^4$--$2\times10^4$ anni).
+\item \textbf{Plasmi astrofisici.} I tempi ohmici superano di molto l'età dell'Universo e $R_m$ è enorme, quindi le linee di campo sono congelate nel plasma.
+\item \textbf{Sole.} Alla base della zona convettiva $\eta\approx500~\mathrm{cm^2\,s^{-1}}$ e $\tau_\eta\approx3\times10^{10}$~yr, molto più dell'età del Sole; il campo solare invece inverte la polarità ogni $\sim11$ anni, circa $10^9$ volte più in fretta del decadimento ohmico, quindi la diffusione efficace dev'essere turbolenta.
+\end{itemize}
+Il problema centrale della teoria della dinamo è individuare i meccanismi capaci di rigenerare il campo (Terra) e di spiegarne il ciclo (Sole). Nessuno ha oggi una soluzione accettata per il campo magnetico del Sole. Le simulazioni più accurate, fatte in Giappone su un supercomputer RIKEN (circa 30\,000 core e un mese di tempo macchina), riproducono la struttura della rotazione differenziale ma non ancora il ciclo magnetico.
+
+\subsection{Le stelle di neutroni}
+Dopo il collasso di supernova si forma una proto-stella di neutroni (raggio $\sim50$~km, rotazione dell'ordine del millisecondo, molto calda, con moti collettivi) che si raffredda in pochi minuti. Durante il raffreddamento si forma in superficie una crosta solida (spessore dell'ordine del chilometro; in aula si è parlato di circa 800~m), per la quale si sa calcolare la diffusività.
+Il decadimento ohmico c'è ma è lento: il campo osservato è un \textbf{campo fossile}, congelato nella crosta al momento della sua formazione. Come esercizio è stata proposta la diffusione del campo nella crosta (si veda l'ultima sezione).
+
+\subsection{Diffusività microscopica e turbolenta}
+La diffusività vista finora è quella microscopica, determinata dalla microfisica delle collisioni, che si conosce bene e funziona dove la si può verificare in laboratorio. Ma non basta a spiegare la maggior parte dei fenomeni: occorre una diffusività legata ai \textbf{moti turbolenti}, la cui scala di tempo è quella dei moti convettivi e non delle collisioni.
+Lo stesso vale per la viscosità: se il Sole conservasse il momento angolare nella contrazione ruoterebbe a una velocità enorme; non succede perché il trasferimento turbolento di momento angolare, descritto da un'equazione di diffusione, lo ha ridistribuito. Senza capire la turbolenza non si descrivono il trasporto di momento angolare nelle stelle, il campo magnetico, né la vita sulla Terra.
+
+\section{Elettroni runaway}
+
+\subsection{Frizione su elettroni in deriva}
+Elettroni che si muovono con velocità $u$ attraverso ioni fermi subiscono la forza di attrito (cap.~7 delle note)
+\begin{equation}
+F(u)=\frac{4\pi n_ee^4\ln\Lambda}{m_eu^2}\,\psi\left(\frac{u}{\sqrt2\,v_{te}}\right),\qquad
+\psi(x)=\mathrm{erf}\,x-\frac{2}{\sqrt\pi}\,x\,e^{-x^2}.
+\end{equation}
+Per $u\gg v_{te}$ si ha $\psi\to1$ e $F\propto u^{-2}$, che \textit{decresce} con la velocità. Per $u\ll v_{te}$ si ha $\psi\simeq\frac{4}{3\sqrt\pi}x^3$, quindi
+\begin{equation}
+F\simeq\frac{4\pi n_ee^4\ln\Lambda}{m_eu^2}\cdot\frac{4}{3\sqrt\pi}\cdot\frac{u^3}{2\sqrt2\,v_{te}^3}=m_e\nu_{ei}\,u,
+\end{equation}
+esattamente la legge di Ohm con la $\nu_{ei}$ mediata su una maxwelliana.
+Lo sviluppo di $\psi$: per $x\ll1$, $\mathrm{erf}\,x\simeq\frac{2}{\sqrt\pi}\left(x-\frac{x^3}{3}\right)$ e $\frac{2}{\sqrt\pi}xe^{-x^2}\simeq\frac{2}{\sqrt\pi}(x-x^3)$, con differenza $\frac{4}{3\sqrt\pi}x^3$. Con $v_{te}^2=T_e/m_e$ il coefficiente di $u$ vale $\frac{4\sqrt{2\pi}}{3}\,n_ee^4\ln\Lambda\,m_e^{1/2}/T_e^{3/2}=m_e\nu_{ei}$, in accordo con quanto ricavato sopra.
+
+\subsection{Il campo di Dreicer}
+La frizione ha un massimo $F_{\max}\approx0.21\,eE_D$ a $u\approx1.4\,v_{te}$, dove il \textbf{campo di Dreicer} è
+\begin{equation}
+E_D\equiv\frac{4\pi n_ee^3\ln\Lambda}{T_e}=\frac{e\ln\Lambda}{\lambda_{De}^2}=2.6\times10^{-11}\,\frac{n_e\ln\Lambda}{T_{\rm eV}}\ \mathrm{V\,m^{-1}}\qquad(n_e\ \text{in}\ \mathrm{cm^{-3}}).
+\end{equation}
+Se $E\gtrsim0.2\,E_D$ il campo supera il massimo della frizione e si ha runaway di massa (tutti gli elettroni sono accelerati). Se $E\ll E_D$ scappa solo la coda della distribuzione: per un elettrone veloce di prova $F(v)\simeq(2+Z)\,4\pi n_ee^4\ln\Lambda/(m_ev^2)$, e imponendo $eE=F(v_c)$
+\begin{equation}
+\frac{v_c^2}{v_{te}^2}=(2+Z)\frac{E_D}{E},\qquad
+\text{frazione runaway}\sim\exp\left[-\frac{(2+Z)E_D}{2E}\right].
+\end{equation}
+Passaggi: poiché $eE_D=4\pi n_ee^4\ln\Lambda/T_e$, si ha $F(v)=(2+Z)\,eE_D\,v_{te}^2/v^2$, e ponendo $F(v_c)=eE$ si ottiene $v_c^2/v_{te}^2$; la frazione di elettroni con $v>v_c$ in una maxwelliana scala come $\exp(-v_c^2/2v_{te}^2)$.
+Verifica numerica per la corona ($n_e=10^9~\mathrm{cm^{-3}}$, $T=10^6$~K, $T_{\rm eV}\simeq86$, $\ln\Lambda=20$): $E_D\simeq2.6\times10^{-11}\cdot10^{9}\cdot20/86\simeq6\times10^{-3}$~V/m, in accordo con il valore $\approx5\times10^{-3}$~V/m delle slide.
+
+Come detto in aula, la coda della distribuzione è quasi completamente non collisionale: per velocità maggiori di circa $3$ volte la velocità termica le particelle collidono da $\sim30$ a $\sim100$ volte meno di quanto ci si aspetterebbe, da cui il fenomeno degli elettroni runaway. È coerente con $\nu(v)\simeq\nu_{ei}(v_{te}/v)^3$: a $v=3v_{te}$ la riduzione è $3^3=27$, a $v\approx4.6\,v_{te}$ circa $100$.
+
+\subsection{Flare, tokamak e temporali}
+Nella corona $E_D\approx5\times10^{-3}$~V/m, valore superato largamente dai campi da riconnessione nelle lamine di corrente dei flare. Nel flare di classe X del 29 marzo 2014, uno dei meglio osservati, gli elettroni accelerati fino a decine di keV scorrono lungo gli archi; dove incontrano la cromosfera densa si fermano ed emettono raggi X duri per bremsstrahlung ai piedi degli archi (osservati da RHESSI). Il meccanismo è rilevante anche nei tokamak e nei temporali.
+
+\section{Radiazione da collisioni}
+
+\subsection{Chi irradia}
+Una carica accelerata emette la potenza di Larmor
+\begin{equation}
+P=\frac{2e^2a^2}{3c^3}.
+\end{equation}
+Nelle collisioni $e$--$e$ non c'è radiazione di dipolo: il momento di dipolo $\mathbf{d}=\sum q\mathbf{r}=-e(\mathbf{r}_1+\mathbf{r}_2)$ è proporzionale alla posizione del centro di massa, che non accelera. Nelle collisioni $e$--$i$ irradia l'elettrone; l'accelerazione dello ione è minore di un fattore $m_e/m_i$ e la sua potenza di $(m_e/m_i)^2$.
+Il \textbf{bremsstrahlung} (emissione libero--libero) è dunque la radiazione di elettroni accelerati nel campo coulombiano degli ioni.
+
+\subsection{Una stima del bremsstrahlung}
+Uno ione a distanza $r$ imprime $a=Ze^2/(m_er^2)$; gli ioni casuali sommano incoerentemente:
+\begin{equation}
+\langle a^2\rangle=n_i\int_{r_{\min}}^\infty\left(\frac{Ze^2}{m_er^2}\right)^2 4\pi r^2\,dr
+=\frac{4\pi n_iZ^2e^4}{m_e^2}\int_{r_{\min}}^\infty\frac{dr}{r^2}=\frac{4\pi n_iZ^2e^4}{m_e^2\,r_{\min}} .
+\end{equation}
+L'integrale è dominato dagli incontri ravvicinati, l'opposto del trasferimento di momento (logaritmico, dominato dagli incontri lontani).
+Il taglio: un incontro a distanza $r$ emette frequenze $\omega\lesssim v/r$ e $\hbar\omega\lesssim m_ev^2$, quindi $r_{\min}\sim\hbar/(m_ev)$ (lunghezza di de Broglie). Per elettrone
+\begin{equation}
+P=\frac{2e^2}{3c^3}\cdot\frac{4\pi n_iZ^2e^4\,v}{m_e\hbar}=\frac{8\pi}{3}\,\frac{Z^2e^6n_i\,v}{m_ec^3\hbar},
+\end{equation}
+e per unità di volume ($n_eP$, con $v\sim(T/m_e)^{1/2}$)
+\begin{equation}
+\varepsilon_{ff}\sim\frac{8\pi}{3}\,\frac{Z^2e^6}{m_e^{3/2}c^3\hbar}\,n_en_iT^{1/2}
+=1.5\times10^{-27}\,Z^2n_en_i\,T_{\rm K}^{1/2}\ \mathrm{erg\,cm^{-3}\,s^{-1}}.
+\end{equation}
+
+\subsection{Risultato esatto e spettro}
+Il calcolo completo (spettro per singolo incontro, integrato sul parametro d'impatto e mediato su una maxwelliana) dà
+\begin{equation}
+\varepsilon_\nu=6.8\times10^{-38}\,Z^2n_en_i\,T_{\rm K}^{-1/2}\,e^{-h\nu/kT}\,\bar g_{ff}\ \ \mathrm{erg\,cm^{-3}\,s^{-1}\,Hz^{-1}}.
+\end{equation}
+Lo spettro è piatto fino a $h\nu\sim kT$ (impulsi brevi hanno spettro di Fourier piatto); solo gli elettroni con $\frac12m_ev^2>h\nu$ possono emettere a frequenza $\nu$, da cui il fattore $e^{-h\nu/kT}$; il fattore di Gaunt vale $\bar g\approx1$--$1.5$.
+Integrando con $\int_0^\infty e^{-h\nu/kT}d\nu=kT/h$ si ottiene
+\begin{equation}
+\varepsilon_{ff}=1.4\times10^{-27}\,Z^2n_en_i\,T_{\rm K}^{1/2}\,\bar g_B\ \ \mathrm{erg\,cm^{-3}\,s^{-1}}.
+\end{equation}
+Controllo: $6.8\times10^{-38}\times(k/h)\,T^{1/2}$, con $k/h=2.08\times10^{10}$~Hz/K, dà $1.4\times10^{-27}$; la stima del paragrafo precedente ($1.5\times10^{-27}$) era entro il $10\%$.
+
+Il taglio esponenziale a $h\nu\simeq kT$ è un \textbf{termometro a raggi X}: misura $T_e$, mentre la normalizzazione misura la misura di emissione $\int n_en_i\,dV$ e quindi la densità. Per la corona ($10^6$~K) $kT\simeq86$~eV, raggi X molli ($<0.1$~keV); per gli ammassi di galassie ($10^8$~K) $kT\approx9$~keV, e il taglio osservato da Chandra e XMM-Newton dà la temperatura del gas, la normalizzazione la sua densità.
+
+\subsection{Ricombinazione, righe e funzione di raffreddamento}
+Oltre al bremsstrahlung ci sono la ricombinazione (libero--legato: energia cinetica più energia di legame) e le righe (eccitazione collisionale). In regime otticamente sottile, in equilibrio coronale, tutti i processi sono a due corpi:
+\begin{equation}
+\varepsilon=n_en_H\,\Lambda(T),
+\end{equation}
+con $\Lambda$ funzione di raffreddamento. Per abbondanze solari (Sutherland \& Dopita 1993, ApJS 88, 253) $\Lambda$ sale ripidamente sopra $10^4$~K (ionizzazione dell'idrogeno), ha un picco $\approx10^{-21}~\mathrm{erg\,cm^3\,s^{-1}}$ intorno a $10^5$~K (righe di C e O; il Fe intorno a $10^6$~K) e per $T\gtrsim2\times10^7$~K domina il bremsstrahlung, $\Lambda\propto T^{1/2}$.
+
+\subsection{Tempo di raffreddamento e instabilità termica}
+Per idrogeno completamente ionizzato, $n_e=n_i=n$, l'energia termica è $\frac32(n_e+n_i)T=3nT$ e la perdita $n^2\Lambda$:
+\begin{equation}
+t_{\rm cool}=\frac{3nT}{n^2\Lambda(T)}=\frac{3T}{n\Lambda(T)}.
+\end{equation}
+Per solo bremsstrahlung ($\bar g_B\approx1.2$, $\Lambda_{ff}\simeq1.7\times10^{-27}T^{1/2}$):
+\begin{equation}
+t_{ff}\approx2.5\times10^{11}\,\frac{T_{\rm K}^{1/2}}{n}\ \mathrm{s},
+\end{equation}
+infatti $3k_BT/(n\Lambda_{ff})=3\times1.38\times10^{-16}\,T^{1/2}/(1.7\times10^{-27}\,n)$.
+Poiché $t_{\rm cool}\propto1/n$, il gas che si raffredda si comprime e si raffredda ancora più in fretta: è l'\textbf{instabilità termica}.
+
+Nei cooling flow degli ammassi, il gas diffuso ($10^{-3}~\mathrm{cm^{-3}}$, $10^8$~K) ha $t_{ff}\approx80$~Gyr; i nuclei ($10^{-2}~\mathrm{cm^{-3}}$, $3\times10^7$~K) hanno $\approx4$~Gyr, eppure c'è poca formazione stellare: serve il riscaldamento da AGN.
+Nella corona solare ($n=10^9~\mathrm{cm^{-3}}$, $T=10^6$~K, $\Lambda\approx10^{-22}$) si ha $t_{\rm cool}\approx4\times10^3$~s, circa un'ora: la corona dev'essere riscaldata continuamente.
+
+Come sottolineato in aula, la perdita di energia per radiazione può portare a instabilità termiche, che a loro volta innescano turbolenza. Per questo interessa capire le possibili sorgenti di instabilità: l'instabilità genera moti turbolenti, e questi danno una diffusività fisica, capace di spiegare fenomeni che la diffusività microscopica di Spitzer non spiega (come nella zona convettiva del Sole).
+
+\section{Riepilogo}
+\begin{center}
+\small
+\begin{tabular}{|l|l|}
+\hline
+Deflessione di Rutherford & $\tan(\theta/2)=b_{90}/b,\quad b_{90}=q_1q_2/(m_ru^2)$\\
+\hline
+Trasferimento di momento & $\sigma_m=4\pi b_{90}^2\ln\Lambda$\\
+\hline
+Logaritmo di Coulomb & $\Lambda=12\pi n_e\lambda_{De}^3/Z$\\
+\hline
+Frequenza di collisione & $\nu_{ei}\propto n_eT_e^{-3/2},\ \nu(v)\propto v^{-3}$\\
+\hline
+Gerarchia dei tempi & $1:(m_i/m_e)^{1/2}:m_i/m_e$\\
+\hline
+Resistività (Spitzer) & $\eta_\parallel\simeq0.51\,m_e\nu_{ei}/(n_ee^2)$\\
+\hline
+Diffusività magnetica & $\eta\simeq10^{13}\,T_{\rm K}^{-3/2}\ \mathrm{cm^2\,s^{-1}}$\\
+\hline
+Campo di Dreicer & $E_D=e\ln\Lambda/\lambda_{De}^2$\\
+\hline
+Bremsstrahlung & $\varepsilon_{ff}=1.4\times10^{-27}Z^2n_en_iT^{1/2}$\\
+\hline
+Raffreddamento & $t_{\rm cool}=3T/(n\Lambda)$\\
+\hline
+\end{tabular}
+\end{center}
+Gli incontri lontani producono una diffusione nello spazio delle velocità; $\nu\propto v^{-3}$ implica runaway e plasmi caldi non collisionali; $\eta$ è indipendente da $n$; gli incontri ravvicinati producono il bremsstrahlung.
+Il prossimo modulo (3a) tratta le orbite di particelle cariche e le derive; esercizi: set~1.
+
+\section{Spunto per un progetto in Python}
+Come proposto in aula, si può aggiungere uno snippet sull'equazione di diffusione: costruire il profilo e vederlo decadere, eventualmente applicandolo al campo congelato nella crosta di una stella di neutroni. Una possibile realizzazione (schema FTCS, condizioni al bordo $B=0$):
+\begin{verbatim}
+import numpy as np
+import matplotlib.pyplot as plt
+
+eta = 1.0                       # diffusivita' (unita' arbitrarie)
+L, N = 1.0, 200
+dx = L / N
+dt = 0.4 * dx**2 / eta          # stabilita': eta*dt/dx^2 <= 1/2
+x = np.linspace(0, L, N + 1)
+B = np.sin(np.pi * x / L)       # modo fondamentale
+
+for step in range(2000):
+    B[1:-1] += eta * dt / dx**2 * (B[2:] - 2*B[1:-1] + B[:-2])
+    if step % 400 == 0:
+        plt.plot(x, B, label=f"t = {step*dt:.3f}")
+
+plt.legend(); plt.xlabel("x"); plt.ylabel("B")
+plt.show()
+# confronto: ampiezza ~ exp(-eta*(pi/L)**2 * t), tau = L^2/(pi^2 * eta)
+\end{verbatim}
+Per un'applicazione realistica occorre scegliere $L$ e $\eta$ coerenti con la crosta e passare dalle unità arbitrarie a quelle fisiche tramite $\tau_\eta=L^2/(\pi^2\eta)$. Lo schema esplicito è stabile solo se $\eta\,\Delta t/\Delta x^2\le1/2$.
