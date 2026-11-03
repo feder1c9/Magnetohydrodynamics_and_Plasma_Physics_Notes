@@ -1,0 +1,355 @@
+\chapter{Lezione 7a - 02/11/2026}
+
+\section{Introduzione: dalla passeggiata casuale all'operatore di collisione}
+In questa lezione si costruisce il termine collisionale dell'equazione cinetica per un plasma coulombiano. L'idea è trasformare la passeggiata casuale delle deflessioni, vista nella parte sulle collisioni, in un termine dell'equazione cinetica valido per una qualunque distribuzione delle particelle di campo; il risultato finale è l'operatore di collisione che trasforma l'equazione di Vlasov nell'equazione di Landau. Gli argomenti sono:
+\begin{itemize}
+\item kick casuali e diffusione nello spazio delle velocità;
+\item l'equazione di Fokker--Planck in tre dimensioni;
+\item attrito e diffusione dagli urti coulombiani;
+\item una particella di prova in una maxwelliana: la funzione di Chandrasekhar;
+\item l'operatore di Landau.
+\end{itemize}
+Letture di riferimento: Helander \& Sigmar, cap.~3; Goldston \& Rutherford, cap.~11; Rosenbluth, MacDonald \& Judd (1957); note del corso, cap.~7, \S7.1--7.2. I riferimenti bibliografici sono quelli citati nelle slide e vanno verificati sui testi originali.
+
+A lezione il docente ha sottolineato che questi problemi (come si genera il campo magnetico nel centro della Terra e nel Sole, come si arriva alla fusione controllata) non sono stati posti dagli esseri umani ma dalla natura, e che per affrontarli serve acquisire il modo di ragionare del fisico, non solo la capacità di fare calcoli.
+
+\section{Richiami e motivazione}
+\subsection{Le deflessioni come passeggiata casuale}
+Dal capitolo 2 si ricorda che le deflessioni coulombiane si sommano come una passeggiata casuale:
+\begin{equation}
+\frac{d\langle\theta^2\rangle}{dt}=8\pi n u\, b_{90}^2\ln\Lambda ,
+\end{equation}
+dove $\ln\Lambda=\ln(b_{\max}/b_{\min})$ è il logaritmo di Coulomb: il rapporto tra il parametro d'impatto massimo (la lunghezza di Debye) e quello minimo ($b_{90}$ nel caso classico, la lunghezza d'onda di de Broglie nel caso quantistico). Gli urti a piccolo angolo prevalgono su quelli a grande angolo di un fattore $8\ln\Lambda\approx100$, e la frequenza di collisione elettrone--ione dipende dalla velocità come $\nu_{ei}(v)\propto v^{-3}$.
+Il fatto che $\langle\theta^2\rangle$ cresca linearmente nel tempo, cioè $\theta_{\rm rms}\propto\sqrt{t}$, è la firma di un processo diffusivo.
+
+Il capitolo 2 aveva anche promesso la forza di attrito $F(u)$ con la funzione $\psi(x)$ e la media maxwelliana $4\sqrt{2\pi}/3$; qui verranno ricavate.
+
+\subsection{Il termine collisionale}
+L'equazione di Vlasov (capitoli 5--6) è non collisionale e reversibile. Per ciascuna specie $a$ (carica $q_a$, massa $m_a$) che collide con tutte le specie $b$ (compresa $b=a$) si scrive
+\begin{equation}
+\frac{\partial f_a}{\partial t}+\mathbf{v}\cdot\nabla f_a+\frac{q_a}{m_a}\left(\mathbf{E}+\frac{\mathbf{v}\times\mathbf{B}}{c}\right)\cdot\frac{\partial f_a}{\partial\mathbf{v}}=\sum_b C_{ab}[f_a,f_b].
+\end{equation}
+I campi a sinistra sono quelli lisci (mediati, cap.~5); il termine $C_{ab}$ raccoglie la granularità, ed è un termine di sorgente o di pozzo dovuto alle collisioni. L'integrale di Boltzmann conta le particelle diffuse dentro e fuori da una cella dello spazio delle velocità, e in generale rende l'equazione integro-differenziale.
+Il problema è che la sezione d'urto coulombiana è infinita: si ricorda che $d\sigma/d\Omega\propto\theta^{-4}$ diverge per piccoli angoli, ma la schermatura di Debye elimina la divergenza. Poiché gli urti lontani e a piccolo angolo dominano e ciascuno cambia poco $\mathbf{v}$, molti piccoli cambiamenti casuali equivalgono a una \textbf{diffusione nello spazio delle velocità}. Si espande allora $C_{ab}$ al secondo ordine nel salto $\Delta\mathbf{v}$: l'errore è $O(1/\ln\Lambda)$, cioè pochi per cento. Il risultato è l'equazione di Fokker--Planck.
+
+\section{Kick casuali e diffusione nello spazio delle velocità}
+\subsection{Passeggiata casuale in velocità}
+Si considerano kick indipendenti $\delta_k$ con tasso $r$, valor medio $\langle\delta_k\rangle=0$ e $\langle\delta_k^2\rangle=\delta^2$. Dopo un tempo $t$ si sono avuti $N=rt$ kick, e
+\begin{equation}
+v-v_0=\sum_{k=1}^N\delta_k,\qquad\langle v-v_0\rangle=0,
+\end{equation}
+\begin{equation}
+\langle(v-v_0)^2\rangle=\sum_{k,l}\langle\delta_k\delta_l\rangle=\sum_k\langle\delta_k^2\rangle+\sum_{k\neq l}\langle\delta_k\rangle\langle\delta_l\rangle=N\delta^2=r\delta^2\,t.
+\end{equation}
+I termini incrociati si annullano perché i kick sono indipendenti e a media nulla: contribuiscono solo i termini con $k=l$. L'allargamento della distribuzione cresce come $\sqrt{t}$ e non come $t$: è una passeggiata casuale, come l'inchiostro in acqua (lo stesso vale per le deflessioni, $\langle\theta^2\rangle\propto t$).
+
+\subsection{Fokker--Planck in una dimensione}
+La distribuzione di molte particelle di questo tipo obbedisce all'equazione di diffusione (del calore); definendo $B=r\delta^2=\langle\Delta v^2\rangle/\Delta t$,
+\begin{equation}
+\frac{\partial f}{\partial t}=\frac{B}{2}\frac{\partial^2f}{\partial v^2},\qquad f=\frac{1}{\sqrt{2\pi Bt}}\,e^{-(v-v_0)^2/2Bt},
+\end{equation}
+una gaussiana di varianza $Bt$, coerente con il risultato precedente. Verifica: derivando,
+\begin{equation}
+\partial_tf=f\left[-\frac{1}{2t}+\frac{(v-v_0)^2}{2Bt^2}\right],\qquad \frac{B}{2}\partial_v^2f=\frac{B}{2}f\left[-\frac{1}{Bt}+\frac{(v-v_0)^2}{B^2t^2}\right],
+\end{equation}
+e i due membri coincidono.
+Se i kick hanno anche un valor medio, $\langle\Delta v\rangle=A\,\Delta t$ (attrito), la distribuzione, oltre ad allargarsi, deriva: è la passeggiata dell'ubriaco in presenza di un termine di trascinamento. Si ottiene
+\begin{equation}
+\frac{\partial f}{\partial t}=-\frac{\partial}{\partial v}(Af)+\frac12\frac{\partial^2}{\partial v^2}(Bf),\qquad A=\frac{\langle\Delta v\rangle}{\Delta t},\quad B=\frac{\langle\Delta v^2\rangle}{\Delta t}.
+\end{equation}
+Ponendo a zero il termine con $B$ resta l'equazione di trasporto lungo le caratteristiche (il profilo trasla con la velocità di trascinamento); il termine con $B$ allarga il profilo. La matematica delle equazioni di diffusione verrà trattata in un modulo successivo.
+
+\section{L'equazione di Fokker--Planck in tre dimensioni}
+Sia $\psi(\mathbf{v},\Delta\mathbf{v})$ la probabilità che una particella con velocità $\mathbf{v}$ compia un salto $\Delta\mathbf{v}$ in un intervallo $\Delta t$, normalizzata:
+\begin{equation}
+\int\psi(\mathbf{v},\Delta\mathbf{v})\,d^3\Delta v=1.
+\end{equation}
+L'intervallo $\Delta t$ deve essere lungo rispetto alla durata di un singolo incontro microscopico, ma breve rispetto alla scala di evoluzione di $f$. Una particella con velocità $\mathbf{v}$ al tempo $t+\Delta t$ aveva velocità $\mathbf{v}-\Delta\mathbf{v}$ al tempo $t$, per qualche salto $\Delta\mathbf{v}$:
+\begin{equation}
+f(\mathbf{v},t+\Delta t)=\int\psi(\mathbf{v}-\Delta\mathbf{v},\Delta\mathbf{v})\,f(\mathbf{v}-\Delta\mathbf{v},t)\,d^3\Delta v.
+\end{equation}
+I salti sono piccoli: si espande $g(\mathbf{v})\equiv\psi(\mathbf{v},\Delta\mathbf{v})f(\mathbf{v},t)$ nel primo argomento, a salto fissato (indici $i,j=1,2,3$, indici ripetuti sommati):
+\begin{equation}
+g(\mathbf{v}-\Delta\mathbf{v})=g(\mathbf{v})-\Delta v_i\frac{\partial g}{\partial v_i}+\frac12\Delta v_i\Delta v_j\frac{\partial^2g}{\partial v_i\partial v_j}-\dots
+\end{equation}
+Si integra termine a termine su $\Delta\mathbf{v}$; le derivate rispetto a $\mathbf{v}$ escono dall'integrale:
+\begin{align}
+\int g\,d^3\Delta v&=f\int\psi\,d^3\Delta v=f(\mathbf{v},t),\\
+\int\Delta v_i\frac{\partial g}{\partial v_i}\,d^3\Delta v&=\frac{\partial}{\partial v_i}\left(f\int\Delta v_i\,\psi\,d^3\Delta v\right)=\frac{\partial}{\partial v_i}\left(f\langle\Delta v_i\rangle\right),\\
+\int\frac12\Delta v_i\Delta v_j\frac{\partial^2g}{\partial v_i\partial v_j}\,d^3\Delta v&=\frac12\frac{\partial^2}{\partial v_i\partial v_j}\left(f\langle\Delta v_i\Delta v_j\rangle\right).
+\end{align}
+Portando $f(\mathbf{v},t)$ a sinistra e dividendo per $\Delta t$ si ottiene l'operatore di collisione di Fokker--Planck:
+\begin{equation}
+C[f]=-\frac{\partial}{\partial v_i}\left(A_if\right)+\frac12\frac{\partial^2}{\partial v_i\partial v_j}\left(B_{ij}f\right),\qquad A_i=\frac{\langle\Delta v_i\rangle}{\Delta t},\quad B_{ij}=\frac{\langle\Delta v_i\Delta v_j\rangle}{\Delta t}.
+\end{equation}
+$A_i$ è l'\textbf{attrito dinamico} (un vettore); $B_{ij}$ è la \textbf{diffusione in velocità} (un tensore simmetrico). I due termini hanno segni opposti e agiscono in senso contrario: l'attrito tende a ridurre la velocità, la diffusione a disperderla in tutte le direzioni. Fisicamente $B_{ij}$ deve essere semidefinito positivo, altrimenti la diffusione diventerebbe instabile.
+
+\section{Attrito e diffusione dagli urti coulombiani}
+\subsection{Un singolo urto}
+Si considerano una particella di prova $a$ con velocità $\mathbf{v}$ e una particella di campo $b$ con velocità $\mathbf{v}'$. La velocità relativa è $\mathbf{u}=\mathbf{v}-\mathbf{v}'$ e la massa ridotta $m_r=m_am_b/(m_a+m_b)$ (cap.~2). Dalla conservazione della quantità di moto
+\begin{equation}
+m_a\Delta\mathbf{v}_a=m_r\Delta\mathbf{u}\quad\Rightarrow\quad\Delta\mathbf{v}_a=\frac{m_r}{m_a}\Delta\mathbf{u}.
+\end{equation}
+Nel centro di massa l'energia si conserva, quindi $|\mathbf{u}|$ non cambia: $\mathbf{u}$ può solo ruotare di un angolo $\theta$. Scomponendo $\Delta\mathbf{u}$ lungo $\mathbf{u}$ e trasversalmente,
+\begin{equation}
+|\mathbf{u}+\Delta\mathbf{u}|^2=u^2\ \Rightarrow\ 2u\,\Delta u_\parallel+\Delta u_\parallel^2+|\Delta\mathbf{u}_\perp|^2=0\ \Rightarrow\ \Delta u_\parallel\simeq-\frac{|\Delta\mathbf{u}_\perp|^2}{2u}.
+\end{equation}
+La variazione parallela è del second'ordine nella deflessione e sempre negativa.
+Per piccoli angoli ($b\gg b_{90}$, cap.~2) l'angolo di deflessione e il parametro d'impatto a $90^\circ$ sono
+\begin{equation}
+\theta=\frac{2b_{90}}{b},\qquad b_{90}=\frac{q_aq_b}{m_ru^2},\qquad|\Delta\mathbf{u}_\perp|=u\sin\theta\simeq u\theta .
+\end{equation}
+La componente perpendicolare punta in un azimut $\varphi$ attorno a $\mathbf{u}$, fissato dal punto in cui passa la particella di campo. Con $\mathbf{e}_1,\mathbf{e}_2$ versori perpendicolari tra loro e a $\mathbf{u}$:
+\begin{equation}
+\Delta\mathbf{u}_\perp=u\theta\,(\cos\varphi\,\mathbf{e}_1+\sin\varphi\,\mathbf{e}_2),\qquad\Delta\mathbf{u}_\parallel=-\frac{u\theta^2}{2}\,\hat{\mathbf{u}}.
+\end{equation}
+Controllo: $u\theta^2/2=|\Delta\mathbf{u}_\perp|^2/2u$, ed esattamente $\Delta u_\parallel=-u(1-\cos\theta)$, che è il peso della sezione d'urto di trasferimento di momento del capitolo 2.
+
+\subsection{Una simulazione Monte Carlo}
+Per vedere cosa accade si può simulare una sequenza di kick: poiché $|\mathbf{u}|$ resta costante, la punta di $\mathbf{u}$ si muove su una sfera di raggio $u$. Dopo 25, 100, 400 kick la nuvola delle punte si espande sulla sfera e il suo valor medio si sposta verso l'interno. In altre parole, ogni kick fa solo ruotare $\mathbf{u}$, ma $\langle\mathbf{u}\rangle$ si accorcia:
+\begin{equation}
+\frac{\langle u_x\rangle}{u}\simeq e^{-\langle\theta^2\rangle/2},\qquad\langle\theta^2\rangle=k\,\delta\theta^2,
+\end{equation}
+dove $k$ è il numero di kick. In media $\langle\Delta u_\parallel\rangle=-u\langle\theta^2\rangle/2$: \textbf{l'attrito è l'altra faccia della passeggiata casuale nell'angolo}.
+
+\subsection{Somma sugli urti: l'attrito}
+Le particelle di campo sono un fascio di densità $n$ con velocità $\mathbf{v}'$. In un tempo $\Delta t$ gli urti con parametro d'impatto in $[b,b+db]$ e azimut in $[\varphi,\varphi+d\varphi]$ sono
+\begin{equation}
+dN=n\,u\,\Delta t\;b\,db\,d\varphi
+\end{equation}
+(le particelle contenute in un cilindro di lunghezza $u\Delta t$). Poiché $\Delta u_\parallel=-u\theta^2/2$ non dipende da $\varphi$, si somma su $b$ come nel capitolo 2, tra $b_{\min}\approx b_{90}$ e $b_{\max}\approx\lambda_D$:
+\begin{equation}
+\int\theta^2\,2\pi b\,db=\int_{b_{\min}}^{b_{\max}}\frac{4b_{90}^2}{b^2}\,2\pi b\,db=8\pi b_{90}^2\ln\frac{b_{\max}}{b_{\min}}=8\pi b_{90}^2\ln\Lambda,
+\end{equation}
+\begin{equation}
+\frac{\langle\Delta\mathbf{u}\rangle}{\Delta t}=-\hat{\mathbf{u}}\,nu\int\frac{u\theta^2}{2}\,2\pi b\,db=-4\pi n u^2b_{90}^2\ln\Lambda\;\hat{\mathbf{u}}.
+\end{equation}
+I kick perpendicolari si mediano a zero sull'azimut: l'attrito agisce solo lungo $-\hat{\mathbf{u}}$.
+
+\subsection{Somma sugli urti: la diffusione}
+Per i prodotti dei kick perpendicolari si media su $\varphi$ usando $\langle\cos^2\varphi\rangle=\langle\sin^2\varphi\rangle=\tfrac12$ e $\langle\cos\varphi\sin\varphi\rangle=0$:
+\begin{equation}
+\langle\Delta u_{\perp i}\Delta u_{\perp j}\rangle_\varphi=u^2\theta^2\left(\langle\cos^2\varphi\rangle e_{1i}e_{1j}+\langle\sin^2\varphi\rangle e_{2i}e_{2j}\right)=\frac12u^2\theta^2\left(e_{1i}e_{1j}+e_{2i}e_{2j}\right).
+\end{equation}
+Poiché $\mathbf{e}_1,\mathbf{e}_2,\hat{\mathbf{u}}$ formano una base ortonormale, $e_{1i}e_{1j}+e_{2i}e_{2j}+\hat u_i\hat u_j=\delta_{ij}$, quindi
+\begin{equation}
+\langle\Delta u_{\perp i}\Delta u_{\perp j}\rangle_\varphi=\frac12u^2\theta^2\left(\delta_{ij}-\hat u_i\hat u_j\right).
+\end{equation}
+Sommando su $b$ con lo stesso integrale $8\pi b_{90}^2\ln\Lambda$:
+\begin{equation}
+\frac{\langle\Delta u_i\Delta u_j\rangle}{\Delta t}=nu\cdot\frac12u^2\cdot8\pi b_{90}^2\ln\Lambda\,(\delta_{ij}-\hat u_i\hat u_j)=4\pi nu^3b_{90}^2\ln\Lambda\,(\delta_{ij}-\hat u_i\hat u_j).
+\end{equation}
+I termini $\Delta u_\parallel^2\propto\theta^4$ e $\Delta u_\parallel\Delta u_\perp\propto\theta^3$ sono trascurati: sono dello stesso ordine dei termini già persi nell'espansione di Fokker--Planck. Il tensore $\delta_{ij}-\hat u_i\hat u_j$ è il \textbf{tensore di proiezione} sul sottospazio perpendicolare a $\mathbf{u}$ (generato da $\mathbf{e}_1,\mathbf{e}_2$): proiettato su $\mathbf{e}_1$ restituisce $\mathbf{e}_1$, proiettato su $\mathbf{u}$ dà zero.
+
+\subsection{I coefficienti per una particella di prova}
+Si inserisce $b_{90}^2=q_a^2q_b^2/(m_r^2u^4)$ e $\Delta\mathbf{v}_a=(m_r/m_a)\Delta\mathbf{u}$, e si definiscono
+\begin{equation}
+\Gamma_{ab}=\frac{4\pi q_a^2q_b^2\ln\Lambda}{m_a^2},\qquad U_{ij}(\mathbf{u})=\frac{u^2\delta_{ij}-u_iu_j}{u^3}.
+\end{equation}
+Per un fascio di particelle di campo in $\mathbf{v}'$ con densità $n$ si ottiene, con $\mathbf{u}=\mathbf{v}-\mathbf{v}'$,
+\begin{equation}
+A_i=-n\,\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\frac{u_i}{u^3},\qquad B_{ij}=n\,\Gamma_{ab}\,U_{ij}(\mathbf{u}).
+\end{equation}
+Nel conto di $A_i$ si usa $m_a/m_r=1+m_a/m_b$; in $B_{ij}$ il fattore $(m_r/m_a)^2$ cancella il $m_r^2$ di $b_{90}^2$. Alcune proprietà:
+\begin{itemize}
+\item la diffusione avviene solo attraverso $\mathbf{u}$: $U_{ij}u_j=0$. Il tensore ruota la velocità relativa, non la allunga mai;
+\item verifica con il capitolo 2: per un elettrone su ioni fermi ($m_e/m_i\to0$) si ha $|A|=\nu v$ con $\nu=n_i\Gamma_{ei}/v^3=4\pi n_eZe^4\ln\Lambda/(m_e^2v^3)$, esattamente la $\nu_{ei}(v)$ del capitolo 2;
+\item per una particella di prova pesante ($m_a\gg m_b$) l'attrito è amplificato di un fattore $m_a/m_b$, mentre la diffusione resta la stessa.
+\end{itemize}
+
+\subsection{Molte particelle di campo}
+Le particelle di campo reali hanno una distribuzione $f_b(\mathbf{v}')$: ogni gruppo $f_b(\mathbf{v}')\,d^3v'$ agisce come un fascio e i contributi si sommano:
+\begin{equation}
+A_i(\mathbf{v})=-\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\int f_b(\mathbf{v}')\frac{v_i-v'_i}{|\mathbf{v}-\mathbf{v}'|^3}\,d^3v',\qquad
+B_{ij}(\mathbf{v})=\Gamma_{ab}\int f_b(\mathbf{v}')\,U_{ij}(\mathbf{v}-\mathbf{v}')\,d^3v'.
+\end{equation}
+L'integrale dell'attrito ha la forma del campo coulombiano di una densità di carica $f_b$, ma nello spazio delle velocità. Rosenbluth, MacDonald \& Judd (1957) hanno scritto i due integrali come derivate di due ``potenziali'': è la forma usata nei codici numerici di Fokker--Planck (note, \S7.2). Per $b=a$ i coefficienti dipendono da $f_a$ stessa, quindi l'operatore di collisione è \textbf{non lineare}: il metodo perturbativo, che per Vlasov consisteva nel linearizzare, qui non basta, e l'equazione è molto più difficile da trattare.
+
+\section{Una particella di prova in una maxwelliana}
+\subsection{L'attrito come campo coulombiano nello spazio delle velocità}
+Il confronto con l'elettrostatica è diretto:
+\begin{equation}
+A(\mathbf{v})=-\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\int f_b(\mathbf{v}')\frac{\mathbf{v}-\mathbf{v}'}{|\mathbf{v}-\mathbf{v}'|^3}\,d^3v'\quad\longleftrightarrow\quad\mathbf{E}(\mathbf{r})=\int\rho(\mathbf{r}')\frac{\mathbf{r}-\mathbf{r}'}{|\mathbf{r}-\mathbf{r}'|^3}\,d^3r'.
+\end{equation}
+L'attrito è (meno) il ``campo elettrico'' delle particelle di campo: punta verso dove esse si trovano. Per il teorema di Gauss, se $f_b$ ha simmetria sferica il campo a raggio $v$ è radiale e conta solo la ``carica'' contenuta all'interno:
+\begin{equation}
+\mathbf{A}=-\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\frac{N_b(<v)}{v^2}\,\hat{\mathbf{v}},\qquad N_b(<v)=\int_0^v4\pi w^2f_b(w)\,dw .
+\end{equation}
+Solo le particelle di campo più lente della particella di prova causano attrito: un guscio sferico uniforme non esercita forza al suo interno (Newton), quindi quelle più veloci spingono ugualmente in tutte le direzioni e non frenano.
+
+\subsection{La funzione di Chandrasekhar}
+Per particelle di campo maxwelliane, $f_b=n_b\pi^{-3/2}s_b^{-3}e^{-v^2/s_b^2}$ con $s_b=\sqrt{2T_b/m_b}$, si pone $x=v/s_b$ e $t=w/s_b$:
+\begin{equation}
+N_b(<v)=\frac{4\pi n_b}{\pi^{3/2}s_b^3}\int_0^vw^2e^{-w^2/s_b^2}\,dw=\frac{4n_b}{\sqrt\pi}\int_0^xt^2e^{-t^2}\,dt.
+\end{equation}
+Integrando per parti, con $t^2e^{-t^2}=t\,(te^{-t^2})$ e $\int te^{-t^2}dt=-\tfrac12e^{-t^2}$:
+\begin{equation}
+\int_0^xt^2e^{-t^2}dt=\left[-\frac12te^{-t^2}\right]_0^x+\frac12\int_0^xe^{-t^2}dt=-\frac12xe^{-x^2}+\frac{\sqrt\pi}{4}\,\mathrm{erf}(x).
+\end{equation}
+Quindi
+\begin{equation}
+N_b(<v)=n_b\,\psi(x),\qquad\psi(x)=\mathrm{erf}(x)-\frac{2}{\sqrt\pi}\,x\,e^{-x^2},\qquad\mathrm{erf}(x)=\frac{2}{\sqrt\pi}\int_0^xe^{-t^2}dt.
+\end{equation}
+La funzione $\psi(x)$ (\textbf{funzione di Chandrasekhar}) è la frazione di particelle di campo più lente della particella di prova. Per $x$ piccolo, sviluppando $\mathrm{erf}\,x=\frac{2}{\sqrt\pi}\left(x-\frac{x^3}{3}+\dots\right)$ e $xe^{-x^2}=x-x^3+\dots$, i termini lineari si cancellano (ci sono poche particelle più lente) e
+\begin{equation}
+\psi(x)\simeq\frac{2}{\sqrt\pi}\left(x-\frac{x^3}{3}-x+x^3\right)=\frac{4x^3}{3\sqrt\pi};
+\end{equation}
+per $x$ grande $\psi\to1$: sono tutte più lente. L'attrito in una maxwelliana è
+\begin{equation}
+\mathbf{A}=-\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\frac{n_b\,\psi(x)}{v^2}\,\hat{\mathbf{v}}.
+\end{equation}
+
+\subsection{Particelle lente e veloci; il massimo dell'attrito}
+\begin{itemize}
+\item \textbf{Lenta} ($x\ll1$): $\psi\simeq4x^3/3\sqrt\pi$ e l'attrito è lineare nella velocità, come per una particella browniana:
+\begin{equation}
+\mathbf{A}\simeq-\nu_s\mathbf{v},\qquad\nu_s=\frac{4}{3\sqrt\pi}\,\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\frac{n_b}{s_b^3}.
+\end{equation}
+\item \textbf{Veloce} ($x\gg1$): $\psi\to1$, le particelle di campo sembrano ferme e torna il risultato del fascio:
+\begin{equation}
+|\mathbf{A}|\simeq\Gamma_{ab}\left(1+\frac{m_a}{m_b}\right)\frac{n_b}{v^2},\qquad B_\perp=\frac{\Gamma_{ab}n_b}{v}\quad(\text{da }B_{ij}=n\Gamma_{ab}U_{ij}).
+\end{equation}
+\end{itemize}
+Il rapporto $\psi(x)/x^2$ ha un massimo per $x\approx0.97$, cioè $v\approx1.4\,v_{tb}$ con $v_{tb}=\sqrt{T_b/m_b}$. Oltre questo massimo, più una particella è veloce meno viene trattenuta: l'attrito si annulla come $v^{-2}$, più rapidamente del coefficiente di diffusione ($\propto v^{-1}$), e il fenomeno diventa essenzialmente diffusivo. Questa è l'origine del fenomeno \textbf{runaway}: le particelle veloci sfuggono perché l'attrito diventa sempre meno efficace (cap.~2, modulo 7b).
+
+\subsection{Attrito elettrone--ione e frequenza $\nu_{ei}$}
+Elettroni che derivano a velocità $u$ attraverso ioni fermi equivalgono a uno ione ($a$, con $Z=1$) che si muove con velocità $-u$ in una distribuzione maxwelliana di elettroni ($b$), con $x=u/(\sqrt2v_{te})$:
+\begin{equation}
+m_i|\mathbf{A}|=m_i\,\frac{4\pi e^4\ln\Lambda}{m_i^2}\left(1+\frac{m_i}{m_e}\right)\frac{n_e\,\psi(x)}{u^2}\simeq\frac{4\pi n_ee^4\ln\Lambda}{m_eu^2}\,\psi(x).
+\end{equation}
+Per conservazione della quantità di moto gli elettroni sentono la stessa forza: è la $F(u)$ del capitolo 2. Per una deriva lenta, con $\psi\simeq4x^3/3\sqrt\pi$,
+\begin{equation}
+F\simeq\frac{4\pi n_ee^4\ln\Lambda}{m_eu^2}\cdot\frac{4}{3\sqrt\pi}\cdot\frac{u^3}{2\sqrt2\,v_{te}^3}=\frac{4\sqrt{2\pi}}{3}\,\frac{n_ee^4\ln\Lambda}{m_e^{1/2}T_e^{3/2}}\,m_eu=m_e\nu_{ei}\,u .
+\end{equation}
+La media maxwelliana sostituisce il $4\pi$ della stima con $4\sqrt{2\pi}/3$: è la $\nu_{ei}$ standard del capitolo 2 (Braginskii). Il risultato si poteva indovinare con un'analisi dimensionale: se uno ione si muove in una distribuzione maxwelliana di elettroni ci si aspetta un termine di attrito, e per dimensioni la massa che entra è quella elettronica, moltiplicata per la frequenza di collisione e per la velocità, $F=m_e\nu_{ei}u$.
+
+\subsection{Verifica in laboratorio}
+L'attrito coulombiano è stato misurato in due contesti.
+\begin{itemize}
+\item \textbf{Raffreddamento elettronico} (Budker 1967; Novosibirsk 1974; oggi ELENA e LEIR al CERN, ESR al GSI; al CERN, LEAR dal 1986): un fascio di elettroni freddi viaggia con un fascio di ioni o antiprotoni alla stessa velocità media; nel sistema comune ogni ione striscia attraverso gli elettroni, e subisce la forza appena calcolata, $\propto\psi(x)/x^2$. La dispersione di velocità degli ioni si smorza in pochi secondi. La forza misurata cresce linearmente, raggiunge un massimo, poi decresce come $1/v^2$.
+\item \textbf{Frenamento di ioni in un plasma caldo e denso} (laser OMEGA; Frenje et al. 2019): protoni, tritoni e particelle $\alpha$ di energia nota attraversano un plasma a $T_e\approx2$~keV. La perdita di energia è massima dove $v_{\rm ione}\approx v_{te}$, in corrispondenza del massimo di $\psi(x)/x^2$.
+\end{itemize}
+
+\section{Attrito dinamico gravitazionale}
+La gravità è anch'essa una forza inversamente proporzionale al quadrato della distanza: basta sostituire $q_aq_b\to-Gm_am_b$. Un corpo pesante di massa $M$ (ammasso, buco nero) che si muove con velocità $v$ in una distribuzione di stelle di densità di massa $\rho$ e dispersione di velocità $\sigma$ subisce l'attrito dinamico di Chandrasekhar (1943):
+\begin{equation}
+M\mathbf{A}=-\frac{4\pi G^2M^2\rho\ln\Lambda}{v^2}\,\psi\left(\frac{v}{\sqrt2\sigma}\right)\hat{\mathbf{v}}\qquad(M\gg m_b),
+\end{equation}
+dove si è usato $M\Gamma_{ab}(1+M/m_b)n_b\to4\pi G^2M^2(n_bm_b)\ln\Lambda$, e $\ln\Lambda$ è l'analogo gravitazionale del logaritmo di Coulomb (cambiano gli estremi dell'integrale). La forza cresce come $M^2$: i corpi più massicci affondano per primi. Dal punto di vista fisico il corpo focalizza le stelle in una scia dietro di sé, e la scia lo trattiene.
+Esempio: un ammasso di $10^6M_\odot$ a 1~kpc dal centro, con $v_c=200$~km/s, cade al centro in
+\begin{equation}
+t\simeq\frac{1.17\,r^2v_c}{GM\ln\Lambda}\approx5~\mathrm{Gyr}\qquad(\ln\Lambda\approx10;\ \text{Binney \& Tremaine}),
+\end{equation}
+infatti con $r=3.1\times10^{21}$~cm, $v_c=2\times10^7$~cm/s, $M=2\times10^{39}$~g si ottiene $t\approx1.7\times10^{17}$~s $\approx5.3$~Gyr. I buchi neri massicci di galassie in fusione vengono avvicinati allo stesso modo. È la stessa $\psi(x)$ e lo stesso $\ln\Lambda$: plasmi e sistemi stellari condividono la stessa teoria cinetica.
+
+\subsection{La scia della Grande Nube di Magellano}
+Conroy et al. (2021, Nature) hanno mappato la densità di 1301 stelle dell'alone a 60--100~kpc dal centro della Galassia (dati Gaia e WISE). La Grande Nube di Magellano (LMC), con $\sim10^{11}M_\odot$ comprendendo il suo alone di materia oscura, attraversa l'alone della Via Lattea a $\sim300$ km/s:
+\begin{itemize}
+\item nella metà inferiore della mappa si vedono stelle e materia oscura focalizzate dietro la LMC: è la scia, la cui attrazione è l'attrito dinamico;
+\item nella metà superiore si vede il disco della Via Lattea tirato fuori dal centro;
+\item l'orbita della LMC decade, e la LMC dovrebbe fondersi con la Via Lattea entro qualche Gyr.
+\end{itemize}
+
+\subsection{Ammassi globulari, barre e buchi neri}
+\begin{itemize}
+\item \textbf{Fornax} (nana, a $\sim140$~kpc): i suoi ammassi globulari, vecchi $\sim10$~Gyr, orbitano a 0.3--1.6~kpc dal centro. In un alone di materia oscura con cuspide centrale l'attrito li avrebbe fatti affondare in pochi Gyr (il problema dei tempi); in un alone con nucleo piatto (cored) l'attrito si arresta. Gli ammassi sono dunque una sonda della materia oscura.
+\item \textbf{Barra della Via Lattea}: ha rallentato di almeno il 24\% dalla sua formazione (Gaia; Chiba \& Sch\"onrich 2021), misurato dalle stelle che intrappola nella corrente di Hercules: attrito contro l'alone oscuro.
+\item \textbf{Buchi neri massicci} in galassie in fusione: affondano al centro per attrito, formano una coppia e si fondono emettendo onde gravitazionali; quelle onde costituiscono il fondo a nanohertz dei \textit{pulsar timing array} (NANOGrav 2023).
+\end{itemize}
+Il docente ha indicato l'attrito dinamico come possibile argomento da approfondire e presentare, anche con una simulazione.
+
+\section{L'operatore di Landau}
+\subsection{Forma di flusso}
+Si scrive $C$ come una divergenza. Derivando una volta il termine del secondo ordine,
+\begin{equation}
+\frac{\partial^2}{\partial v_i\partial v_j}\left(B_{ij}f\right)=\frac{\partial}{\partial v_i}\left[B_{ij}\frac{\partial f}{\partial v_j}+\frac{\partial B_{ij}}{\partial v_j}f\right],
+\end{equation}
+quindi
+\begin{equation}
+C[f]=\frac{\partial J_i}{\partial v_i},\qquad J_i=\frac12B_{ij}\frac{\partial f}{\partial v_j}+\left(\frac12\frac{\partial B_{ij}}{\partial v_j}-A_i\right)f .
+\end{equation}
+$J_i$ è (meno) il flusso di particelle nello spazio delle velocità: una parte diffusiva, $\propto\partial f$, e una di deriva. Poiché $C$ è la divergenza di una corrente, e in assenza di sorgenti la divergenza di una corrente non crea né distrugge particelle, il numero di particelle si conserva. La deriva \emph{non} coincide con $A_i$: una parte di $A_i$ compensa solo la variazione di $B_{ij}$ con $\mathbf{v}$, ed è quella che va calcolata.
+
+\subsection{L'attrito ``fittizio''}
+Per $U_{ij}=\delta_{ij}/u-u_iu_j/u^3$, usando $\partial u/\partial u_j=u_j/u$ e $\partial u_j/\partial u_j=3$:
+\begin{equation}
+\frac{\partial}{\partial u_j}\frac{\delta_{ij}}{u}=-\frac{u_i}{u^3},\qquad
+\frac{\partial}{\partial u_j}\frac{u_iu_j}{u^3}=\frac{u_i+3u_i}{u^3}-\frac{3u_iu_ju_j}{u^5}=\frac{u_i}{u^3}\quad\Rightarrow\quad\frac{\partial U_{ij}}{\partial u_j}=-\frac{2u_i}{u^3}.
+\end{equation}
+Poiché $\mathbf{u}=\mathbf{v}-\mathbf{v}'$, si ha $\partial/\partial v_j=\partial/\partial u_j$ a $\mathbf{v}'$ fisso, e con $f'_b=f_b(\mathbf{v}')$
+\begin{equation}
+\frac12\frac{\partial B_{ij}}{\partial v_j}=\frac{\Gamma_{ab}}{2}\int f'_b\,\frac{\partial U_{ij}}{\partial u_j}\,d^3v'=-\Gamma_{ab}\int f'_b\,\frac{u_i}{u^3}\,d^3v'.
+\end{equation}
+La deriva si combina in
+\begin{equation}
+\frac12\frac{\partial B_{ij}}{\partial v_j}-A_i=\Gamma_{ab}\left[-1+\left(1+\frac{m_a}{m_b}\right)\right]\int f'_b\,\frac{u_i}{u^3}\,d^3v'=\Gamma_{ab}\frac{m_a}{m_b}\int f'_b\,\frac{u_i}{u^3}\,d^3v'.
+\end{equation}
+L'``1'' di $1+m_a/m_b$ è cancellato dalla variazione di $B_{ij}$: sopravvive solo $m_a/m_b$.
+
+\subsection{Un unico nucleo}
+Si scrive la deriva anch'essa con $U_{ij}$. Usando $\partial/\partial u_j=-\partial/\partial v'_j$ a $\mathbf{v}$ fisso, e integrando per parti in $\mathbf{v}'$ ($f_b\to0$ all'infinito):
+\begin{equation}
+\int f'_b\,\frac{u_i}{u^3}\,d^3v'=-\frac12\int f'_b\,\frac{\partial U_{ij}}{\partial u_j}\,d^3v'=\frac12\int f'_b\,\frac{\partial U_{ij}}{\partial v'_j}\,d^3v'=-\frac12\int U_{ij}\,\frac{\partial f'_b}{\partial v'_j}\,d^3v'.
+\end{equation}
+Si raccoglie: $J_i=\frac12\Gamma_{ab}\int U_{ij}\left[f'_b\,\partial_jf_a-\frac{m_a}{m_b}f_a\,\partial'_jf'_b\right]d^3v'$, e $\Gamma_{ab}/2=2\pi q_a^2q_b^2\ln\Lambda/m_a^2$. Si ottiene l'\textbf{operatore di collisione di Landau} (1936):
+\begin{equation}
+C_{ab}[f_a,f_b]=\frac{2\pi q_a^2q_b^2\ln\Lambda}{m_a}\,\frac{\partial}{\partial v_i}\int U_{ij}(\mathbf{v}-\mathbf{v}')\left[\frac{f_b(\mathbf{v}')}{m_a}\frac{\partial f_a(\mathbf{v})}{\partial v_j}-\frac{f_a(\mathbf{v})}{m_b}\frac{\partial f_b(\mathbf{v}')}{\partial v'_j}\right]d^3v'.
+\end{equation}
+Landau lo scrisse direttamente dal limite di piccolo angolo dell'integrale di Boltzmann; la via di Fokker--Planck dà lo stesso operatore. Il vantaggio di questa via è che si vedono chiaramente i due termini, di diffusione e di attrito, con segni opposti: a seconda delle specie e della distribuzione il termine collisionale può essere positivo o negativo, cosa che nella scrittura iniziale non era affatto chiara, e ciò è decisivo anche a livello numerico per capire l'evoluzione dell'equazione.
+
+\subsection{Struttura dell'operatore}
+La parentesi quadra è l'operatore $\left(\frac{1}{m_a}\frac{\partial}{\partial\mathbf{v}}-\frac{1}{m_b}\frac{\partial}{\partial\mathbf{v}'}\right)$ agente su $f_a(\mathbf{v})f_b(\mathbf{v}')$, proiettato da $U_{ij}$ trasversalmente a $\mathbf{u}=\mathbf{v}-\mathbf{v}'$. Le maxwelliane alla stessa temperatura non sono toccate: con $f_a\propto e^{-m_av^2/2T}$ e $f_b\propto e^{-m_bv'^2/2T}$,
+\begin{equation}
+\frac{1}{m_a}\frac{\partial f_a}{\partial v_j}f'_b-\frac{1}{m_b}f_a\frac{\partial f'_b}{\partial v'_j}=-\frac{v_j-v'_j}{T}f_af'_b=-\frac{u_j}{T}f_af'_b,\qquad U_{ij}u_j=0\ \Rightarrow\ C_{ab}=0.
+\end{equation}
+\begin{itemize}
+\item La simmetria sotto $a\leftrightarrow b$, $\mathbf{v}\leftrightarrow\mathbf{v}'$ implica la conservazione di particelle, quantità di moto ed energia, e il teorema $H$ di Boltzmann (modulo 7b).
+\item È non lineare per $b=a$: $C_{aa}[f_a,f_a]$. Linearizzato attorno a una maxwelliana, o con particelle di prova, è trattabile.
+\item L'accuratezza è $O(1/\ln\Lambda)$: gli urti ravvicinati sono persi e il taglio a $\lambda_D$ è messo a mano. Lenard e Balescu (1960) l'hanno derivato da BBGKY (cap.~5) includendo la schermatura.
+\end{itemize}
+
+\subsection{Chi l'ha fatto}
+\begin{itemize}
+\item Landau (1936): l'integrale di collisione per interazioni coulombiane, dieci anni prima dello smorzamento di Landau.
+\item Chandrasekhar (1943): l'attrito dinamico negli ammassi stellari, la funzione $\psi(x)$.
+\item Rosenbluth, MacDonald \& Judd (1957): i coefficienti di Fokker--Planck come potenziali, alla base dei codici numerici.
+\item Lenard, Balescu (1960): l'operatore da principi primi con schermatura.
+\end{itemize}
+
+\section{Domande di verifica}
+\begin{enumerate}
+\item \textit{Una particella riceve kick casuali a media nulla: come cresce la dispersione di velocità?} Come $\sqrt{t}$, perché i termini incrociati si annullano e resta $\langle(v-v_0)^2\rangle=r\delta^2t$.
+\item \textit{Perché una sequenza di pure deflessioni, ognuna a $|\mathbf{u}|$ costante, produce attrito?} Perché le punte di $\mathbf{u}$ si disperdono sulla sfera e il loro valor medio si accorcia: $\langle\Delta u_\parallel\rangle=-u\langle\theta^2\rangle/2$.
+\item \textit{Mostrare che $U_{ij}u_j=0$ e $U_{ii}=2/u$.} $U_{ij}u_j=(u^2u_i-u_iu^2)/u^3=0$ e $U_{ii}=(3u^2-u^2)/u^3=2/u$: la diffusione avviene solo nelle due direzioni perpendicolari a $\mathbf{u}$.
+\item \textit{Perché l'attrito su un elettrone da parte degli ioni non dipende dalla massa ionica, mentre quello su uno ione da parte degli elettroni ha un fattore $m_i/m_e$?} Il fattore in $A$ è $1+m_a/m_b$: vale circa 1 per un elettrone di prova e circa $m_i/m_e$ per uno ione di prova. La forza $m_aA$ è però la stessa, perché $\Gamma_{ab}\propto m_a^{-2}$ (conservazione della quantità di moto).
+\item \textit{Con Gauss, perché le particelle più veloci non esercitano attrito?} Perché solo la ``carica'' dentro la sfera di raggio $v$ produce campo: un guscio uniforme non agisce al suo interno.
+\item \textit{Perché i buchi neri di due galassie in fusione devono prima essere avvicinati dall'attrito dinamico?} Perché solo l'attrito dissipa energia orbitale, portandoli abbastanza vicini perché l'emissione di onde gravitazionali li fonda.
+\end{enumerate}
+
+\section{Riepilogo}
+\begin{center}
+\small
+\begin{tabular}{|l|l|}
+\hline
+Passeggiata casuale & $\langle(v-v_0)^2\rangle=r\delta^2t\propto t$\\
+\hline
+Fokker--Planck 1D & $\partial_tf=-\partial_v(Af)+\frac12\partial_v^2(Bf)$\\
+\hline
+Operatore di FP in 3D & $C=-\partial_i(A_if)+\frac12\partial_i\partial_j(B_{ij}f)$\\
+\hline
+Un urto & $\Delta u_\parallel=-u\theta^2/2,\quad\theta=2b_{90}/b$\\
+\hline
+Fascio di campo & $A_i=-n\Gamma_{ab}(1+m_a/m_b)u_i/u^3,\quad B_{ij}=n\Gamma_{ab}U_{ij}$\\
+\hline
+Maxwelliana & $A\propto\psi(x)/v^2$, massimo a $v\approx1.4\,v_{tb}$\\
+\hline
+Elettrone--ione & $F=m_e\nu_{ei}u,\quad\nu_{ei}\propto4\sqrt{2\pi}/3$\\
+\hline
+Attrito dinamico & $MA=-4\pi G^2M^2\rho\ln\Lambda\,\psi(v/\sqrt2\sigma)/v^2$\\
+\hline
+Operatore di Landau & si annulla per maxwelliane alla stessa $T$\\
+\hline
+\end{tabular}
+\end{center}
+Le collisioni a piccolo angolo equivalgono a una diffusione nello spazio delle velocità, con errore $O(1/\ln\Lambda)$; la deflessione da sola produce attrito; in una maxwelliana l'attrito è proporzionale a $\psi(x)/v^2$ con un massimo a $v\approx1.4\,v_{tb}$; l'operatore di Landau è nullo per maxwelliane alla stessa temperatura.
+Il prossimo modulo (7b) tratta le leggi di conservazione e il teorema $H$, il gas di Lorentz e la conducibilità di Spitzer, e gli elettroni runaway.
