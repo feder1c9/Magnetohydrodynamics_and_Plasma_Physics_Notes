@@ -1,0 +1,454 @@
+\chapter{Lezione 10 - 09/11/2026}
+
+\section{Introduzione e richiami}
+La lezione si divide in due parti. Nella prima (modulo 7b) si studiano le proprietà dell'operatore di collisione di Landau, ricavato nella lezione precedente: conservazione di particelle, quantità di moto ed energia, teorema $H$, equilibrio maxwelliano, gas di Lorentz, conducibilità di Spitzer ed elettroni runaway. Nella seconda (modulo 8a) si passa al regime non lineare dell'interazione onda--particella con la teoria quasi-lineare. Letture: per il modulo 7b Helander \& Sigmar, capp.~3--4, Goldston \& Rutherford, capp.~11--12, Spitzer \& H\"arm (1953), note cap.~7, \S7.3--7.5; per il modulo 8a Krall \& Trivelpiece, cap.~10, Nicholson, cap.~8, Helander \& Sigmar, capp.~3--4, note cap.~8. I riferimenti bibliografici sono quelli citati nelle slide e vanno verificati sui testi originali.
+
+\subsection{Dal modulo 7a: l'operatore di collisione}
+Finora si è studiata l'equazione di Vlasov, che conserva energia e quantità di moto e ha effetti controintuitivi, come lo smorzamento di Landau, che non è di tipo collisionale. Ora si introducono più specie (elettroni e ioni), e si aggiunge a destra un termine collisionale:
+\begin{equation}
+\frac{\partial f_a}{\partial t}+\mathbf{v}\cdot\nabla f_a+\frac{q_a}{m_a}\left(\mathbf{E}+\frac{\mathbf{v}\times\mathbf{B}}{c}\right)\cdot\frac{\partial f_a}{\partial\mathbf{v}}=\sum_bC_{ab}[f_a,f_b].
+\end{equation}
+Nella lezione precedente si era visto che gli urti coulombiani a piccolo angolo equivalgono a una diffusione nello spazio delle velocità (Fokker--Planck, con errore $O(1/\ln\Lambda)$), e che per distribuzioni qualunque delle particelle di campo si ottiene l'operatore di Landau
+\begin{equation}
+C_{ab}=\frac{\partial J^{ab}_i}{\partial v_i},\qquad J^{ab}_i=\frac{K_{ab}}{m_a}\int U_{ij}(\mathbf{v}-\mathbf{v}')\,Q_j\,d^3v',
+\end{equation}
+con
+\begin{equation}
+K_{ab}=2\pi q_a^2q_b^2\ln\Lambda,\qquad U_{ij}(\mathbf{u})=\frac{u^2\delta_{ij}-u_iu_j}{u^3},\qquad Q_j=\frac{f_b(\mathbf{v}')}{m_a}\frac{\partial f_a(\mathbf{v})}{\partial v_j}-\frac{f_a(\mathbf{v})}{m_b}\frac{\partial f_b(\mathbf{v}')}{\partial v'_j},
+\end{equation}
+dove $\mathbf{u}=\mathbf{v}-\mathbf{v}'$ è la velocità relativa e $K_{ab}$ è simmetrico in $a,b$. L'operatore ha un termine di attrito dinamico (derivata prima) e uno di diffusione (derivata seconda). A lezione si è ricordato che, trascurando il termine di attrito, resta una derivata seconda in $\mathbf{v}$ di $f$, cioè un'equazione di tipo diffusivo come quella del calore: un profilo iniziale viene cancellato su scale di tempo esponenzialmente brevi, fissate dal coefficiente di diffusione.
+
+\subsection{Il tensore di proiezione}
+Il tensore $U_{ij}$ proietta un vettore qualunque nella direzione ortogonale a $\mathbf{u}$. Infatti, applicato a $\mathbf{w}$,
+\begin{equation}
+U_{ij}w_j=\frac{u^2w_i-u_i(\mathbf{u}\cdot\mathbf{w})}{u^3},
+\end{equation}
+e contraendo con $u_i$ si ottiene $(u^2(\mathbf{u}\cdot\mathbf{w})-u^2(\mathbf{u}\cdot\mathbf{w}))/u^3=0$: $U_{ij}u_j=0$. Se $\mathbf{u}$ è diretto lungo il raggio, la proiezione seleziona le direzioni sulla sfera $|\mathbf{u}|=\mathrm{cost}$. Il tensore è pari ($U_{ij}(-\mathbf{u})=U_{ij}(\mathbf{u})$), quindi invariante per lo scambio $\mathbf{v}\leftrightarrow\mathbf{v}'$. Sotto il doppio scambio $a\leftrightarrow b$, $\mathbf{v}\leftrightarrow\mathbf{v}'$ si ha invece $Q_j\to-Q_j$. Queste due proprietà, legate alla simmetria dei due partner dell'urto, sono tutto ciò che serve per le leggi di conservazione.
+
+\section{Proprietà dell'operatore di collisione}
+
+\subsection{Conservazione delle particelle}
+Integrando su tutto lo spazio delle velocità e usando il teorema di Gauss,
+\begin{equation}
+\int C_{ab}\,d^3v=\oint\mathbf{J}^{ab}\cdot d\mathbf{S}_v=0,
+\end{equation}
+perché $f$ si annulla all'infinito. Le collisioni spostano particelle nello spazio delle velocità, ma non le creano né le distruggono.
+
+\subsection{Conservazione della quantità di moto}
+La quantità di moto ceduta da $b$ ad $a$ per unità di volume e di tempo, integrando per parti con $\partial v_k/\partial v_i=\delta_{ik}$, è
+\begin{equation}
+R_{ab,k}=\int m_av_k\frac{\partial J^{ab}_i}{\partial v_i}d^3v=-m_a\int J^{ab}_k\,d^3v=-K_{ab}\iint U_{kj}(\mathbf{v}-\mathbf{v}')\,Q_j\,d^3v\,d^3v'.
+\end{equation}
+Per $R_{ba}$ si scambiano le etichette e si rinominano $\mathbf{v}\leftrightarrow\mathbf{v}'$: $K$ e $U$ restano uguali, $Q_j\to-Q_j$, quindi
+\begin{equation}
+R_{ba}=-R_{ab}
+\end{equation}
+(azione e reazione tra le due popolazioni). Per specie uguali $R_{aa}=-R_{aa}=0$: le collisioni all'interno di una stessa specie non possono cambiarne la quantità di moto totale. Ne segue un fatto importante: un gas di soli elettroni non può produrre resistenza; per avere una conducibilità finita servono due specie, elettroni e ioni, ed è quello che si deve tenere presente nel calcolo della conducibilità elettrica di un plasma astrofisico.
+
+\subsection{Conservazione dell'energia}
+Con gli stessi passaggi, usando $\partial(v^2/2)/\partial v_i=v_i$,
+\begin{equation}
+W_{ab}=\int\frac12m_av^2C_{ab}\,d^3v=-K_{ab}\iint v_iU_{ij}(\mathbf{v}-\mathbf{v}')\,Q_j\,d^3v\,d^3v'.
+\end{equation}
+Nello scambio $v_i$ diventa $v'_i$ e $Q_j$ cambia segno, perciò
+\begin{equation}
+W_{ab}+W_{ba}=-K_{ab}\iint(v_i-v'_i)U_{ij}Q_j=-K_{ab}\iint u_iU_{ij}(\mathbf{u})\,Q_j=0 .
+\end{equation}
+La conservazione dell'energia equivale a $u_iU_{ij}=0$: in ogni incontro la velocità relativa non cambia in modulo, e la diffusione avviene solo nelle direzioni ortogonali a $\mathbf{u}$. L'energia può comunque passare da una specie all'altra ($W_{ab}\neq0$): è l'equilibrazione delle temperature del capitolo 2.
+
+\section{Il teorema $H$ e l'equilibrio maxwelliano}
+
+\subsection{Il teorema $H$}
+Per sapere verso quale distribuzione tende il sistema si introduce la funzione $H$ di Boltzmann (in unità di $k_B$, $-H$ è l'entropia):
+\begin{equation}
+H=\sum_a\int f_a\ln f_a\,d^3v .
+\end{equation}
+I termini di Vlasov $\mathbf{v}\cdot\nabla f$ e $\mathbf{a}\cdot\partial_vf$ sono divergenze nello spazio delle fasi (con $\partial_v\cdot\mathbf{a}=0$ per la forza di Lorentz) e non cambiano $\int H\,d^3x$: solo le collisioni la cambiano. Derivando e integrando per parti (l'``1'' sparisce per la conservazione delle particelle),
+\begin{equation}
+\left(\frac{\partial H}{\partial t}\right)_{\rm coll}=\sum_{a,b}\int(1+\ln f_a)\,C_{ab}\,d^3v=-\sum_{a,b}\int\frac{\partial\ln f_a}{\partial v_i}\,J_i^{ab}\,d^3v .
+\end{equation}
+Scrivendo $Q_j=f_a(\mathbf{v})f_b(\mathbf{v}')\,w_j$ con le derivate logaritmiche
+\begin{equation}
+w_j=\frac{1}{m_a}\frac{\partial\ln f_a(\mathbf{v})}{\partial v_j}-\frac{1}{m_b}\frac{\partial\ln f_b(\mathbf{v}')}{\partial v'_j},
+\end{equation}
+il termine $(a,b)$ è $-K_{ab}\iint f_af'_b\,(m_a^{-1}\partial_i\ln f_a)\,U_{ij}w_j$; il termine $(b,a)$, dopo il doppio scambio, ha $m_a^{-1}\partial_i\ln f_a\to m_b^{-1}\partial'_i\ln f'_b$ e $w_j\to-w_j$. La somma contiene $w_i$ stesso (metà per $a=b$):
+\begin{equation}
+-K_{ab}\iint f_af'_b\;w_iU_{ij}w_j\;d^3v\,d^3v'.
+\end{equation}
+La forma quadratica non è mai negativa:
+\begin{equation}
+w_iU_{ij}w_j=\frac{w^2u^2-(\mathbf{w}\cdot\mathbf{u})^2}{u^3}=\frac{|\mathbf{w}_\perp|^2}{u}\ge0 .
+\end{equation}
+Il risultato è il \textbf{teorema $H$}: per qualunque $f$ (non si è fatta alcuna ipotesi su $f$)
+\begin{equation}
+\left(\frac{\partial H}{\partial t}\right)_{\rm coll}\le0,
+\end{equation}
+con l'uguaglianza solo se $\mathbf{w}\parallel\mathbf{v}-\mathbf{v}'$ per ogni coppia $(\mathbf{v},\mathbf{v}')$. L'entropia può quindi solo crescere: è l'irreversibilità che manca a Vlasov.
+
+\subsection{La maxwelliana come unico equilibrio}
+Si pone $\mathbf{G}_a=m_a^{-1}\partial_v\ln f_a$. L'uguaglianza richiede $\mathbf{G}_a(\mathbf{v})-\mathbf{G}_b(\mathbf{v}')=\lambda\,(\mathbf{v}-\mathbf{v}')$ per ogni $\mathbf{v},\mathbf{v}'$.
+\begin{itemize}
+\item Per $b=a$: le differenze di $\mathbf{G}$ sono sempre parallele alle differenze di $\mathbf{v}$, il che impone $\mathbf{G}_a=-\alpha_a\mathbf{v}+\boldsymbol{\beta}_a$ (esercizio, note), cioè
+\begin{equation}
+\ln f_a=-\frac12m_a\alpha_av^2+m_a\boldsymbol{\beta}_a\cdot\mathbf{v}+\mathrm{cost}\ \Rightarrow\ f_a\propto e^{-m_a|\mathbf{v}-\mathbf{V}_a|^2/2T_a}.
+\end{equation}
+\item Per $b\neq a$: $-\alpha_a\mathbf{v}+\alpha_b\mathbf{v}'+\boldsymbol{\beta}_a-\boldsymbol{\beta}_b\parallel\mathbf{v}-\mathbf{v}'$ per ogni coppia impone $\alpha_a=\alpha_b$ e $\boldsymbol{\beta}_a=\boldsymbol{\beta}_b$.
+\end{itemize}
+Dunque $C=0$ se e solo se tutte le specie sono maxwelliane con la stessa temperatura e la stessa velocità media. Temperature diverse $T_e\neq T_i$, o una corrente, non sono un equilibrio: rilassano (scale dei tempi del capitolo 2, resistività). Con la sola equazione di Vlasov non c'era modo di termalizzare: lo smorzamento di Landau immagazzina energia nella struttura fine di $f$ (e gli echi possono disfarla), mentre le collisioni la cancellano per sempre.
+
+\section{Il gas di Lorentz e la conducibilità di Spitzer}
+La conducibilità di Spitzer è fondamentale in astrofisica: da essa dipende in quanto tempo si dissipa il campo magnetico di una stella (di tipo A o B, o una stella di neutroni), e quindi quanto a lungo può resistere un campo osservato; inoltre il riscaldamento ohmico dipende da $\sigma$. Si ricorda che la conducibilità è il rapporto tra corrente e campo elettrico, e che la scala di tempo della diffusione del campo dipende dalla resistività, che è il suo inverso. Un modello semplice ma istruttivo è il gas di Lorentz.
+
+\subsection{Il gas di Lorentz}
+Lorentz (1905), per i metalli: elettroni diffusi da centri pesanti fissi, senza collisioni elettrone--elettrone. Per un plasma: ioni a riposo, $m_e/m_i\to0$, buona approssimazione per $Z$ grande (la diffusione $e$--$i$ vale $Z$ volte quella $e$--$e$). Dal risultato del fascio con $\mathbf{v}'=0$ e $\Gamma_{ei}=4\pi Z^2e^4\ln\Lambda/m_e^2$,
+\begin{equation}
+A_i=-n_i\Gamma_{ei}\frac{v_i}{v^3},\qquad B_{ij}=n_i\Gamma_{ei}\,U_{ij}(\mathbf{v}).
+\end{equation}
+Nella forma di flusso $C=\partial_i\left[\frac12B_{ij}\partial_jf+\left(\frac12\partial_jB_{ij}-A_i\right)f\right]$, poiché $\partial_jU_{ij}=-2v_i/v^3$,
+\begin{equation}
+\frac12\partial_jB_{ij}=-n_i\Gamma_{ei}\frac{v_i}{v^3}=A_i\quad\Rightarrow\quad C_{ei}[f]=\frac{n_i\Gamma_{ei}}{2}\frac{\partial}{\partial v_i}\left(U_{ij}\frac{\partial f}{\partial v_j}\right).
+\end{equation}
+L'attrito è tutto ``fittizio'': compensa solo la variazione di $B_{ij}$, non resta nessuna deriva. L'operatore diventa puramente diffusivo.
+
+\subsection{Scattering sull'angolo di pitch}
+Si ha $U_{ij}\partial_jf=\frac1v\left(\partial_if-\hat v_i\hat v_j\partial_jf\right)=\frac1v(\nabla_vf)_\perp$, il gradiente sulla sfera $|\mathbf{v}|=v$. La sua divergenza contiene solo derivate angolari:
+\begin{equation}
+\frac{\partial}{\partial v_i}\left(U_{ij}\frac{\partial f}{\partial v_j}\right)=\frac{1}{v^3}\left[\frac{1}{\sin\theta}\frac{\partial}{\partial\theta}\left(\sin\theta\frac{\partial f}{\partial\theta}\right)+\frac{1}{\sin^2\theta}\frac{\partial^2f}{\partial\varphi^2}\right].
+\end{equation}
+Con $\xi=\cos\theta$ e nessuna dipendenza da $\varphi$ si ottiene l'\textbf{operatore di Lorentz}
+\begin{equation}
+C_{ei}[f]=\nu_{ei}(v)\,\frac12\frac{\partial}{\partial\xi}\left[(1-\xi^2)\frac{\partial f}{\partial\xi}\right],\qquad\nu_{ei}(v)=\frac{n_i\Gamma_{ei}}{v^3}=\frac{4\pi n_eZe^4\ln\Lambda}{m_e^2v^3}.
+\end{equation}
+Non c'è nessuna derivata $\partial/\partial v$: gli ioni pesanti fanno solo ruotare $\mathbf{v}$, quindi ogni $f(v)$ isotropa è un equilibrio. Gli autovalori sono dati dai polinomi di Legendre, $\partial_\xi[(1-\xi^2)\partial_\xi P_l]=-l(l+1)P_l$: l'anisotropia di ordine $l$ decade con tasso $l(l+1)\nu_{ei}/2$. Il modo $l=0$ non decade mai (è isotropo); il dipolo $l=1$ (la corrente) decade con $\nu_{ei}(v)$, il tasso di trasferimento di momento del capitolo 2; il quadrupolo $l=2$ tre volte più in fretta.
+
+\subsection{Conducibilità del gas di Lorentz}
+Si applica un campo uniforme debole $\mathbf{E}=E\hat{\mathbf{z}}$ in stato stazionario: $-(eE/m_e)\,\partial f/\partial v_z=C_{ei}[f]$, con $f=f_M+f_1$ e $f_1=O(E)$. A sinistra si tiene $f_M$, con $\partial f_M/\partial v_z=-(v_z/v_{te}^2)f_M=-(m_ev\xi/T_e)f_M$; a destra $C_{ei}[f_M]=0$:
+\begin{equation}
+\frac{eEv\xi}{T_e}f_M=\nu_{ei}(v)\frac12\frac{\partial}{\partial\xi}\left[(1-\xi^2)\frac{\partial f_1}{\partial\xi}\right].
+\end{equation}
+Il membro di sinistra è proporzionale a $\xi=P_1$: si prova $f_1=\xi F(v)$; poiché $\frac12\partial_\xi[(1-\xi^2)\cdot1]=-\xi$,
+\begin{equation}
+f_1=-\frac{eEv\,\xi}{T_e\,\nu_{ei}(v)}\,f_M(v).
+\end{equation}
+Gli elettroni sono spostati contro il campo, e lo spostamento (un dipolo) è massimo dove $\nu_{ei}$ è minima, cioè per gli elettroni veloci. La corrente, con $d^3v=v^2dv\,d\Omega$ e $\int\xi^2d\Omega=4\pi/3$, è
+\begin{equation}
+j_z=-e\int v\xi f_1\,d^3v=\frac{4\pi}{3}\frac{e^2E}{T_e}\int_0^\infty\frac{v^4f_M}{\nu_{ei}(v)}\,dv .
+\end{equation}
+Con $\tau=1/\nu_{ei}$ e $\langle v^2\rangle=3T_e/m_e$ si trova la forma di Drude con $\tau(v)$:
+\begin{equation}
+\sigma=\frac{n_ee^2}{m_e}\frac{\langle v^2\tau\rangle}{\langle v^2\rangle}.
+\end{equation}
+Per $\tau$ costante si ritrova Drude (cap.~2); per Coulomb $\tau\propto v^3$ e l'integrando è $v^7f_M$, con massimo a $v=\sqrt7\,v_{te}\approx2.6\,v_{te}$. \textbf{La corrente è portata dalla coda}: gli elettroni sovratermici, che collidono poco, producono la maggior parte della corrente responsabile della conducibilità.
+
+\subsection{Il fattore $32/3\pi$}
+Il momento gaussiano è $\int_0^\infty v^{2k+1}e^{-v^2/2v_{te}^2}dv=k!\,(2v_{te}^2)^{k+1}/2$; per $k=3$,
+\begin{equation}
+\int_0^\infty v^7f_M\,dv=\frac{n_e}{(2\pi)^{3/2}v_{te}^3}\cdot48\,v_{te}^8 .
+\end{equation}
+Con $1/\nu_{ei}=v^3/(n_i\Gamma_{ei})$, $n_i\Gamma_{ei}=4\pi n_eZe^4\ln\Lambda/m_e^2$ e $v_{te}^2=T_e/m_e$,
+\begin{equation}
+\sigma_L=\frac{4\pi}{3}\frac{e^2}{T_e\,n_i\Gamma_{ei}}\cdot\frac{48\,n_e\,v_{te}^5}{(2\pi)^{3/2}}=\frac{16}{(2\pi)^{3/2}}\frac{T_e^{3/2}}{Ze^2m_e^{1/2}\ln\Lambda}.
+\end{equation}
+Confrontando con la stima semplice del capitolo 2, $\sigma_0=n_ee^2/m_e\nu_{ei}=3T_e^{3/2}/(4\sqrt{2\pi}\,Ze^2m_e^{1/2}\ln\Lambda)$,
+\begin{equation}
+\frac{\sigma_L}{\sigma_0}=\frac{16}{(2\pi)^{3/2}}\cdot\frac{4\sqrt{2\pi}}{3}=\frac{32}{3\pi}\approx3.40 .
+\end{equation}
+Una singola frequenza di collisione sottostima dunque la conducibilità di questo fattore, perché gli elettroni veloci collidono pochissimo. A lezione: già qui si guadagna un fattore $\approx3.4$ rispetto alla stima non propriamente da plasma.
+
+\subsection{Collisioni elettrone--elettrone: Spitzer--H\"arm}
+Per $Z=1$ le collisioni $e$--$e$ sono altrettanto frequenti di quelle $e$--$i$. Da sole non producono resistenza ($R_{ee}=0$), ma passano la deriva dai portatori veloci (poco diffusi dagli ioni) agli elettroni lenti (molto diffusi) e mantengono maxwelliana la parte isotropa: la conducibilità diminuisce. Risolto numericamente (Spitzer \& H\"arm 1953; Braginskii 1965), il rapporto $\sigma_\parallel/\sigma_0$ vale $1.96,\ 2.27,\ 2.67$ per $Z=1,\ 2,\ 4$, verso $3.40$ per $Z\to\infty$. Per $Z=1$:
+\begin{equation}
+\eta_\parallel=0.51\,\frac{m_e\nu_{ei}}{n_ee^2},\qquad\eta_\perp\approx1.96\,\eta_\parallel\quad(\text{perpendicolarmente a un campo forte}).
+\end{equation}
+Il risultato della trascrizione sulla direzione ortogonale (``circa il doppio'') va letto come resistività, non conducibilità. Come osservato a lezione, aumentare la temperatura aumenta la conducibilità lungo il campo; in termini di diffusività magnetica ($\eta\propto1/\sigma$) un plasma più caldo conserva il campo più a lungo, argomento che si riprenderà con l'equazione di induzione. Braginskii ha dato le formule che gli astrofisici usano per stimare la presenza del campo. A lezione si è anche detto che l'articolo di Spitzer potrebbe essere un argomento da raccontare.
+
+\section{Elettroni runaway}
+
+\subsection{Rallentamento e deflessione}
+Per un elettrone veloce, $v\gg v_{te}$, le particelle di campo si possono considerare ferme. Dal modulo 7a, con $\Gamma_{ee}=4\pi e^4\ln\Lambda/m_e^2$ e $n_i\Gamma_{ei}=Zn_e\Gamma_{ee}$:
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|}
+\hline
+ & attrito $|\hat{\mathbf{v}}\cdot\mathbf{A}|$ & $B_\perp$\\
+\hline
+elettroni ($m_a=m_b$) & $2n_e\Gamma_{ee}/v^2$ & $n_e\Gamma_{ee}/v$\\
+\hline
+ioni ($m_e/m_i\to0$) & $Zn_e\Gamma_{ee}/v^2$ & $Zn_e\Gamma_{ee}/v$\\
+\hline
+\end{tabular}
+\end{center}
+La variazione del modulo della velocità è $\Delta|\mathbf{v}|=\hat{\mathbf{v}}\cdot\Delta\mathbf{v}+|\Delta\mathbf{v}_\perp|^2/2v$, con $\langle|\Delta\mathbf{v}_\perp|^2\rangle/\Delta t=2B_\perp$ (due direzioni trasverse):
+\begin{equation}
+\frac{dv}{dt}=\hat{\mathbf{v}}\cdot\mathbf{A}+\frac{B_\perp}{v}=-\frac{(2+Z)n_e\Gamma_{ee}}{v^2}+\frac{(1+Z)n_e\Gamma_{ee}}{v^2}=-\frac{n_e\Gamma_{ee}}{v^2}.
+\end{equation}
+Dell'attrito totale ($2+Z$) solo $1$ rallenta davvero l'elettrone, con forza $F_s=4\pi n_ee^4\ln\Lambda/(m_ev^2)$; il resto, $(1+Z)$, è scattering sull'angolo di pitch: gli ioni deflettono, ma non rallentano.
+
+\subsection{Velocità critica e generazione di Dreicer}
+Un elettrone che si muove lungo $-\mathbf{E}$ guadagna velocità se $eE>F_s$, cioè sopra
+\begin{equation}
+v_c^2=\frac{4\pi n_ee^3\ln\Lambda}{m_eE}=\frac{E_D}{E}\,v_{te}^2,\qquad E_D=\frac{4\pi n_ee^3\ln\Lambda}{T_e}.
+\end{equation}
+Nel capitolo 2 si era contato l'intero attrito, $v_c^2=(2+Z)(E_D/E)v_{te}^2$; la verità sta nel mezzo, perché il campo riallinea continuamente gli elettroni e la regione di runaway è un cono attorno a $-\mathbf{E}$. Per $E\ll E_D$ (generazione di Dreicer) le collisioni alimentano la coda e gli elettroni diffondono nel cono. Connor \& Hastie (1975):
+\begin{equation}
+\frac{dn_r}{dt}\approx C\,n_e\nu_{ee}\left(\frac{E_D}{E}\right)^{3(1+Z)/16}\exp\left[-\frac{E_D}{4E}-\sqrt{\frac{(1+Z)E_D}{E}}\right].
+\end{equation}
+Compare $E_D/4E$ e non $E_D/2E$ come per una maxwelliana tagliata a $v_c$: il campo stesso alza la coda nella sua direzione. La dipendenza è esponenzialmente sensibile: il runaway si accende quando $E$ raggiunge pochi per cento di $E_D$. A lezione si è sottolineato che già a una frazione piccola (anche il 10\%) del campo di soglia l'effetto di runaway è forte.
+
+\subsection{Il campo critico $E_c$}
+Per $v\to c$ la quantità di moto $p=\gamma m_ev$ continua a crescere e la forza di attrito smette di calare (Connor \& Hastie 1975):
+\begin{equation}
+F_s=eE_c\,\frac{1+p^2}{p^2}\quad(p\text{ in unità }m_ec),\qquad E_c=\frac{4\pi n_ee^3\ln\Lambda}{m_ec^2}=\frac{T_e}{m_ec^2}E_D .
+\end{equation}
+Se $E<E_c$ non c'è runaway a nessuna energia; se $E>E_c$ si ha runaway sopra
+\begin{equation}
+p_c=\frac{m_ec}{\sqrt{E/E_c-1}},
+\end{equation}
+infatti $eE=eE_c(1+p^2)/p^2$ dà $p^2(E/E_c-1)=1$. Per $n_e=10^{14}\ \mathrm{cm^{-3}}$ e $\ln\Lambda=15$ si trova $E_c\approx0.08$~V/m. Il picco termico della forza è $\sim eE_D$, il pavimento relativistico $eE_c$, $511$ volte più basso a $1$~keV.
+
+\subsection{Valanghe: tokamak, temporali, flare}
+Gli urti ravvicinati, trascurati da Landau, qui contano: un runaway colpisce un elettrone termico e lo porta sopra $p_c$, il quale a sua volta diventa runaway (\textbf{valanga}). La crescita è esponenziale con tasso $\sim(E/E_c-1)/(\tau_c\ln\Lambda)$, $\tau_c=m_ec/eE_c$ (Rosenbluth \& Putvinski 1997), e richiede solo $E>E_c$.
+\begin{itemize}
+\item \textbf{Disruzione di un tokamak}: la temperatura scende da $10$~keV a $10$~eV in $\sim1$~ms, la resistività sale di un fattore $\sim3\times10^4$ (cioè $(10^3)^{3/2}$), e il campo è di decine di V/m: molto minore di $E_D\approx4$~kV/m ma molto maggiore di $E_c$. La valanga produce fasci di MA di elettroni di decine di MeV: un problema di progetto per ITER, e in pratica i plasmi non si riescono a controllare.
+\item \textbf{Nubi temporalesche}: gli elettroni legati dell'aria fanno da particelle di campo; la soglia è $\approx0.3$~MV/m a livello del mare. Le valanghe producono i lampi gamma terrestri (TGF), con fotoni fino a decine di MeV (BATSE 1994; RHESSI, AGILE, Fermi), emessi per bremsstrahlung dagli elettroni deflessi dai nuclei dell'aria. Nelle simulazioni (Dwyer) il campo della nube guida una valanga relativistica, alcuni fotoni gamma producono coppie $e^+e^-$ che risalgono lungo $\mathbf{B}$ fino al satellite.
+\item \textbf{Flare solari}: i campi da riconnessione superano largamente $E_D\approx5\times10^{-3}$~V/m: raggi X duri (cap.~2, cap.~15).
+\end{itemize}
+
+\section{Verso il regime non lineare: cosa ferma la crescita}
+
+\subsection{Il quadro delle lezioni precedenti}
+Riepilogo di quanto visto: le onde di Langmuir possono crescere esponenzialmente o essere smorzate (smorzamento di Landau), e un'onda di campo può intrappolare gli elettroni, creando nello spazio delle fasi regioni dove si muovono orbite intrappolate; poi le collisioni provocano una diffusione nello spazio delle velocità, non nello spazio reale: $f$ rilassa all'equilibrio come in un processo diffusivo, con un coefficiente di diffusione che determina come il sistema arriva all'equilibrio.
+La teoria lineare tiene fissa $f_0$, quindi un'onda instabile cresce come $e^{\gamma t}$ per sempre. Ma una crescita esponenziale deve potersi fermare: le stelle non esplodono. Ciò che si osserva è la \textbf{saturazione}: il sistema da instabile raggiunge una configurazione autostabilizzata, e questo avviene attraverso non linearità. Come nell'instabilità convettiva, quello che manca è capire in che modo le instabilità saturano. In sintesi:
+\begin{itemize}
+\item il modulo 7a mostra che il termine di Landau non è l'unico modo per rilassare: le collisioni diffondono in $v$;
+\item da qui la teoria quasi-lineare: si lascia che $f_0$ risponda alle onde (una diffusione, come nel cap.~7, ma i kick vengono dalle onde).
+\end{itemize}
+Una vecchia stima dal capitolo 6: un'onda di Langmuir cresce o decade al tasso
+\begin{equation}
+\gamma_k=\frac{\pi}{2}\frac{\omega_p^3}{nk^2}f_0'\left(\frac{\omega_p}{k}\right),
+\end{equation}
+quindi una distribuzione con un bump, $f_0'>0$, è instabile. Un'onda singola grande intrappola gli elettroni con frequenza di rimbalzo $\omega_b=(ekE_0/m)^{1/2}$. L'instabilità di un bump eccita tutti i $k$ con $\omega_p/k$ sul lato crescente: il caso generico è quello con molte onde a fasi casuali.
+
+\subsection{Un'onda coerente: intrappolamento e modi BGK}
+Nel sistema di riferimento dell'onda ($v_\phi=\omega/k$) il potenziale $\phi_0\cos kx$ è statico e si conserva $W=\frac12m(v-v_\phi)^2-e\phi(x)$.
+\begin{itemize}
+\item Per $|v-v_\phi|<2\omega_b/k$ le orbite sono intrappolate (chiuse, i ``cat's eyes'', occhi di gatto) con frequenza di rimbalzo $\omega_b=\sqrt{ekE_0/m}$.
+\item Nella prima metà del rimbalzo gli elettroni prendono energia dall'onda, nella seconda la restituiscono: l'ampiezza oscilla.
+\item Le orbite rimbalzano con frequenze diverse e si sfasano: $f$ si appiattisce dentro l'occhio, $\partial_vf=0$ in $v_\phi$ e lo scambio cessa.
+\end{itemize}
+I \textbf{modi BGK} (Bernstein, Greene \& Kruskal 1957): ogni $f(W)$ risolve l'equazione di Vlasov stazionaria, e Poisson fissa $\phi$; esistono onde nonlineari esatte di forma quasi qualsiasi, con elettroni intrappolati corrispondenti. Quando la condizione di intrappolamento viene violata, le orbite non sono più ben definite, cominciano a oscillare con frequenze diverse e il sistema si organizza in modi nonlineari di questo tipo.
+
+\subsection{Molte onde: sovrapposizione delle risonanze e caos}
+A lezione si è mostrata una mappa stroboscopica: elettroni in due onde uguali con velocità di fase $0$ e $v_{\phi2}$, tracciati una volta per periodo dell'onda 2 (una curva è un'orbita regolare, una nuvola di punti una caotica). Le equazioni sono
+\begin{equation}
+\ddot x=-A\left[\sin x+\sin(x-v_{\phi2}t)\right],\qquad k=1,\quad A=\omega_b^2=0.006,\ 0.05,
+\end{equation}
+con $90$ elettroni, $300$ periodi, integrazione leapfrog (novanta equazioni differenziali con condizioni iniziali diverse). Ogni onda intrappola una banda di semilarghezza $2\omega_b/k$.
+\begin{itemize}
+\item Bande separate (piccola ampiezza): orbite regolari, intrappolamento in ciascuna onda separatamente; il moto sta in strisce molto regolari.
+\item Bande sovrapposte (grande ampiezza): le orbite vagano da una banda all'altra: moto \textbf{stocastico} (criterio di Chirikov).
+\item Con molte onde le cui bande si sovrappongono, la velocità compie una passeggiata casuale.
+\end{itemize}
+Il caos è \emph{deterministico}: piccole differenze nelle condizioni iniziali portano a situazioni completamente diverse (a differenza, per esempio, di un decadimento radioattivo, descritto da una distribuzione). Ciò rende difficile anche la simulazione numerica, ma è molto comune in fisica; si potrebbero calcolare gli esponenti di Lyapunov. Per non esplodere, il sistema si riorganizza in una struttura caotica nello spazio delle fasi.
+
+\section{La teoria quasi-lineare}
+In teoria quasi-lineare le onde sono lineari; l'unica non linearità conservata è la lenta variazione di $f_0$. A lezione è stato sottolineato che si fanno approssimazioni brutali, ma la parte fisica sta tutta nel meccanismo, non nei dettagli tecnici.
+
+\subsection{Parti lente e veloci}
+Elettroni, ioni fissi, una dimensione:
+\begin{equation}
+\frac{\partial f}{\partial t}+v\frac{\partial f}{\partial x}-\frac em E\frac{\partial f}{\partial v}=0,\qquad\frac{\partial E}{\partial x}=-4\pi e\left(\int f\,dv-n\right).
+\end{equation}
+Si scrive $f=f_0(v,t)+f_1(x,v,t)$ con $f_0=\langle f\rangle$ la media su una lunghezza $L\gg$ tutte le lunghezze d'onda: $\langle f_1\rangle=0$, $\langle E\rangle=0$. Mediando Vlasov, $\langle v\partial_xf_1\rangle=0$ (condizioni periodiche) e $\langle E\rangle\partial_vf_0=0$, quindi
+\begin{equation}
+\frac{\partial f_0}{\partial t}=\frac em\left\langle E\frac{\partial f_1}{\partial v}\right\rangle=\frac em\frac{\partial}{\partial v}\langle Ef_1\rangle
+\end{equation}
+($E$ non dipende da $v$). Il fondo cambia solo attraverso la correlazione di $E$ e $f_1$: secondo ordine nell'ampiezza, quindi lento. Non c'è nessun termine del primo ordine nell'equazione mediata.
+
+\subsection{Le fluttuazioni}
+Sottraendo la media dall'equazione di Vlasov:
+\begin{equation}
+\frac{\partial f_1}{\partial t}+v\frac{\partial f_1}{\partial x}-\frac emE\frac{\partial f_0}{\partial v}=\frac em\left[E\frac{\partial f_1}{\partial v}-\left\langle E\frac{\partial f_1}{\partial v}\right\rangle\right].
+\end{equation}
+Nell'approssimazione quasi-lineare si scarta il membro di destra (accoppiamento onda--onda): $f_1$ obbedisce all'equazione lineare del cap.~6, con $f_0(v,t)$ lentamente variabile al posto della distribuzione iniziale. Per modi di Fourier $E=\sum_kE_ke^{i(kx-\omega_kt)}$, $\omega_k=\omega_r+i\gamma_k$:
+\begin{equation}
+-i(\omega_k-kv)f_{1k}-\frac emE_k\frac{\partial f_0}{\partial v}=0\ \Rightarrow\ f_{1k}=\frac{ie}{m}\frac{E_k}{\omega_k-kv}\frac{\partial f_0}{\partial v}.
+\end{equation}
+Poiché $E$ è reale, $E_{-k}=E_k^*$ e $\omega_{-k}=-\omega_k^*$ (stesso tasso di crescita, frequenza reale opposta).
+
+\subsection{La correlazione $\langle Ef_1\rangle$ e il coefficiente di diffusione}
+Nel prodotto delle due somme sopravvive solo $k'=-k$:
+\begin{equation}
+\langle Ef_1\rangle=\sum_kE_k^*f_{1k}=\frac{ie}{m}\frac{\partial f_0}{\partial v}\sum_k\frac{|E_k|^2}{\omega_k-kv}.
+\end{equation}
+Accoppiando i termini $k$ e $-k$ con $\omega_{-k}=-\omega_k^*$,
+\begin{equation}
+\frac{1}{\omega_k-kv}+\frac{1}{-\omega_k^*+kv}=\frac{\omega_k^*-\omega_k}{|\omega_k-kv|^2}=\frac{-2i\gamma_k}{(\omega_r-kv)^2+\gamma_k^2},
+\end{equation}
+dunque $\sum_k|E_k|^2/(\omega_k-kv)=-i\sum_k\gamma_k|E_k|^2/[(\omega_r-kv)^2+\gamma_k^2]$ (ogni coppia contata una volta). Si ottiene la \textbf{diffusione quasi-lineare}:
+\begin{equation}
+\frac{\partial f_0}{\partial t}=\frac{\partial}{\partial v}\left(D(v)\frac{\partial f_0}{\partial v}\right),\qquad D(v)=\frac{e^2}{m^2}\sum_k\frac{|E_k|^2\gamma_k}{(\omega_r-kv)^2+\gamma_k^2}.
+\end{equation}
+
+\subsection{Elettroni risonanti e stima di $D$}
+Per $|\gamma_k|\ll\omega_r$ la lorentziana è stretta, di area $\pi$:
+\begin{equation}
+\frac{\gamma_k}{(\omega_r-kv)^2+\gamma_k^2}\to\pi\,\delta(\omega_r-kv).
+\end{equation}
+Diffondono solo gli elettroni con $v=\omega_r/k$, che ``surfano'' l'onda; la parte non risonante restante è lo sloshing reversibile del fluido nel campo dell'onda. Con lo spettro $\langle E^2\rangle/8\pi=\sum_k|E_k|^2/8\pi=\int W_k\,dk$, per onde di Langmuir ($\omega_r\simeq\omega_p$, $\delta(\omega_p-kv)=\delta(k-\omega_p/v)/|v|$):
+\begin{equation}
+D(v)=\frac{8\pi^2e^2}{m^2}\int W_k\,\delta(\omega_p-kv)\,dk=\frac{8\pi^2e^2}{m^2|v|}\,W_{k=\omega_p/v}.
+\end{equation}
+È un'equazione di diffusione come nel cap.~7, ma i kick vengono dalle onde e solo gli elettroni risonanti li ricevono.
+
+\emph{Stima.} Un elettrone a $v$ vede la fase $kx-\omega_pt=(kv-\omega_p)t$ di ogni onda. Le onde di una banda $\Delta k$ attorno alla risonanza restano in fase per un tempo di correlazione $\tau_c\simeq1/(v\Delta k)$. In $\tau_c$ il campo della banda spinge coerentemente: $\Delta v\simeq(e/m)E_{\rm band}\tau_c$ con $E_{\rm band}^2\simeq8\pi W_k\Delta k$; poi le fasi si perdono e il kick successivo è indipendente:
+\begin{equation}
+D\simeq\frac{\langle\Delta v^2\rangle}{\tau_c}\simeq\frac{e^2}{m^2}E_{\rm band}^2\tau_c\simeq\frac{e^2}{m^2}\frac{8\pi W_k\Delta k}{v\Delta k}=\frac{8\pi e^2W_k}{m^2v}.
+\end{equation}
+$\Delta k$ si semplifica: conta solo l'energia per unità di $k$ alla risonanza. Il risultato esatto ha un $\pi$ in più. Serve $\tau_c\ll1/\omega_b$, altrimenti l'elettrone è intrappolato.
+
+\section{Onde e particelle insieme: il plateau}
+
+\subsection{Il sistema chiuso}
+Le onde crescono o decadono al tasso lineare, calcolato con l'$f_0$ corrente:
+\begin{equation}
+\frac{\partial W_k}{\partial t}=2\gamma_kW_k,\qquad\gamma_k=\frac\pi2\frac{\omega_p^3}{nk^2}\left.\frac{\partial f_0}{\partial v}\right|_{v=\omega_p/k}
+\end{equation}
+($W\propto|E_k|^2$, da cui il $2\gamma_k$). Le \textbf{equazioni quasi-lineari} sono dunque
+\begin{equation}
+\frac{\partial f_0}{\partial t}=\frac{\partial}{\partial v}\left[\frac{8\pi^2e^2}{m^2v}W_{\omega_p/v}\frac{\partial f_0}{\partial v}\right],\qquad\frac{\partial W_k}{\partial t}=\frac{\pi\omega_p^3}{nk^2}\left.\frac{\partial f_0}{\partial v}\right|_{\omega_p/k}W_k .
+\end{equation}
+Dove $f_0'>0$ le onde crescono; esse fanno diffondere gli elettroni, il che abbassa $f_0'$. L'evoluzione si ferma solo quando $W_k\partial_vf_0=0$ ovunque: o non ci sono onde, o $f_0$ è piatta. Lo stato finale è un \textbf{plateau} nelle velocità risonanti, con uno spettro di onde saturato. A lezione l'effetto si è visto numericamente: partendo da un fascio caldo ($n_b=0.01n$, $v_b=5v_t$, $\Delta v_b=v_t$), la distribuzione si appiattisce e il sistema raggiunge un plateau che si estende fino a $4$--$6$ volte la velocità termica (la forma ricorda la costruzione di Maxwell delle transizioni di fase); le onde crescono solo dove $f_0'>0$ e il plateau si forma a $\omega_pt\approx300$. Il termine di crescita che causava l'instabilità viene eliminato dal feedback del secondo ordine, che agisce su tempi lunghi.
+
+\subsection{Conservazione della quantità di moto}
+Per parti,
+\begin{equation}
+\frac{d}{dt}\int mvf_0\,dv=\int mv\frac{\partial}{\partial v}\left(Df_0'\right)dv=-\int mDf_0'\,dv=-\frac{8\pi^2e^2}{m}\int\frac{W_{\omega_p/v}}{v}f_0'(v)\,dv .
+\end{equation}
+Con $k=\omega_p/v$ ($dv=-(\omega_p/k^2)dk$) l'integrale diventa $-\frac{8\pi^2e^2}{m}\int\frac{W_k}{k}f_0'(\omega_p/k)\,dk$. Le onde hanno energia $2W_k$ (metà elettrica, metà energia cinetica degli elettroni oscillanti) e quantità di moto $2W_k/v_\phi=2W_kk/\omega_p$:
+\begin{equation}
+\frac{d}{dt}\int\frac{2kW_k}{\omega_p}dk=\int\frac{2k}{\omega_p}2\gamma_kW_k\,dk=\frac{8\pi^2e^2}{m}\int\frac{W_k}{k}f_0'\left(\frac{\omega_p}{k}\right)dk,
+\end{equation}
+usando $\omega_p^2=4\pi ne^2/m$. I due termini sono uguali e opposti. Gli stessi passaggi con $\frac12mv^2$ danno la conservazione dell'energia.
+
+\subsection{Quanta energia va alle onde}
+Combinando le due equazioni, alla risonanza $D\,\partial_vf_0=(2\omega_p/mv^3)\,\partial_tW$ (con $W=W_{\omega_p/v}$), quindi
+\begin{equation}
+\frac{\partial f_0}{\partial t}=\frac{\partial}{\partial v}\left(\frac{2\omega_p}{mv^3}\frac{\partial W}{\partial t}\right)\ \Rightarrow\ \frac{2\omega_p}{mv^3}W^{\rm final}_{\omega_p/v}=\int_{v_1}^v\left[f_0(v',\infty)-f_0(v',0)\right]dv'
+\end{equation}
+($v_1$: limite inferiore del plateau, onde iniziali trascurabili). Per un fascio freddo $n_b\delta(v-v_b)$ su un fondo trascurabile, il plateau vale $n_b/v_b$ per $0<v<v_b$ (stesse particelle). L'integrale è $n_bv/v_b$, quindi
+\begin{equation}
+W=\frac{mn_bv^4}{2\omega_pv_b}:
+\end{equation}
+le onde si accumulano vicino alla velocità del fascio. L'energia elettrica totale è
+\begin{equation}
+\int W\,dk=\int_0^{v_b}W\frac{\omega_p}{v^2}dv=\frac16\,n_bmv_b^2,
+\end{equation}
+e l'energia delle onde ($2W$) è il doppio, $\frac13n_bmv_b^2$. Il fascio ha inizialmente energia $\frac12n_bmv_b^2$ e quantità di moto $n_bmv_b$; il plateau ha quantità di moto $\int mv\,(n_b/v_b)\,dv=\frac12n_bmv_b$ e energia cinetica $\frac16n_bmv_b^2$. Dunque \textbf{il fascio conserva metà della quantità di moto e cede due terzi della sua energia alle onde}, in un tempo $\sim(n/n_b)\,\omega_p^{-1}$ per un logaritmo; il terzo restante resta nell'energia cinetica degli elettroni del plateau.
+
+\section{Validità e test numerico}
+La teoria quasi-lineare vale quando le risonanze si sovrappongono e hanno memoria breve. Detti $\Delta v_\phi$ l'intervallo delle velocità di fase risonanti e $\delta v_\phi$ la separazione tra onde adiacenti:
+\begin{itemize}
+\item \textbf{sovrapposizione}: $\delta v_\phi\ll\omega_b/k$, le bande di intrappolamento di onde vicine si sovrappongono (moto stocastico);
+\item \textbf{memoria breve}: $\omega_b/k\ll\Delta v_\phi$, cioè $\omega_b\tau_c\ll1$: nessun elettrone completa un rimbalzo in una singola onda;
+\item \textbf{fondo lento}: $\gamma_k\ll\omega_p$ e $\gamma_k\tau_c\ll1$, cioè un fascio caldo: instabilità cinetica, non reattiva (cap.~6);
+\item \textbf{turbolenza debole}: $\sum W_k\ll nT$, accoppiamento onda--onda trascurato.
+\end{itemize}
+Serve dunque uno spettro largo di onde piccole, molte per ogni larghezza di intrappolamento. Un'onda coerente o un fascio freddo sono il limite opposto: intrappolamento e strutture BGK (capp.~5--6).
+Un test con l'equazione di Vlasov--Poisson completa, con $L=1000\lambda_D$ (molti modi instabili) e partendo da rumore casuale: la media spaziale $\langle f\rangle_x$ si appiattisce nel plateau quasi-lineare, e l'energia di campo satura vicino al livello quasi-lineare; partendo da un rumore più alto, satura prima.
+
+\section{Applicazioni}
+
+\subsection{Il dilemma di Sturrock}
+Alcune osservazioni dei radio burst nel Sole (tipo III) sono interpretabili con fasci accelerati che arrivano fino a distanze dell'ordine dell'unità astronomica, ma si era visto (cap.~6) che un fascio così dovrebbe perdere la sua energia entro $\sim100$~km: come fa a raggiungere $1$~au? La risposta sta nelle equazioni quasi-lineari:
+\begin{itemize}
+\item il rilassamento quasi-lineare è veloce, ma produce un plateau, non un fascio fermo: gli elettroni si muovono lungo il plateau e conservano circa metà della quantità di moto;
+\item gli elettroni più veloci arrivano per primi: al fronte le onde crescono, dietro gli elettroni più lenti le riassorbono. Il fascio trasporta le sue onde con sé;
+\item la persistenza di questa configurazione, che si autostabilizza con tempi lunghi del feedback non lineare, permette di osservare queste strutture fino a diverse unità astronomiche;
+\item \textit{in situ} (ISEE-3, Wind, Parker Solar Probe, Solar Orbiter): fasci con distribuzioni quasi piatte, marginalmente stabili, e onde di Langmuir a burst.
+\end{itemize}
+
+\subsection{Onde contro collisioni}
+Il plateau non è una maxwelliana: per il teorema $H$ le collisioni devono cancellarlo. Con quale rapidità? Un elettrone veloce rallenta al tasso
+\begin{equation}
+\nu_s(v)=\frac1v\left|\frac{dv}{dt}\right|=\frac{4\pi n_ee^4\ln\Lambda}{m_e^2v^3}\propto v^{-3},
+\end{equation}
+mentre il rilassamento quasi-lineare avviene in $\tau_{QL}\sim(n/n_b)\,\omega_p^{-1}\times$ un logaritmo.
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|}
+\hline
+Fascio da $10$~keV, $v\approx6\times10^9$~cm/s & $n_e$ [$\mathrm{cm^{-3}}$] & $1/\nu_s$ & tempo di viaggio\\
+\hline
+bassa corona & $10^9$ & $\approx13$~s & $\sim10$~s (un $R_\odot$)\\
+\hline
+vento solare a $1$~au & $5$ & $\approx65$~yr & $\approx40$~min\\
+\hline
+\end{tabular}
+\end{center}
+($\ln\Lambda\approx20$--$25$; $\omega_p^{-1}\approx0.6$~ns e $8~\mu$s.) Nel vento solare solo le onde modellano il fascio: $\tau_{QL}$ è di secondi o minuti, le collisioni richiedono decenni. Vicino al Sole le collisioni competono, e rallentano per primi gli elettroni lenti del fascio.
+
+\subsection{Accelerazione stocastica}
+Uno spettro largo di densità di energia totale $W$, distribuito su $\Delta k\sim k\sim\omega_p/v_t$, ha $W_k\sim Wv_t/\omega_p$ e per $v\sim v_t$
+\begin{equation}
+D\sim\frac{8\pi^2e^2W}{m^2\omega_p}.
+\end{equation}
+Il tempo per cambiare la velocità di $\Delta v$ (passeggiata casuale, $\Delta v^2\simeq2Dt$), usando $e^2=m\omega_p^2/4\pi n$, è
+\begin{equation}
+t_{\rm acc}\simeq\frac{\Delta v^2}{2D}=\frac{1}{4\pi\omega_p}\,\frac{nT}{W}\left(\frac{\Delta v}{v_t}\right)^2 .
+\end{equation}
+Con $W/nT=10^{-3}$ e $\Delta v=v_t$: $\omega_pt_{\rm acc}\approx80$. Un'energia d'onda di un millesimo di quella termica raddoppia la velocità degli elettroni della coda in circa cento periodi di plasma. È la microfisica dell'accelerazione di Fermi del secondo ordine (cap.~4): la turbolenza riscalda le code nei flare solari, nella zona aurorale, e accelera i raggi cosmici.
+
+\subsection{Cenni storici}
+\begin{itemize}
+\item Romanov \& Filippov (1961), Vedenov, Velikhov \& Sagdeev (1961--62), Drummond \& Pines (1962): la teoria quasi-lineare, indipendentemente in URSS e negli Stati Uniti (gli ultimi due alla conferenza di Salisburgo del 1961 sulla fusione);
+\item Sturrock (1964): il dilemma del tipo III, la cui risoluzione quasi-lineare ha occupato i decenni seguenti;
+\item Bernstein, Greene \& Kruskal (1957): onde stazionarie nonlineari esatte (modi BGK); O'Neil (1965): l'oscillazione degli elettroni intrappolati;
+\item Chirikov (1959, 1979): la sovrapposizione delle risonanze come criterio per il moto stocastico.
+\end{itemize}
+
+\section{Domande di verifica}
+\textbf{Modulo 7b}
+\begin{enumerate}
+\item \textit{Quale proprietà di $U_{ij}$ dà la conservazione dell'energia? E della quantità di moto?} Energia: $u_iU_{ij}=0$. Quantità di moto: l'antisimmetria $Q_j\to-Q_j$ sotto il doppio scambio, che dà $R_{ba}=-R_{ab}$.
+\item \textit{Perché due maxwelliane a temperature diverse non sono un equilibrio collisionale? E due maxwelliane alla stessa $T$ in deriva relativa?} Perché l'equilibrio richiede la stessa $T$ \emph{e} la stessa velocità media: in entrambi i casi $\mathbf{w}\not\parallel\mathbf{u}$ e il sistema rilassa.
+\item \textit{Perché ogni $f(v)$ isotropa è un equilibrio nel gas di Lorentz? Cosa rende maxwelliana la vera distribuzione?} Perché l'operatore contiene solo derivate angolari. Sono le collisioni $e$--$e$ a rendere maxwelliana la parte isotropa.
+\item \textit{Perché una singola frequenza di collisione sottostima la conducibilità di $32/3\pi$?} Perché la corrente è portata dalla coda ($v^7f_M$, picco a $2.6\,v_{te}$), dove $\nu\propto v^{-3}$ è piccola.
+\item \textit{Le collisioni $e$--$e$ conservano il momento elettronico: come cambiano la resistività?} Redistribuiscono la deriva dai portatori veloci agli elettroni lenti e mantengono maxwelliana la parte isotropa.
+\item \textit{Perché gli ioni deflettono un elettrone veloce senza rallentarlo?} Dell'attrito $(2+Z)$ solo $1$ rallenta; $(1+Z)$ è scattering sull'angolo di pitch.
+\item \textit{C'è runaway in un tokamak con $E=0.05$~V/m e $n_e=10^{14}~\mathrm{cm^{-3}}$?} No: $E_c\approx0.08$~V/m, quindi $E<E_c$.
+\end{enumerate}
+\textbf{Modulo 8a}
+\begin{enumerate}
+\item \textit{Perché l'equazione di Vlasov mediata non contiene termini del primo ordine nell'ampiezza?} Perché $\langle E\rangle=0$ e $\langle f_1\rangle=0$: restano solo correlazioni del secondo ordine.
+\item \textit{Da dove viene la risonanza $v=\omega_p/k$? Perché gli elettroni non risonanti non diffondono?} Dalla lorentziana che diventa $\pi\delta(\omega_r-kv)$; la parte non risonante è lo sloshing reversibile.
+\item \textit{Perché l'energia elettrica delle onde è metà dell'energia cinetica persa dal fascio?} Perché l'energia dell'onda è $2W$: metà elettrica e metà cinetica degli elettroni oscillanti.
+\item \textit{Un fascio freddo cede due terzi della sua energia alle onde: dove va il resto?} Nell'energia cinetica degli elettroni del plateau ($\frac16n_bmv_b^2=\frac13$ dell'energia iniziale).
+\item \textit{Perché la teoria quasi-lineare fallisce per una singola onda grande?} Perché gli elettroni completano rimbalzi coerenti ($\omega_b\tau_c\gtrsim1$): intrappolamento e modi BGK, non fasi casuali.
+\item \textit{Il plateau non è una maxwelliana: perché sopravvive dal Sole a $1$~au?} Perché le collisioni lo cancellano solo su $1/\nu_s\propto v^3$, decenni a $1$~au.
+\end{enumerate}
+
+\section{Riepilogo}
+\begin{center}
+\small
+\begin{tabular}{|l|l|}
+\hline
+Conservazione & particelle ($\oint J\cdot dS=0$), momento ($R_{ab}=-R_{ba}$), energia ($u_iU_{ij}=0$)\\
+\hline
+Teorema $H$ & $(\partial H/\partial t)_{\rm coll}\le0$; equilibrio = maxwelliane con stessi $T$ e $\mathbf{V}$\\
+\hline
+Gas di Lorentz & $C=\nu_{ei}(v)\,\frac12\partial_\xi[(1-\xi^2)\partial_\xi f]$\\
+\hline
+Conducibilità & $\sigma_L=\frac{32}{3\pi}\sigma_0$; $\sigma_\parallel=1.96\,\sigma_0$ per $Z=1$\\
+\hline
+Runaway & $F_s\propto v^{-2}$, Dreicer $\propto e^{-E_D/4E}$, $E_c=(T_e/m_ec^2)E_D$\\
+\hline
+Quasi-lineare & $D(v)=\frac{8\pi^2e^2}{m^2v}W_{\omega_p/v}$, $\partial_tW_k=2\gamma_kW_k$\\
+\hline
+Plateau & fascio freddo: $2/3$ dell'energia alle onde, metà del momento resta\\
+\hline
+Validità & risonanze sovrapposte e a memoria breve; altrimenti intrappolamento\\
+\hline
+\end{tabular}
+\end{center}
+Le collisioni cancellano il plateau solo su $1/\nu_s\propto v^3$: decenni a $1$~au. Il prossimo modulo (9a) passa dalla teoria cinetica ai fluidi: momenti dell'equazione cinetica, problema della chiusura, equazioni a due fluidi.
