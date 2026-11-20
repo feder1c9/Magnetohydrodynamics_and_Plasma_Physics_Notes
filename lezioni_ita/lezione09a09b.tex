@@ -1,0 +1,424 @@
+\chapter{Lezione 11 - 10/11/2026}
+
+\section{Introduzione e richiami}
+La lezione riunisce due moduli. Nel modulo 9a si passa dalla teoria cinetica alla descrizione fluida: momenti dell'equazione cinetica, problema della chiusura, plasma a due fluidi. Nel modulo 9b si sommano e si sottraggono le equazioni dei due fluidi per ottenere un fluido solo e la legge di Ohm generalizzata, da cui si ricava il limite magnetoidrodinamico (MHD) e l'equazione di induzione. Letture: per il modulo 9a Goedbloed \& Poedts, capp.~2--3, Kulsrud, cap.~3, Braginskii (1965), \S1--2, note cap.~9 e cap.~5 (momenti); per il modulo 9b Goedbloed \& Poedts, capp.~3--4, Kulsrud, capp.~3 e 13, Yamada, Kulsrud \& Ji (2010), note cap.~9. I riferimenti bibliografici sono quelli citati nelle slide e vanno verificati sui testi originali.
+
+\subsection{Da dove si parte}
+Nei moduli 5--8 il plasma è stato descritto con la funzione di distribuzione $f_s(\mathbf{x},\mathbf{v},t)$ in sei dimensioni. Come ricordato a lezione, quella funzione deriva da un processo di chiusura: il sistema esatto di $N$ particelle è un sistema di infinite equazioni per le funzioni di correlazione (gerarchia BBGKY, cap.~5), che è impossibile e non fisico da risolvere, e se ne studia solo la funzione a una particella, ottenendo l'equazione di Vlasov e poi il termine collisionale (Fokker--Planck, Landau). Con questa descrizione si sono visti fenomeni che richiedono la dipendenza dalla velocità: instabilità, smorzamento di Landau, collisioni, rilassamento quasi-lineare.
+La maggior parte dell'astrofisica (e tutta la teoria della dinamo) usa invece i fluidi: densità $n$, velocità $\mathbf{u}$, temperatura $T$ in tre dimensioni. Il risultato è che il fluido descrive solo quanto è determinato dai primi momenti di $f$, e il prezzo da pagare è che le equazioni non si chiudono: serve un'informazione fisica dall'esterno. Il modulo 5b aveva dato le equazioni di continuità e di moto senza collisioni; qui si aggiungono collisioni, energia, chiusura e le due specie insieme.
+
+\subsection{Notazione}
+Per ciascuna specie $s$ (indice sottinteso) si scrive $\mathbf{w}=\mathbf{v}-\mathbf{u}(\mathbf{x},t)$ per la velocità relativa al fluido: $\mathbf{v}$ è la velocità microscopica, argomento di $f$, $\mathbf{u}$ è la velocità media del fluido (media su un piccolo volume di particelle), $\mathbf{w}$ è la velocità casuale rispetto al fluido locale e non una nuova variabile indipendente. Le temperature sono sempre espresse in unità di energia, $p=nT$ (si omette $k_B$), e la velocità termica è $v_{ts}=\sqrt{T_s/m_s}$. I momenti sono, in ordine crescente (scalare, vettore, tensore, \dots):
+\begin{equation}
+n=\int f\,d^3v,\qquad n\mathbf{u}=\int\mathbf{v}f\,d^3v,\qquad \mathbf{P}=m\int\mathbf{w}\mathbf{w}f\,d^3v,\qquad \mathbf{q}=\frac m2\int w^2\mathbf{w}f\,d^3v .
+\end{equation}
+Pressione scalare e temperatura: $p=\frac13\mathrm{tr}\,\mathbf{P}=nT$; sforzo viscoso $\boldsymbol\pi=\mathbf{P}-p\mathbf{I}$; $\mathbf{q}$ è il flusso di calore, l'energia trasportata dal moto casuale. Per una maxwelliana $\mathbf{P}=nT\mathbf{I}$, $\boldsymbol\pi=0$, $\mathbf{q}=0$: ogni scostamento da una maxwelliana si manifesta in $\boldsymbol\pi$, $\mathbf{q}$, \dots
+
+\section{I momenti dell'equazione cinetica}
+
+\subsection{La ricetta generale}
+L'equazione cinetica con collisioni (moduli 5 e 7), con $\mathbf{a}=(q/m)(\mathbf{E}+\mathbf{v}\times\mathbf{B}/c)$, è
+\begin{equation}
+\frac{\partial f}{\partial t}+\mathbf{v}\cdot\nabla f+\mathbf{a}\cdot\frac{\partial f}{\partial\mathbf{v}}=\sum_bC_{sb}[f,f_b].
+\end{equation}
+Si moltiplica per una funzione $\chi(\mathbf{v})$ qualunque e si integra su $\mathbf{v}$, scrivendo $\langle\chi\rangle=n^{-1}\int\chi f\,d^3v$ (la media pesata di $\chi$ con la funzione di distribuzione):
+\begin{itemize}
+\item termine temporale: $\chi$ non dipende da $t$, quindi $\int\chi\,\partial_tf\,d^3v=\partial_t(n\langle\chi\rangle)$;
+\item termine di trasporto: $\mathbf{v}$ non dipende da $\mathbf{x}$, quindi $\int\chi\,\mathbf{v}\cdot\nabla f\,d^3v=\nabla\cdot(n\langle\mathbf{v}\chi\rangle)$;
+\item termine di forza: si integra per parti in $\mathbf{v}$; il termine al bordo si annulla e $\nabla_v\cdot\mathbf{a}=0$ (la forza magnetica è ortogonale a $\mathbf{v}$):
+\begin{equation}
+\int\chi\,\mathbf{a}\cdot\frac{\partial f}{\partial\mathbf{v}}\,d^3v=-\int f\,\mathbf{a}\cdot\frac{\partial\chi}{\partial\mathbf{v}}\,d^3v=-n\langle\mathbf{a}\cdot\nabla_v\chi\rangle.
+\end{equation}
+\end{itemize}
+Il risultato è
+\begin{equation}
+\frac{\partial}{\partial t}\left(n\langle\chi\rangle\right)+\nabla\cdot\left(n\langle\mathbf{v}\chi\rangle\right)-n\langle\mathbf{a}\cdot\nabla_v\chi\rangle=\sum_b\int\chi\,C_{sb}\,d^3v .
+\end{equation}
+Il flusso $n\langle\mathbf{v}\chi\rangle$ contiene sempre una potenza di $\mathbf{v}$ in più rispetto a $\chi$: da qui nascono i problemi. L'equazione ha l'aspetto di un'equazione per i momenti: il momento di ordine 0 è accoppiato a quello di ordine 1, e questo alla forza; l'obiettivo è capire come chiuderla.
+
+\subsection{Continuità e quantità di moto}
+\textbf{$\chi=1$.} Si ha $\nabla_v\chi=0$, e le collisioni conservano le particelle (modulo 7b), quindi il termine collisionale è nullo:
+\begin{equation}
+\frac{\partial n}{\partial t}+\nabla\cdot(n\mathbf{u})=0,
+\end{equation}
+l'equazione di continuità. \textbf{$\chi=m\mathbf{v}$.} Qui $n\langle m\mathbf{v}\mathbf{v}\rangle=mn\mathbf{u}\mathbf{u}+\mathbf{P}$, perché i termini incrociati si annullano ($\langle\mathbf{w}\rangle=\langle\mathbf{v}\rangle-\mathbf{u}=0$ per definizione di $\mathbf{u}$), e $n\langle\mathbf{a}\cdot\nabla_v(m\mathbf{v})\rangle=mn\langle\mathbf{a}\rangle=qn(\mathbf{E}+\mathbf{u}\times\mathbf{B}/c)$. Sottraendo $m\mathbf{u}$ per l'equazione di continuità:
+\begin{equation}
+mn\left(\frac{\partial\mathbf{u}}{\partial t}+\mathbf{u}\cdot\nabla\mathbf{u}\right)=-\nabla\cdot\mathbf{P}+qn\left(\mathbf{E}+\frac{\mathbf{u}\times\mathbf{B}}{c}\right)+\mathbf{R}_s,\qquad\mathbf{R}_s=\sum_b\int m\mathbf{v}\,C_{sb}\,d^3v .
+\end{equation}
+$\mathbf{R}_s$ è la forza di attrito per unità di volume dovuta alle altre specie. Dall'operatore di Landau (moduli 7b e 8a) $\mathbf{R}_{ss}=0$ (particelle uguali non possono spingere il proprio fluido) e $\mathbf{R}_{ei}=-\mathbf{R}_{ie}$ (azione e reazione).
+Come controllo: per un fluido senza forze e con $\mathbf{P}=p\mathbf{I}$ si ottiene $\rho\,d\mathbf{u}/dt=-\nabla p$, l'equazione di Eulero di un fluido neutro, che stazionaria dà l'equilibrio idrostatico; la fisica dei plasmi è un livello più su, perché i fluidi sono accoppiati. A lezione si è sottolineato questo punto.
+
+\subsection{Energia}
+Con $\chi=\frac12mv^2$ si ha $\nabla_v\chi=m\mathbf{v}$ e $\mathbf{v}\cdot(\mathbf{v}\times\mathbf{B})=0$: il campo magnetico non fa lavoro, e il termine di forza vale $qn\,\mathbf{u}\cdot\mathbf{E}$. Per il flusso si scrive $\mathbf{v}=\mathbf{u}+\mathbf{w}$ e si espande
+\begin{equation}
+\tfrac12m(u^2+2\mathbf{u}\cdot\mathbf{w}+w^2)(\mathbf{u}+\mathbf{w}):
+\end{equation}
+i termini lineari in $\mathbf{w}$ hanno media nulla; i termini quadratici in $\mathbf{w}$ no (restano $m(\mathbf{u}\cdot\mathbf{w})\mathbf{w}\to\mathbf{P}\cdot\mathbf{u}$ e $\frac12mw^2\mathbf{u}\to\frac32p\,\mathbf{u}$) e il termine cubico dà un nuovo vettore $\mathbf{q}$. Con $n\langle\frac12mv^2\rangle=\frac12mnu^2+\frac32p$:
+\begin{equation}
+\frac{\partial}{\partial t}\left(\frac12mnu^2+\frac32p\right)+\nabla\cdot\left(\frac12mnu^2\mathbf{u}+\frac32p\,\mathbf{u}+\mathbf{P}\cdot\mathbf{u}+\mathbf{q}\right)=qn\,\mathbf{u}\cdot\mathbf{E}+\sum_b\int\tfrac12mv^2\,C_{sb}\,d^3v .
+\end{equation}
+Il flusso di energia contiene l'energia cinetica trasportata, termini tipo entalpia, il lavoro della pressione e $\mathbf{q}$, una nuova incognita. L'equazione è molto brutta e praticamente intrattabile; ma già dice che l'idea di avere un sistema chiuso per un fluido si scontra col fatto che ogni volta che si fa una media nasce un momento di ordine superiore.
+
+\subsection{L'equazione per la temperatura}
+Si sottrae $\mathbf{u}\cdot$(equazione del momento), che toglie l'energia cinetica del flusso medio, e si usa la continuità. Con la derivata convettiva $d/dt=\partial_t+\mathbf{u}\cdot\nabla$ (alcuni testi la chiamano derivata lagrangiana):
+\begin{equation}
+\frac32n\frac{dT}{dt}+p\,\nabla\cdot\mathbf{u}=-\nabla\cdot\mathbf{q}-\boldsymbol\pi:\nabla\mathbf{u}+Q_s .
+\end{equation}
+La compressione riscalda ($p\nabla\cdot\mathbf{u}$), $\nabla\cdot\mathbf{q}$ è la conduzione del calore, $\boldsymbol\pi:\nabla\mathbf{u}$ è il riscaldamento viscoso, e $Q_s=\sum_bW_{sb}-\mathbf{u}_s\cdot\mathbf{R}_s$ è il calore ceduto alla specie $s$ dalle collisioni nel suo sistema di riposo (la produzione di calore tra le specie per collisione).
+\emph{Verifica.} Con $\mathbf{q}=0$, $\boldsymbol\pi=0$, $Q=0$ e $dn/dt=-n\nabla\cdot\mathbf{u}$ si ha $\frac32n\,dT/dt=T\,dn/dt$, cioè $T\propto n^{2/3}$ e $p\propto n^{5/3}$: la legge adiabatica del gas monoatomico.
+
+\section{Il problema della chiusura}
+
+\subsection{La gerarchia non si chiude mai}
+\begin{center}
+\small
+\begin{tabular}{|l|l|l|}
+\hline
+equazione per & contiene & serve\\
+\hline
+$n$ (continuità) & $\mathbf{u}$ & equazione del momento\\
+\hline
+$\mathbf{u}$ (momento) & $\mathbf{P}$, $\mathbf{R}$ & equazione della pressione, momenti collisionali\\
+\hline
+$\mathbf{P}$, $T$ (energia) & $\mathbf{q}$, $\boldsymbol\pi$, $Q$ & momenti del terzo ordine\\
+\hline
+$\mathbf{q}$ & \dots & momenti del quarto ordine\\
+\hline
+\end{tabular}
+\end{center}
+Il termine $\mathbf{v}\cdot\nabla f$ alza sempre l'ordine di uno (stessa struttura della gerarchia BBGKY, ora in potenze di $\mathbf{v}$), e i momenti collisionali $\mathbf{R}$, $Q$ dipendono da tutta $f$, non solo da $n$, $\mathbf{u}$, $T$. Si è quindi completamente fuori dalla matematica e non si può andare avanti senza ipotesi fisiche.
+Una \textbf{chiusura} esprime il momento più alto che si tiene in termini di quelli inferiori. È un'ipotesi fisica, non matematica: dice quali processi sono abbastanza veloci da fissare la forma di $f$.
+
+\subsection{Tre vie d'uscita}
+\begin{enumerate}
+\item \textbf{Plasma freddo}, $\mathbf{P}=0$: vale quando $\omega/k\gg v_t$ e gli effetti termici non sono il punto (onde, modulo 11). Si uccide il termine di pressione.
+\item \textbf{Equazione di stato}, $p\propto n^\gamma$ con $\mathbf{q}=0$, $\boldsymbol\pi=0$. L'equazione di stato nasce all'interno del discorso dei momenti (la pressione è la traccia del tensore di pressione costruito a partire da $f$); nei testi di solito la si presenta nell'altro modo, come legge che lega pressione e densità. Per piccole perturbazioni attorno all'equilibrio $p_1=(dp/dn)_0n_1=\gamma(p_0/n_0)n_1=\gamma T_0n_1$: l'indice adiabatico misura la risposta del gas alla compressione.
+\begin{itemize}
+\item \textit{isotermo}, $\gamma=1$: il flusso di calore è così rapido da mantenere $T$ costante nel mezzo;
+\item \textit{adiabatico}: non fluisce calore. Se la compressione deposita energia in $N$ dei 3 gradi di libertà (e le collisioni non redistribuiscono l'energia), dal primo principio $\frac N2n\,dT/dt=T\,dn/dt$, quindi $T\propto n^{2/N}$ e
+\begin{equation}
+\gamma=\frac{N+2}{N}:\qquad N=3\to\frac53,\qquad N=1\to3 .
+\end{equation}
+Per un gas $\gamma=5/3$ è il caso consueto, ma si vedrà che per i plasmi non è sempre vero.
+\end{itemize}
+\item \textbf{Chiusura collisionale}: se $\lambda_{\rm mfp}\ll L$, $f$ è vicina a una maxwelliana locale e $\mathbf{q}$, $\boldsymbol\pi$, $\mathbf{R}$ seguono dalla piccola correzione (Chapman--Enskog, modulo 10a): per esempio $\mathbf{q}=-\kappa\nabla T$, una legge empirica con conducibilità termica $\kappa$.
+\end{enumerate}
+Per un plasma magnetizzato e non collisionale ci sono due pressioni, $p_\parallel$ e $p_\perp$, con le leggi doppio-adiabatiche (Chew, Goldberger \& Low 1956) che discendono dalla conservazione di $\mu$ e $J$ (modulo 4a):
+\begin{equation}
+\frac{p_\perp}{nB}=\mathrm{cost},\qquad\frac{p_\parallel B^2}{n^3}=\mathrm{cost}.
+\end{equation}
+
+\subsection{Isotermo o adiabatico: confronto tra onda e particelle}
+Un'onda di frequenza $\omega$ e numero d'onda $k$ comprime il gas, e le particelle che trasportano calore si muovono a $\sim v_t$.
+\begin{itemize}
+\item $\omega/k\gg v_t$: in un periodo le particelle attraversano solo una frazione della lunghezza d'onda, quindi il calore non lascia la regione compressa: adiabatico. Per un plasma si ha $N=1$ e $\gamma=3$: si sta dando dignità fisica all'oscillazione di plasma in sé, come oscillazione collettiva con un solo grado di libertà, e non alla particella (le particelle hanno 3 gradi di libertà).
+\item $\omega/k\ll v_t$: le particelle attraversano molte lunghezze d'onda per periodo e uniformano $T$: isotermo. È come se $N$ fosse molto grande, e $\gamma=(N+2)/N\to1$.
+\item $\omega/k\sim v_t$: nessuna delle due. Molte particelle sono risonanti, e il fluido non vede cosa fanno (smorzamento di Landau): non c'è modo di chiudere.
+\end{itemize}
+La fisica dei plasmi si divide in due grandi famiglie: i plasmi collisionali (ad esempio gli interni stellari), dove la descrizione fluida funziona, e i plasmi non collisionali (vento solare, magnetosfere), dove serve una descrizione cinetica.
+
+\section{Testare una chiusura con la teoria cinetica}
+Come si valuta l'errore di una chiusura? Si riottengono risultati noti dal modulo 6 (onde in un plasma senza collisioni) con le equazioni fluide.
+
+\subsection{Onde di Langmuir}
+Elettroni, ioni fissi, 1D; equilibrio $n_0$, $u=0$, $E=0$; $p=p(n)$ con $dp/dn=\gamma T$. Per perturbazioni $\propto e^{i(kx-\omega t)}$ (la derivata temporale diventa $-i\omega$, quella spaziale $ik$, e nel prodotto di termini si tiene solo il prodotto $n_0\,u_1$ perché $n_0$ è di ordine 0 e $u_1$ di ordine 1):
+\begin{equation}
+-i\omega n_1+ikn_0u_1=0,\qquad-i\omega mn_0u_1=-en_0E_1-ik\gamma Tn_1,\qquad ikE_1=-4\pi en_1 .
+\end{equation}
+La terza equazione è la divergenza del campo elettrico, legata alla densità di carica, $\partial_xE=4\pi\rho$. Si elimina $u_1=\omega n_1/(kn_0)$ e $E_1=4\pi ie\,n_1/k$:
+\begin{equation}
+-i\frac{\omega^2}{k}mn_1=-\frac{4\pi ie^2n_0}{k}n_1-ik\gamma Tn_1\quad\Rightarrow\quad\omega^2=\omega_p^2+\gamma k^2v_t^2,\qquad v_t^2=T/m .
+\end{equation}
+La teoria cinetica (modulo 6a) dà $\omega^2=\omega_p^2+3k^2v_t^2$: il fluido concorda solo con $\gamma=3$, adiabatico unidimensionale. Se si fosse messo $\gamma=5/3$ si sarebbe fatto un errore molto pesante.
+
+\subsection{Onde ioniche acustiche}
+Ora $v_{ti}\ll\omega/k\ll v_{te}$ (modulo 6b). Ciascuna specie riceve la chiusura che la sua velocità richiede: gli elettroni sono isotermi e privi di inerzia, $0=-T_e\nabla n_e+en_e\nabla\phi$, quindi $n_e=n_0e^{e\phi/T_e}$ (Boltzmann); gli ioni sono adiabatici, $\gamma_i=3$. Con quasi-neutralità $n_{i1}=n_{e1}=n_0e\phi_1/T_e$ (onde lunghe), la forza elettrica sugli ioni è $-ikT_en_{i1}$, e
+\begin{equation}
+-i\omega m_in_0u_{i1}=-ik(T_e+3T_i)n_{i1},\qquad\omega n_{i1}=kn_0u_{i1}\ \Rightarrow\ \frac{\omega^2}{k^2}=\frac{T_e+3T_i}{m_i},
+\end{equation}
+il risultato cinetico del modulo 6b per $T_e\gg T_i$. Se gli elettroni fossero stati adiabatici ($\gamma_e=3$) si avrebbe $3T_e$ e la velocità del suono sarebbe sbagliata di un fattore $\sqrt3$. I valori di $\gamma$ sono dunque determinati dalla microfisica: nella descrizione fluida vanno scelti in modo da non contraddirla.
+
+\subsection{Il confronto numerico}
+Il confronto con la relazione di dispersione ottenuta risolvendo la Vlasov (cap.~6: $\epsilon(\omega,k)=1+\frac{1}{k^2\lambda_D^2}[1+\zeta Z(\zeta)]=0$, con $Z$ la funzione di dispersione del plasma, i cui zeri nel piano complesso danno le frequenze complesse dei modi) mostra che:
+\begin{itemize}
+\item \textit{Langmuir} (grafico di $(\omega_r^2/\omega_p^2-1)/k^2\lambda_D^2$ in funzione di $k\lambda_D$): la radice di Vlasov tende a 3 per $k\to0$; il fluido con $\gamma=3$ la segue, $\gamma=5/3$ è completamente fuori, $\gamma=1$ pure;
+\item \textit{ionico acustico} ($k\lambda_{De}=0.1$, idrogeno): $\gamma_e=1$, $\gamma_i=3$ segue la velocità di fase cinetica; per $T_e\simeq T_i$ c'è una regione in cui l'onda è smorzata in circa un periodo e non esiste onda fluida.
+\end{itemize}
+La chiusura funziona bene a numeri d'onda piccoli, cioè lunghezze d'onda molto maggiori della lunghezza di Debye: ciò dice anche quando si può usare l'approssimazione fluida. Una chiusura può dare la parte reale della frequenza ma non lo smorzamento di Landau, perché un fluido non ha particelle risonanti.
+
+\subsection{Chiusure nel vento solare}
+\textbf{Il vento di Parker} (1958). Il Sole ha un vento? Una corona calda si espande in un vento supersonico. Per una corona politropica, $p\propto n^\gamma$, esiste un vento che parte subsonico e diventa supersonico solo per $\gamma<3/2$ (esercizio nelle note); con $\gamma=5/3$ non esiste. Parker prese la corona isoterma, perché la conduzione elettronica del calore è molto efficiente: la chiusura decide la risposta. (A lezione il limite è stato citato in modo confuso come ``3,5''; il valore delle slide è $3/2$.) A lezione si è anche sottolineato che l'articolo di Parker sul vento solare è fondamentale, così ben scritto ed elegante che chi lo legge si innamora dell'astrofisica, e che nessun laureato in astrofisica può non conoscerlo.
+\textbf{Anisotropia a 1~au.} L'espansione doppio-adiabatica (CGL) dal Sole predice $T_\perp\ll T_\parallel$ per i protoni; si misura invece $T_\perp/T_\parallel$ entro i limiti delle instabilità cinetiche (firehose, mirror; Hellinger et al.~2006, Bale et al.~2009): le microinstabilità agiscono come una collisione effettiva, e la chiusura è fissata dalla fisica cinetica.
+
+\section{Il plasma a due fluidi}
+
+\subsection{Le equazioni}
+Per $s=e,i$, chiuse da una scelta per $\mathbf{P}_s$ (o $\mathbf{q}_s$, $\boldsymbol\pi_s$), $\mathbf{R}_s$, $Q_s$:
+\begin{align}
+&\frac{\partial n_s}{\partial t}+\nabla\cdot(n_s\mathbf{u}_s)=0,\\
+&m_sn_s\frac{d_s\mathbf{u}_s}{dt}=-\nabla\cdot\mathbf{P}_s+q_sn_s\left(\mathbf{E}+\frac{\mathbf{u}_s\times\mathbf{B}}{c}\right)+\mathbf{R}_s,\\
+&\frac32n_s\frac{d_sT_s}{dt}+p_s\nabla\cdot\mathbf{u}_s=-\nabla\cdot\mathbf{q}_s-\boldsymbol\pi_s:\nabla\mathbf{u}_s+Q_s .
+\end{align}
+A queste vanno aggiunte le equazioni di Maxwell, con le sorgenti date dai fluidi:
+\begin{equation}
+\nabla\cdot\mathbf{E}=4\pi\sum_sq_sn_s,\quad\nabla\times\mathbf{B}=\frac{4\pi}{c}\sum_sq_sn_s\mathbf{u}_s+\frac1c\frac{\partial\mathbf{E}}{\partial t},\quad\nabla\times\mathbf{E}=-\frac1c\frac{\partial\mathbf{B}}{\partial t},\quad\nabla\cdot\mathbf{B}=0 .
+\end{equation}
+Le due equazioni di evoluzione (Faraday e Amp\`ere--Maxwell) derivano dall'azione con il principio variazionale; le altre due sono equazioni di \emph{vincolo}: se sono soddisfatte a un certo istante, lo restano durante tutta l'evoluzione, e bisogna soddisfarle solo nel dato iniziale. Le incognite sono $n_s$, $\mathbf{u}_s$, $T_s$ ($2\times5=10$) più $\mathbf{E}$, $\mathbf{B}$: sedici campi in 3D, invece di due funzioni in 6D.
+
+\subsection{Attrito e scambio di calore}
+Il modello più semplice: gli elettroni che si muovono attraverso gli ioni a velocità relativa $\mathbf{u}_e-\mathbf{u}_i$ perdono quantità di moto con frequenza $\nu_{ei}$. Con $\mathbf{j}=-en(\mathbf{u}_e-\mathbf{u}_i)$ ($Z=1$, e densità $n_e=n_i=n$: quasi-neutralità; non significa assenza di campi elettrici, il plasma non è neutro in senso stretto ma le densità sono uguali):
+\begin{equation}
+\mathbf{R}_{ei}=-m_en\nu_{ei}(\mathbf{u}_e-\mathbf{u}_i)=\frac{m_e\nu_{ei}}{e}\mathbf{j}=\frac{ne}{\sigma}\mathbf{j},\qquad\sigma=\frac{ne^2}{m_e\nu_{ei}} .
+\end{equation}
+Il calcolo cinetico (modulo 7b) aggiunge due cose: un fattore $0.51$ nella resistività parallela e una forza termica $-0.71\,n\nabla_\parallel T_e$ (gli elettroni veloci collidono meno). Nella realtà il fattore di proporzionalità tra $\mathbf{R}$ e $\mathbf{j}$ è un tensore, ma qui si semplifica.
+\textbf{Scambio di calore.} Poiché $m_e/m_i$ è molto piccolo, un elettrone cede a uno ione solo una frazione $\sim m_e/m_i$ della sua energia per collisione, quindi
+\begin{equation}
+Q_i=-Q_e+(\text{riscaldamento per attrito}),\qquad Q_i=3\,\frac{m_e}{m_i}\,n\nu_{ei}\,(T_e-T_i).
+\end{equation}
+$T_e$ e $T_i$ si equalizzano $m_i/m_e\approx1800$ volte più lentamente di quanto collidono gli elettroni: i plasmi a due temperature sono comuni, e un oggetto con $T_e\neq T_i$ non è in equilibrio termodinamico.
+
+\subsection{Due temperature in natura}
+\begin{itemize}
+\item \textbf{Shock di supernova}: lo shock scalda ciascuna specie in proporzione alla sua massa, $T_s\propto m_sv_{\rm sh}^2$ (energia $\propto mv^2$ per ogni specie), quindi $T_e$ e $T_p$ differiscono di un fattore $\sim m_p/m_e$; dietro shock veloci la larghezza delle righe di Balmer mostra $T_e\ll T_p$ (SN~1006), ma ricostruire la struttura della temperatura degli elettroni è molto più complicato.
+\item \textbf{Flussi di accrescimento caldi} (Sgr~A$^*$, M87$^*$): ioni vicino alla temperatura viriale, elettroni molto più freddi perché irraggiano e sono poco accoppiati; le immagini dell'Event Horizon Telescope sono modellate con $T_i/T_e$ come parametro libero.
+\item \textbf{Vento solare}: a 1~au $T_e$ e $T_p$ sono diverse, riscaldate in modo diverso.
+\end{itemize}
+
+\subsection{La velocità di un fluido magnetizzato e la deriva diamagnetica}
+Moti lenti ($\omega\ll\Omega_s$), collisioni deboli ($\nu\ll\Omega_s$), $p_s$ isotropa: si trascurano inerzia e attrito, e l'equilibrio è il bilancio tra gradiente di pressione e forza di Lorentz sul fluido (equilibrio idromagnetico, con ancora due specie):
+\begin{equation}
+0=-\nabla p_s+q_sn_s\left(\mathbf{E}+\frac{\mathbf{u}_s\times\mathbf{B}}{c}\right).
+\end{equation}
+Si fa il prodotto vettoriale con $\mathbf{B}$ usando $(\mathbf{u}\times\mathbf{B})\times\mathbf{B}=-B^2\mathbf{u}_\perp$ (solo la componente ortogonale sopravvive):
+\begin{equation}
+0=-\nabla p_s\times\mathbf{B}+q_sn_s\mathbf{E}\times\mathbf{B}-\frac{q_sn_s}{c}B^2\mathbf{u}_{s\perp}.
+\end{equation}
+La componente parallela dice che il campo elettrico bilancia il gradiente di pressione; la componente ortogonale dà
+\begin{equation}
+\mathbf{u}_{s\perp}=\underbrace{c\,\frac{\mathbf{E}\times\mathbf{B}}{B^2}}_{\text{uguale per tutte le specie}}+\underbrace{c\,\frac{\mathbf{B}\times\nabla p_s}{q_sn_sB^2}}_{\text{deriva diamagnetica }\mathbf{u}^*_s} ,
+\end{equation}
+con $u^*\sim v_t\rho/L$; i termini trascurati (polarizzazione, attrito) sono più piccoli di $\omega/\Omega$ e $\nu/\Omega$.
+La deriva diamagnetica è una velocità del fluido non associata a un trascinamento di particelle: in campo uniforme con gradiente di $n$ nessun centro di guida si muove (modulo 3b), ma il fluido fluisce a $\mathbf{u}^*_s$, perché il flusso è la somma non uniforme dei cerchi di girazione: è la corrente di magnetizzazione del modulo 3b. Il segno è opposto per ioni ed elettroni ($\propto1/q_s$), quindi la corrente totale non dipende dalla carica:
+\begin{equation}
+\mathbf{j}_\perp=\sum_sq_sn_s\mathbf{u}^*_s=c\,\frac{\mathbf{B}\times\nabla p}{B^2},\qquad\frac{\mathbf{j}\times\mathbf{B}}{c}=\nabla_\perp p,
+\end{equation}
+il bilanciamento di forze di un plasma magnetizzato in equilibrio (moduli 12--13). Misure: la corrente di anello (modulo 4b) abbassa $B$ al suolo (indice Dst); nei tokamak un anello diamagnetico misura la caduta del flusso toroidale e quindi l'energia del plasma.
+
+\subsection{Quando due fluidi si comportano come uno}
+Sommando le due equazioni del momento l'attrito si cancella ($\mathbf{R}_{ei}+\mathbf{R}_{ie}=0$), e si cancella anche la forza elettrica se $n_e=Zn_i$ (quasi-neutralità; questa ipotesi non garantisce l'assenza di campi elettrici). La \emph{differenza} è un'equazione per $\mathbf{j}$: la legge di Ohm. I due fluidi si separano dove elettroni e ioni rispondono in modo diverso:
+\begin{itemize}
+\item lunghezze sotto la lunghezza inerziale ionica $d_i=c/\omega_{pi}$ o il raggio di girazione ionico $\rho_i$;
+\item frequenze vicine a $\Omega_i$;
+\item gradienti di $p_e$: la deriva diamagnetica degli elettroni.
+\end{itemize}
+
+\section{Da due fluidi a un fluido}
+
+\subsection{Variabili a un fluido}
+Elettroni (carica $-e$) e ioni (carica $Ze$, massa $m_i$):
+\begin{equation}
+\rho=m_in_i+m_en_e,\qquad\mathbf{U}=\frac{m_in_i\mathbf{u}_i+m_en_e\mathbf{u}_e}{\rho},\qquad\mathbf{j}=Zen_i\mathbf{u}_i-en_e\mathbf{u}_e .
+\end{equation}
+$\mathbf{U}$ è la velocità del centro di massa (la media delle velocità pesata con le densità di massa), essenzialmente la velocità degli ioni; $\mathbf{j}$ è il moto relativo. Con $n_e=Zn_i\equiv n$ e al primo ordine in $m_e/m_i$ si inverte (si trascura la massa dell'elettrone):
+\begin{equation}
+\mathbf{u}_i\simeq\mathbf{U},\qquad\mathbf{u}_e\simeq\mathbf{U}-\frac{\mathbf{j}}{ne}.
+\end{equation}
+Nel riferimento del centro di massa sono gli elettroni a portare la corrente; tutto quello che segue viene dal sostituire questa $\mathbf{u}_e$ nell'equazione degli elettroni.
+
+\subsection{Somma delle equazioni del momento}
+Sommando su $s$: l'attrito si cancella ($\mathbf{R}_{ei}+\mathbf{R}_{ie}=0$), la forza elettrica si annulla per quasi-neutralità, la forza magnetica diventa $\sum_sq_sn_s\mathbf{u}_s\times\mathbf{B}/c=\mathbf{j}\times\mathbf{B}/c$, e l'inerzia $\sum_sm_sn_s\,d_s\mathbf{u}_s/dt\simeq\rho\,d\mathbf{U}/dt$ (l'inerzia elettronica e lo sforzo del moto relativo sono più piccoli di $m_e/m_i$):
+\begin{equation}
+\rho\frac{d\mathbf{U}}{dt}=-\nabla p+\frac{\mathbf{j}\times\mathbf{B}}{c},\qquad p=p_e+p_i\ (\text{isotropa, senza viscosità}),
+\end{equation}
+e, moltiplicando per $m_s$ le continuità e sommando, $\partial_t\rho+\nabla\cdot(\rho\mathbf{U})=0$. Ogni termine di questa equazione ha le dimensioni di una forza per unità di massa moltiplicata per $\rho$: la derivata di una velocità è un'accelerazione, e a destra stanno una forza di pressione e la forza di Lorentz, che si compensano; la parte vettoriale non deve spaventare, alla fine è $\mathbf{F}=m\mathbf{a}$.
+
+\section{La legge di Ohm generalizzata}
+Questa è, secondo il docente, l'equazione più importante di tutto il corso e di tutta la teoria della dinamo: dice come si muove il campo magnetico. Il campo si muove:
+\begin{itemize}
+\item in modo \textbf{ideale}, congelato al fluido;
+\item in modo \textbf{resistivo}, cioè scivolando attraverso il fluido e decadendo;
+\item con gli \textbf{elettroni} (effetto Hall);
+\item oppure è creato dal nulla (batteria di Biermann).
+\end{itemize}
+
+\subsection{Derivazione}
+L'equazione degli elettroni con $\mathbf{R}_{ei}=(ne/\sigma)\mathbf{j}$ è
+\begin{equation}
+m_en\frac{d_e\mathbf{u}_e}{dt}=-\nabla p_e-en\left(\mathbf{E}+\frac{\mathbf{u}_e\times\mathbf{B}}{c}\right)+\frac{ne}{\sigma}\mathbf{j}.
+\end{equation}
+Dividendo per $-en$ e portando $\mathbf{E}$ a sinistra:
+\begin{equation}
+\mathbf{E}+\frac{\mathbf{u}_e\times\mathbf{B}}{c}=\frac{\mathbf{j}}{\sigma}-\frac{\nabla p_e}{en}-\frac{m_e}{e}\frac{d_e\mathbf{u}_e}{dt}.
+\end{equation}
+Si inserisce $\mathbf{u}_e=\mathbf{U}-\mathbf{j}/(ne)$: il termine magnetico si divide in
+\begin{equation}
+\frac{\mathbf{u}_e\times\mathbf{B}}{c}=\frac{\mathbf{U}\times\mathbf{B}}{c}-\frac{\mathbf{j}\times\mathbf{B}}{nec},
+\end{equation}
+e nel termine di inerzia si tiene la parte lineare in $\mathbf{j}$ (la derivata totale si approssima, altrimenti diventa impossibile): $-(m_e/e)\,d_e\mathbf{u}_e/dt\simeq(m_e/ne^2)\,\partial_t\mathbf{j}$. Si ottiene la \textbf{legge di Ohm generalizzata}:
+\begin{equation}
+\mathbf{E}+\frac{\mathbf{U}\times\mathbf{B}}{c}=\underbrace{\frac{\mathbf{j}}{\sigma}}_{\text{resistivo}}+\underbrace{\frac{\mathbf{j}\times\mathbf{B}}{nec}}_{\text{Hall}}-\underbrace{\frac{\nabla p_e}{ne}}_{\text{pressione elettronica}}+\underbrace{\frac{m_e}{ne^2}\frac{\partial\mathbf{j}}{\partial t}}_{\text{inerzia elettronica}}.
+\end{equation}
+A sinistra c'è il campo elettrico nel sistema di riferimento che si muove con il fluido; a destra tutto ciò che permette al plasma di differire da un conduttore perfetto che si muove con $\mathbf{U}$. Nel caso ideale il membro di destra è nullo e $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c$. Non sono inclusi la forza termica ($-0.71\nabla_\parallel T_e$), $\mathbf{P}_e$ anisotropo e i termini ionici di ordine $m_e/m_i$: ciascuno può contare in qualche posto, ma i quattro termini scritti sono quelli che cambiano il modo in cui si muove $\mathbf{B}$. Il termine di inerzia elettronica conta solo quando la corrente varia su tempi confrontabili con quelli del plasma e nella maggior parte dei casi si trascura.
+
+\subsection{Quanto pesa ciascun termine}
+Ciascun termine si confronta con $UB/c$, per flussi $U$ su una scala $L$, con $j\sim cB/4\pi L$ (Amp\`ere) e tempi $\sim L/U$:
+\begin{center}
+\small
+\begin{tabular}{|l|c|l|}
+\hline
+termine & rapporto a $UB/c$ & importante quando\\
+\hline
+resistivo & $\dfrac{\eta}{UL}=\dfrac1{R_m},\ \ \eta=\dfrac{c^2}{4\pi\sigma}$ & $R_m\lesssim1$\\
+\hline
+Hall & $\dfrac{v_A}{U}\dfrac{d_i}{L},\ \ d_i=\dfrac{c}{\omega_{pi}}$ & $L\lesssim d_i$\\
+\hline
+pressione elettronica & $\dfrac{c_s}{U}\dfrac{\rho_s}{L},\ \ \rho_s=\dfrac{c_s}{\Omega_i}$ & $L\lesssim\rho_s$\\
+\hline
+inerzia elettronica & $\dfrac{d_e^2}{L^2},\ \ d_e=\dfrac{c}{\omega_{pe}}$ & $L\lesssim d_e$\\
+\hline
+\end{tabular}
+\end{center}
+Per esempio per Hall: $\dfrac{jB/nec}{UB/c}=\dfrac{j}{neU}=\dfrac{cB}{4\pi neLU}$ e $\dfrac{cB}{4\pi ne}=v_Ad_i$ (verifica: $v_A=B/\sqrt{4\pi nm_i}$, $d_i=c\sqrt{m_i/4\pi ne^2}$). Il numero di Reynolds magnetico, $R_m=UL/\eta$, è una stima adimensionale di quanto i flussi del plasma contano rispetto alla diffusione ohmica; fondamentale, per esempio, per sapere quanto contano nel Sole i flussi meridiani rispetto alle correnti prodotte dai moti nel plasma. Il termine di Hall diventa essenziale nei dischi protoplanetari e nella formazione dei dischi. Conoscendo la temperatura, con $\sigma$ di Spitzer (modulo 2b e 7b) si può calcolare l'evoluzione del campo magnetico.
+
+Dalle slide, le scale tipiche. L'MHD richiede $d_i,\rho_i\ll L$ (e $R_m\gg1$ per l'MHD ideale; $R_m=v_AL/\eta$): questo vale in tutti i casi considerati, dal bersaglio laser ($10^{-2}$~cm) a un ammasso di galassie ($10^{22}$~cm), tranne nei plasmi laser e ai bordi delle magnetosfere. $R_m$ è enorme in astrofisica (da $\sim10^{3}$ a $\sim10^{28}$ per i casi della figura): MHD ideale tranne in strati sottili (modulo 15). Il cammino libero medio supera spesso $L$ (tokamak, magnetocoda, vento solare): è lecita un'MHD senza collisioni?
+
+\subsection{Quale legge di Ohm dove}
+\begin{center}
+\small
+\begin{tabular}{|l|l|l|}
+\hline
+legge di Ohm & valida per & esempi\\
+\hline
+ideale, $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c$ & $R_m\gg1$, $L\gg d_i,\rho_i$ & stelle, ISM, ammassi, vento solare\\
+\hline
+resistiva, $+\mathbf{j}/\sigma$ & $R_m\lesssim1$; strati sottili & dinamo di metalli liquidi, lamine di corrente\\
+\hline
+Hall, $+\mathbf{j}\times\mathbf{B}/nec$ & $L\lesssim d_i$; debole ionizzazione & magnetopausa, dischi protoplanetari\\
+\hline
+batteria, $-\nabla p_e/ne$ & $\nabla n\times\nabla T_e\neq0$ & plasmi laser, campi seme\\
+\hline
+inerzia elettronica & $L\lesssim d_e$ & regione di diffusione elettronica (MMS)\\
+\hline
+\end{tabular}
+\end{center}
+Nei tokamak (JET, ITER) l'MHD ideale fissa i limiti di stabilità globali; i termini resistivi e a due fluidi decidono cosa succede in strati sottili (modi di tearing, modulo 15).
+
+\section{Il limite MHD}
+
+\subsection{Ordinamento}
+Si assume:
+\begin{itemize}
+\item lunghezze $L\gg d_i,\rho_i$ e tempi $\gg1/\Omega_i$ (molto più lenti dell'inverso della frequenza di plasma): si buttano il termine di Hall, quello di pressione e quello di inerzia. Il termine di pressione è importante nella generazione di campo magnetico (batteria di Biermann, campi seme negli ammassi di galassie), ma per ora non se ne parla;
+\item $U\ll c$: si trascurano la corrente di spostamento, $\nabla\times\mathbf{B}=4\pi\mathbf{j}/c$, e la forza $\rho_c\mathbf{E}$ dovuta alla densità di carica;
+\item quasi-neutralità, $n_e=Zn_i$;
+\item una chiusura per $p$: adiabatica, $d(p\rho^{-\gamma})/dt=0$.
+\end{itemize}
+Resta solo il termine resistivo: la legge di Ohm dell'MHD resistiva è $\mathbf{E}+\mathbf{U}\times\mathbf{B}/c=\mathbf{j}/\sigma$, e nel limite $\mathbf{j}/\sigma\to0$ (a temperature altissime $\sigma\to\infty$, modulo 2b) è il limite ideale.
+
+\subsection{L'equazione di induzione}
+Con la legge di Faraday, $\partial_t\mathbf{B}=-c\nabla\times\mathbf{E}$, $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c+\mathbf{j}/\sigma$ e $\mathbf{j}=(c/4\pi)\nabla\times\mathbf{B}$:
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B})-\nabla\times(\eta\nabla\times\mathbf{B}),\qquad\eta=\frac{c^2}{4\pi\sigma}.
+\end{equation}
+Per $\eta$ uniforme, $\nabla\times\nabla\times\mathbf{B}=\nabla(\nabla\cdot\mathbf{B})-\nabla^2\mathbf{B}=-\nabla^2\mathbf{B}$:
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B})+\eta\nabla^2\mathbf{B}\qquad(\eta\text{ uniforme},\ \nabla\cdot\mathbf{B}=0).
+\end{equation}
+È l'\textbf{equazione di induzione}: l'avvezione del campo da parte del flusso contro la diffusione. Il numero $R_m=UL/\eta$ dice chi vince. Il prezzo della chiusura è che serve un modello per $\eta$ (come da modulo 2b, $\eta$ di Spitzer dipende da $T$). La maggior parte dei fenomeni di campi magnetici astrofisici (le macchie solari, per esempio) si basano sulle proprietà di questa equazione.
+
+\subsection{Le equazioni MHD}
+\begin{align}
+&\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{U})=0,\\
+&\rho\frac{d\mathbf{U}}{dt}=-\nabla p+\frac{1}{4\pi}(\nabla\times\mathbf{B})\times\mathbf{B},\\
+&\frac{d}{dt}\left(\frac{p}{\rho^\gamma}\right)=0,\\
+&\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B})+\eta\nabla^2\mathbf{B},\qquad\nabla\cdot\mathbf{B}=0 .
+\end{align}
+Otto incognite ($\rho$, $\mathbf{U}$, $p$, $\mathbf{B}$) e otto equazioni; $\mathbf{E}$ e $\mathbf{j}$ seguono da $\mathbf{U}$ e $\mathbf{B}$. Il campo elettrico non è più fissato dalle cariche: è ciò che mantiene $\mathbf{E}'=\mathbf{j}/\sigma$ nel sistema del fluido ($\mathbf{E}'=0$ nel caso ideale). Nella prima equazione del momento il termine di forza è la forza di Lorentz $\mathbf{j}\times\mathbf{B}/c$, e la pressione è la seconda forza; $\gamma$ è la chiusura che si deve scegliere in modo coerente con la microfisica (si è già pagato un prezzo con la chiusura). I moduli 12--21 usano queste equazioni.
+
+\subsection{Perché l'MHD funziona senza collisioni}
+Un fluido richiede che le particelle di un elemento di fluido restino insieme.
+\begin{itemize}
+\item \textit{Attraverso $\mathbf{B}$}: ci pensa la girazione. Le particelle sono legate alle linee di campo entro $\rho_i\ll L$, quindi la dinamica perpendicolare è fluida, con o senza collisioni.
+\item \textit{Lungo $\mathbf{B}$}: nulla le lega. Flusso di calore parallelo, anisotropia di pressione e smorzamento di Landau richiedono la teoria cinetica (chiusure, modulo 9a).
+\end{itemize}
+Test nel vento solare: lo spettro magnetico turbolento segue l'MHD fino alla scala ionica e si piega a $k\sim1/\max(d_i,\rho_i)$ (Chen et al.~2014), misurato da Wind e da Parker Solar Probe, ora entro 10 raggi solari dal Sole.
+
+\section{Oltre l'MHD ideale: Hall e batteria di Biermann}
+Queste parti sono nelle slide ma, come detto a lezione, non vengono discusse nel corso; si riportano per completezza.
+
+\subsection{MHD di Hall}
+Si tiene il termine di Hall con $R_m\to\infty$ e $p_e$ uniforme: $\mathbf{E}+\mathbf{u}_e\times\mathbf{B}/c=0$, cioè
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{u}_e\times\mathbf{B}),\qquad\mathbf{u}_e=\mathbf{U}-\frac{c\,\nabla\times\mathbf{B}}{4\pi ne}.
+\end{equation}
+Il campo è congelato negli elettroni, non negli ioni: sotto $d_i$ gli ioni si disaccoppiano. Per onde parallele
+\begin{equation}
+\omega=kv_A\left[\sqrt{1+(kd_i/2)^2}\pm kd_i/2\right]:
+\end{equation}
+per $kd_i\ll1$ si ritrova $\omega=kv_A$; per $kd_i\gg1$ l'onda di Alfv\'en si divide in un'onda whistler ($\omega\simeq k^2d_iv_A$) e in un'onda ciclotronica ionica ($\omega\to\Omega_i=v_A/d_i$).
+\textbf{Riconnessione di Hall}: entro $d_i$ dal punto X gli ioni si disaccoppiano e gli elettroni no; la loro corrente nel piano genera un campo fuori piano quadrupolare, la firma della riconnessione di Hall, rivelato da Wind nella magnetocoda (\O ieroset et al.~2001), misurato in laboratorio al MRX di Princeton (Ren et al.~2005) e osservato nella regione di diffusione elettronica da MMS (quattro satelliti a 10~km, $d_e\sim1$~km; Burch et al.~2016). È veloce e indipendente da $\eta$: tema del modulo 15.
+
+\subsection{La batteria di Biermann}
+Partendo da $\mathbf{B}=0$, con la legge di Ohm con il termine di pressione, $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c-\nabla p_e/(ne)$, e Faraday:
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B})+\frac ce\nabla\times\left(\frac{\nabla p_e}{n}\right).
+\end{equation}
+Con $p_e=nT_e$, $\nabla p_e/n=\nabla T_e+T_e\nabla\ln n$ e $\nabla\times\nabla T_e=0$, quindi $\nabla\times(\nabla p_e/n)=\nabla T_e\times\nabla\ln n$ e
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B})-\frac{c}{ne}\nabla n\times\nabla T_e .
+\end{equation}
+Una sorgente indipendente da $\mathbf{B}$: dove $\nabla n\nparallel\nabla T_e$ cresce un campo dal nulla (Biermann 1950). Se $\nabla p_e/n$ non è un gradiente, genera una forza elettromotrice lungo un anello; se i due gradienti sono paralleli il rotore è nullo e non c'è sorgente. Stima: $B\sim cT_et/(eL^2)$.
+\begin{itemize}
+\item \textbf{Plasma laser}: $T_e=1$~keV, $L=100~\mu$m, $t=1$~ns danno $B\sim10^6$~G. Misurato da Stamper et al.~(1971); a OMEGA i semi di Biermann sono amplificati dalla turbolenza: una dinamo in laboratorio (Tzeferacos et al.~2018).
+\item \textbf{Protogalassie e fronti di ionizzazione}: $T\sim1$~eV, $L\sim$~kpc, $t\sim10^8$~yr danno $B\sim10^{-20}$~G, l'ordine dei semi nelle simulazioni di formazione delle strutture (Kulsrud et al.~1997): piccolo, ma non nullo, un seme che una dinamo può amplificare di molti e-fold (moduli 16--21).
+\end{itemize}
+
+\section{Domande di verifica}
+\textbf{Modulo 9a}
+\begin{enumerate}
+\item \textit{Perché il campo magnetico sparisce dall'equazione dell'energia ma non da quella del momento?} Perché $\mathbf{v}\cdot(\mathbf{v}\times\mathbf{B})=0$: la forza magnetica non fa lavoro. Nel momento rimane $qn\,\mathbf{u}\times\mathbf{B}/c$, la media di $\mathbf{v}\times\mathbf{B}$.
+\item \textit{Quale incognita compare nell'equazione dell'energia, e perché ogni equazione dei momenti ne contiene una nuova?} $\mathbf{q}$ (e $\boldsymbol\pi$); il termine di trasporto $\mathbf{v}\cdot\nabla f$ alza l'ordine del momento di uno.
+\item \textit{Le onde di Langmuir richiedono $\gamma=3$, gli elettroni di un'onda ionica acustica $\gamma_e=1$: perché?} Nel primo caso $\omega/k\gg v_t$, compressione solo lungo $\mathbf{k}$, $N=1$; nel secondo $\omega/k\ll v_{te}$ e il calore si redistribuisce, isotermo.
+\item \textit{Cosa perde la chiusura fluida per $T_e\simeq T_i$ nelle onde ioniche acustiche?} Lo smorzamento di Landau: gli ioni sono risonanti, e un fluido non ha particelle risonanti.
+\item \textit{Nessun centro di guida deriva in campo uniforme, eppure il fluido scorre a $\mathbf{u}^*$: chi porta la corrente?} La corrente di magnetizzazione: la somma non uniforme dei cerchi di girazione.
+\item \textit{Perché ioni ed elettroni di un plasma caldo possono mantenere a lungo temperature diverse?} Perché lo scambio di calore è ridotto di $m_e/m_i\approx1/1800$ rispetto alla frequenza di collisione.
+\end{enumerate}
+\textbf{Modulo 9b}
+\begin{enumerate}
+\item \textit{Perché l'attrito sparisce dall'equazione del momento a un fluido ma non dalla legge di Ohm?} Nella somma si cancella per azione e reazione ($\mathbf{R}_{ei}+\mathbf{R}_{ie}=0$); la legge di Ohm viene dall'equazione dei soli elettroni, dove compare come $\mathbf{j}/\sigma$.
+\item \textit{Mostrare che il termine di Hall è trascurabile per $L\gg d_i$ con flussi alla velocità di Alfv\'en.} Il rapporto è $v_Ad_i/(UL)=d_i/L\ll1$ per $U\sim v_A$.
+\item \textit{In MHD ideale $\mathbf{E}$ non si calcola da Poisson: come è determinato?} Da $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c$ (più $\mathbf{j}/\sigma$ se resistivo): è il campo che annulla $\mathbf{E}'$ nel sistema del fluido.
+\item \textit{Un tokamak ha cammini liberi di chilometri: perché l'MHD ne descrive la stabilità globale?} Perché trasversalmente a $\mathbf{B}$ la girazione ($\rho_i\ll L$) tiene insieme le particelle; i termini cinetici lungo $\mathbf{B}$ entrano come chiusure.
+\item \textit{In MHD di Hall, in quale specie è congelato il campo? Cosa cambia per $kd_i>1$?} Negli elettroni; l'onda di Alfv\'en si divide in whistler e ciclotronica ionica.
+\item \textit{Perché la batteria di Biermann richiede $\nabla n$ e $\nabla T_e$ non paralleli?} Se sono paralleli $\nabla p_e/n$ è un gradiente, il suo rotore è nullo e non c'è forza elettromotrice lungo un anello.
+\end{enumerate}
+
+\section{Riepilogo}
+\begin{center}
+\small
+\begin{tabular}{|l|l|}
+\hline
+Ricetta dei momenti & $\partial_t(n\langle\chi\rangle)+\nabla\cdot(n\langle\mathbf{v}\chi\rangle)-n\langle\mathbf{a}\cdot\nabla_v\chi\rangle=\sum_b\int\chi C_{sb}$\\
+\hline
+Momento & $mn\,d\mathbf{u}/dt=-\nabla\cdot\mathbf{P}+qn(\mathbf{E}+\mathbf{u}\times\mathbf{B}/c)+\mathbf{R}$\\
+\hline
+Temperatura & $\frac32n\,dT/dt+p\nabla\cdot\mathbf{u}=-\nabla\cdot\mathbf{q}-\boldsymbol\pi:\nabla\mathbf{u}+Q$\\
+\hline
+Indice adiabatico & $\gamma=(N+2)/N$; Langmuir $\gamma=3$, elettroni ionici $\gamma_e=1$\\
+\hline
+Attrito e calore & $\mathbf{R}_{ei}=(ne/\sigma)\mathbf{j}$; $Q_i=3(m_e/m_i)n\nu_{ei}(T_e-T_i)$\\
+\hline
+Deriva diamagnetica & $\mathbf{u}^*_s=c\,\mathbf{B}\times\nabla p_s/(q_sn_sB^2)$\\
+\hline
+Un fluido & $\rho\,d\mathbf{U}/dt=-\nabla p+\mathbf{j}\times\mathbf{B}/c$; $\mathbf{u}_e=\mathbf{U}-\mathbf{j}/ne$\\
+\hline
+Legge di Ohm & $\mathbf{E}+\frac{\mathbf{U}\times\mathbf{B}}{c}=\frac{\mathbf{j}}{\sigma}+\frac{\mathbf{j}\times\mathbf{B}}{nec}-\frac{\nabla p_e}{ne}+\frac{m_e}{ne^2}\partial_t\mathbf{j}$\\
+\hline
+Induzione & $\partial_t\mathbf{B}=\nabla\times(\mathbf{U}\times\mathbf{B})+\eta\nabla^2\mathbf{B}$, $R_m=UL/\eta$\\
+\hline
+Batteria & $\partial_t\mathbf{B}\ni-(c/ne)\nabla n\times\nabla T_e$\\
+\hline
+\end{tabular}
+\end{center}
+Le equazioni a due fluidi sostituiscono $f$ in sei dimensioni con sedici campi in tre, al prezzo di una chiusura da scegliere (in base a $\omega/k$ rispetto a $v_t$); sommando e sottraendo i due fluidi si ottengono l'equazione del momento a un fluido e la legge di Ohm generalizzata, e nel limite $L\gg d_i,\rho_i$ si arriva alle equazioni MHD.
+A fine lezione il docente ha detto che dalla prossima volta comincia la parte di MHD; le slide indicano come modulo successivo il 10a (trasporto: Chapman--Enskog, conducibilità, viscosità e flusso di calore in un plasma magnetizzato, diffusione ambipolare).
