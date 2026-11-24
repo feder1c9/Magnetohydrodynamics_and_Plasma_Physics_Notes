@@ -1,0 +1,584 @@
+\chapter{Lezione 12 - 16/11/2026}
+
+\section{Introduzione}
+La lezione del 16/11 riunisce tre argomenti: il trasporto in un plasma collisionale (modulo 10a), le onde elettromagnetiche in un plasma freddo e magnetizzato (modulo 11) e, per l'MHD ideale, le leggi di conservazione (modulo 12a, fino a pagina 9). Il modulo 12a prosegue nella lezione successiva con il flusso congelato e la topologia. Letture di riferimento:
+\begin{itemize}
+\item modulo 10a: Braginskii (1965), Spitzer (1962) cap.~5, Shu (1992) vol.~II, note cap.~10;
+\item modulo 11: Storey (1953) sui whistler, Han et al.\ (2018) sulle misure di rotazione dei pulsar, note cap.~11;
+\item modulo 12a: Goedbloed \& Poedts cap.~4, Kulsrud cap.~4, Moffatt (1978) capp.~2--3, note cap.~12.
+\end{itemize}
+I riferimenti bibliografici sono quelli citati nelle slide e vanno verificati sui testi originali. Come nelle lezioni precedenti, le osservazioni fatte a voce sono introdotte da ``A lezione''.
+
+\section{Il campo magnetico e il trasporto}
+\subsection{Dove siamo}
+Il termine collisionale dell'equazione cinetica (Fokker--Planck, Landau) rende l'equazione di Boltzmann un'equazione integro-differenziale, molto difficile da risolvere. Nel corso dei decenni sono stati inventati molti modi di approssimarla; oggi si vede il metodo di Chapman--Enskog. Nella lezione precedente si è visto che dai momenti dell'equazione cinetica si ricavano le equazioni fluide, ma servono delle chiusure (modulo 9a). Ora si calcolano il flusso di calore $\mathbf{q}$ e il tensore degli sforzi anisotropo $\boldsymbol\pi$ (la componente di shear) dalla piccola deviazione di $f$ da una maxwelliana. Questi coefficienti fissano il raffreddamento della corona, la viscosità e la resistività di ogni dinamo ($\mathrm{Pm}=\nu/\eta$) e il tempo in cui una nube molecolare forma stelle.
+
+\subsection{Perché il campo magnetico è speciale}
+A lezione è stata sottolineata la differenza fondamentale tra le equazioni di Maxwell per $\mathbf{E}$ e per $\mathbf{B}$: $\nabla\cdot\mathbf{B}=0$, mentre $\nabla\cdot\mathbf{E}\neq0$, perché esistono le cariche. A grande scala la neutralità di carica scherma i campi elettrici, che quindi non si osservano su scale cosmiche; i campi magnetici invece non hanno questo schermo e si osservano su strutture enormi, come le galassie. Il campo magnetico è però un vettore: seleziona una direzione, e rende il trasporto non isotropo (più o meno efficiente a seconda della direzione rispetto a $\mathbf{B}$).
+
+\section{L'espansione di Chapman--Enskog}
+\subsection{Il numero di Knudsen}
+La grandezza che stabilisce se la parte collisionale conta è il cammino libero medio degli elettroni, che sono i più veloci e quindi quelli termicamente più importanti. Con $\tau_e=1/\nu_{ei}$ (cap.~2),
+\begin{equation}
+\lambda_{\rm mfp}=v_{te}\,\tau_e\simeq1.4\times10^{13}\,\frac{T_{\rm eV}^2}{n\ln\Lambda}\ \mathrm{cm}\ \propto\ \frac{T^2}{n}.
+\end{equation}
+Verifica: con $v_{te}=4.2\times10^7\,T_{\rm eV}^{1/2}$~cm/s e $\nu_{ei}=2.91\times10^{-6}\,n\ln\Lambda\,T_{\rm eV}^{-3/2}$~s$^{-1}$ si ha $4.2\times10^7/(2.91\times10^{-6})=1.4\times10^{13}$. Il parametro adimensionale è il numero di Knudsen, $\mathrm{Kn}=\lambda_{\rm mfp}/L$, dove $L$ è la scala caratteristica del sistema.
+Se $\mathrm{Kn}\to0$ le collisioni rilassano $f$ a una maxwelliana. Si scrive allora
+\begin{equation}
+f=f_M(n,\mathbf{u},T)+f_1+\dots,\qquad f_1\sim\mathrm{Kn}\,f_M .
+\end{equation}
+La densità, la velocità e la temperatura sono portate interamente da $f_M$: $f_1$ non ha né densità, né quantità di moto, né energia propria. I valori tipici (slide) sono:
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|}
+\hline
+ & $\lambda_{\rm mfp}$ & $\mathrm{Kn}$\\
+\hline
+corona, 100 eV & 80 km & $10^{-2}$\\
+\hline
+vento solare, 1 au & 0.7 au & $\sim1$\\
+\hline
+nucleo di un ammasso & 0.3 kpc & 0.03\\
+\hline
+periferia di un ammasso & 10 kpc & $\sim0.1$\\
+\hline
+nucleo di un tokamak & 10 km & $10^4$\\
+\hline
+\end{tabular}
+\end{center}
+(parametri $n$ [cm$^{-3}$], $T$, $L$: corona $10^9$, 100 eV, $10^4$ km; vento $5$, 10 eV, 1 au; nucleo $10^{-2}$, 5 keV, 10 kpc; periferia $10^{-3}$, 8 keV, 100 kpc; tokamak $10^{14}$, 10 keV, 1 m.) La corona è collisionale lungo $\mathbf{B}$, ma solo di un fattore circa 100; nel vento solare $\mathrm{Kn}\sim1$, negli ammassi è molto minore di 1, nel tokamak la situazione è opposta e l'espansione non vale.
+A lezione si è chiesto come si stimano $T$ e $n$ nella corona per conoscere $\lambda_{\rm mfp}$: da un astronomo si aspetta di sapere quali osservazioni usare; la temperatura si ricava dai rapporti tra le righe di emissione e la densità dalla misura di emissione (cap.~2).
+
+\subsection{Ordine per ordine}
+Il termine collisionale viene sostituito con un modello di rilassamento verso la maxwelliana in un tempo $\tau=1/\nu$ (il ``colpo di magia'' che trasforma un'equazione integro-differenziale in una differenziale):
+\begin{equation}
+\frac{\partial f}{\partial t}+\mathbf{v}\cdot\nabla f+\mathbf{a}\cdot\frac{\partial f}{\partial\mathbf{v}}=-\nu\,(f-f_M).
+\end{equation}
+\begin{itemize}
+\item Ordine $\mathrm{Kn}^{-1}$: il termine collisionale deve annullarsi, $C(f_0)=0$, quindi $f_0=f_M$. È il fluido ideale: $\mathbf{q}=0$, $\boldsymbol\pi=0$ (equazioni di Eulero).
+\item Ordine $\mathrm{Kn}^0$: il primo membro applicato a $f_M$ è bilanciato dalle collisioni,
+\begin{equation}
+f_1=-\tau\left(\frac{\partial}{\partial t}+\mathbf{v}\cdot\nabla+\mathbf{a}\cdot\frac{\partial}{\partial\mathbf{v}}\right)f_M .
+\end{equation}
+\end{itemize}
+La difficoltà apparente è che $f_M$ dipende da $n$, $\mathbf{u}$, $T$, le cui derivate temporali sono incognite. Si usano le equazioni di Eulero (ordine zero) per sostituire $\partial_tn$, $\partial_t\mathbf{u}$, $\partial_tT$: in questo modo l'espressione di $f_1$ contiene solo gradienti di quantità note. Le derivate dell'equazione di Eulero sono quelle di una teoria di ordine zero, e il risultato è una teoria del primo ordine in $\mathrm{Kn}$.
+
+\subsection{Il calcolo di $f_1$}
+Con $\mathbf{w}=\mathbf{v}-\mathbf{u}$,
+\begin{equation}
+\ln f_M=\ln n-\frac32\ln T-\frac{mw^2}{2T}+\mathrm{cost},\qquad\partial_t+\mathbf{v}\cdot\nabla=\frac{d}{dt}+\mathbf{w}\cdot\nabla,\quad\frac{d}{dt}=\partial_t+\mathbf{u}\cdot\nabla .
+\end{equation}
+Si applica l'operatore a ciascun termine, usando la continuità, $d\ln n/dt=-\nabla\cdot\mathbf{u}$, e l'equazione dell'energia di Eulero, $d\ln T/dt=-\frac23\nabla\cdot\mathbf{u}$:
+\begin{align}
+\left(\frac{d}{dt}+\mathbf{w}\cdot\nabla\right)\ln n&=-\nabla\cdot\mathbf{u}+\mathbf{w}\cdot\nabla\ln n,\\
+-\frac32\left(\frac{d}{dt}+\mathbf{w}\cdot\nabla\right)\ln T&=+\nabla\cdot\mathbf{u}-\frac32\,\mathbf{w}\cdot\nabla\ln T,\\
+\left(\frac{d}{dt}+\mathbf{w}\cdot\nabla\right)\left(-\frac{mw^2}{2T}\right)&=\frac{mw^2}{2T}\left(-\frac23\nabla\cdot\mathbf{u}+\mathbf{w}\cdot\nabla\ln T\right)+\frac mT\,\mathbf{w}\cdot\left(\frac{d\mathbf{u}}{dt}+\mathbf{w}\cdot\nabla\mathbf{u}\right),\\
+\mathbf{a}\cdot\frac{\partial}{\partial\mathbf{v}}\ln f_M&=-\frac mT\,\mathbf{w}\cdot\mathbf{a}.
+\end{align}
+La terza riga viene dal fatto che, a $\mathbf{v}$ fissato, $\partial_t\mathbf{w}=-\partial_t\mathbf{u}$ e $\nabla\mathbf{w}=-\nabla\mathbf{u}$. Con l'equazione del moto di Eulero, $d\mathbf{u}/dt=-\nabla p/(mn)+\mathbf{a}$, la forza $\mathbf{a}$ nel termine $(m/T)\mathbf{w}\cdot d\mathbf{u}/dt$ cancella la quarta riga, e
+\begin{equation}
+\frac mT\,\mathbf{w}\cdot\frac{\nabla p}{mn}=\mathbf{w}\cdot(\nabla\ln n+\nabla\ln T).
+\end{equation}
+Si sommano le quattro righe: $\nabla\ln n$ si cancella; $\nabla\ln T$ compare con coefficiente $\frac{mw^2}{2T}-\frac32-1$; i termini in $\nabla\cdot\mathbf{u}$ si cancellano tranne $-\frac{mw^2}{3T}\nabla\cdot\mathbf{u}$, che rende il tensore a traccia nulla. Il risultato è
+\begin{equation}
+f_1=-\tau f_M\left[\left(\frac{mw^2}{2T}-\frac52\right)\mathbf{w}\cdot\nabla\ln T+\frac mT\left(w_iw_j-\frac{w^2}{3}\delta_{ij}\right)\frac{\partial u_i}{\partial x_j}\right].
+\end{equation}
+\begin{itemize}
+\item Il primo termine è dispari in $\mathbf{w}$, ed è pilotato da $\nabla T$: particelle veloci dal lato caldo, lente dal lato freddo. Il fattore $-5/2$ garantisce $\int\mathbf{w}f_1\,d^3v=0$: l'energia fluisce, le particelle no. A lezione si è osservato che per avere una deviazione dalla maxwelliana bisogna rompere l'isotropia con un gradiente.
+\item Il secondo termine è pari e a traccia nulla, ed è pilotato dallo shear di $\mathbf{u}$: $f$ si allunga lungo la direzione dello strain, con una pressione anisotropa.
+\end{itemize}
+Non compaiono né $\nabla n$, né la forza, né $\nabla\cdot\mathbf{u}$: un gas isotermo in equilibrio idrostatico, o compresso in modo uniforme, resta maxwelliano.
+Per la traccia del tensore: $\sum_i\left(w_i^2-w^2/3\right)=w^2-w^2=0$. È un tensore simmetrico a traccia nulla, il \emph{tensore di shear}: rappresenta la deformazione di un elemento di fluido che preserva l'area (strati di fluido che scorrono a velocità diverse).
+
+\section{Flusso di calore e viscosità}
+\subsection{La legge di Fourier}
+Il flusso di calore è $\mathbf{q}=\int\frac12mw^2\mathbf{w}\,f_1\,d^3v$. Solo il termine dispari contribuisce. L'isotropia dà $\langle w_iw_jg(w^2)\rangle=\frac13\delta_{ij}\langle w^2g\rangle$, e per una maxwelliana $\langle w^4\rangle=15v_t^4$, $\langle w^6\rangle=105v_t^6$ (con $v_t^2=T/m$):
+\begin{equation}
+\mathbf{q}=-\frac{\tau n}{3}\left[\frac{m^2}{4T}\,105v_t^6-\frac{5m}{4}\,15v_t^4\right]\frac{\nabla T}{T}=-\frac{\tau nmv_t^4}{3}\cdot\frac{30}{4}\,\frac{\nabla T}{T}=-\frac52\frac{nT\tau}{m}\nabla T .
+\end{equation}
+\begin{equation}
+\mathbf{q}=-\kappa\nabla T,\qquad\kappa=\frac52\frac{nT\tau}{m}=\frac52\,nv_t\lambda_{\rm mfp}\quad(\text{esatto per gli elettroni: }3.16).
+\end{equation}
+È la legge di Fourier ricavata dalla teoria cinetica; la usa chi studia la struttura stellare, dove il flusso di calore è proporzionale al gradiente di temperatura. Poiché $\tau_e\propto T^{3/2}/n$, la densità si cancella:
+\begin{equation}
+\kappa_\parallel\simeq1.8\times10^{-5}\,\frac{T^{5/2}}{\ln\Lambda}\ \mathrm{erg\,s^{-1}cm^{-1}K^{-1}}\quad(\text{Spitzer--H\"arm}).
+\end{equation}
+Il calore è portato dagli elettroni: $\kappa_i/\kappa_e\sim(m_e/m_i)^{1/2}$. Anche la conducibilità elettrica $\sigma=ne^2\tau_e/m_e$ non dipende da $n$ (cap.~2).
+
+\subsection{Il tensore degli sforzi viscosi}
+Si calcola $\pi_{ij}=\int mw_iw_j\,f_1\,d^3v$ con $\langle w_iw_jw_kw_l\rangle=v_t^4(\delta_{ij}\delta_{kl}+\delta_{ik}\delta_{jl}+\delta_{il}\delta_{jk})$. Contraendo con $\partial_lu_k$ si ottiene $v_t^4(\partial_iu_j+\partial_ju_i+\delta_{ij}\nabla\cdot\mathbf{u})$, e il termine in $-\frac13w^2\delta_{kl}$ di $f_1$ dà $-\frac53v_t^4\delta_{ij}\nabla\cdot\mathbf{u}$ (perché $\langle w_iw_jw^2\rangle=5v_t^4\delta_{ij}$). Con $m^2v_t^4/T=T$:
+\begin{equation}
+\pi_{ij}=-\mu\left(\frac{\partial u_i}{\partial x_j}+\frac{\partial u_j}{\partial x_i}-\frac23\delta_{ij}\nabla\cdot\mathbf{u}\right),\qquad\mu=p\tau .
+\end{equation}
+Sono gli sforzi viscosi di Navier--Stokes. Per misurare la viscosità di un fluido (esempio fatto a lezione) si spinge una barchetta nella vasca da bagno: se il fluido non fosse viscoso la barchetta continuerebbe a muoversi, se è viscoso si ferma, come per un attrito proprio del fluido. Qui il coefficiente è invece calcolato dalla microfisica: se si potesse fare lo stesso esperimento in un plasma, il coefficiente misurato dal frenamento dovrebbe essere $\mu$.
+\begin{itemize}
+\item Dominano gli ioni: $\mu_i=0.96\,nT\tau_i$, con $\tau_i\simeq(2m_i/m_e)^{1/2}\tau_e$.
+\item La viscosità cinematica è $\nu=\mu/\rho\sim v_{ti}\lambda_i$, ancora $\propto T^{5/2}/n$.
+\end{itemize}
+Il numero adimensionale che conta in una dinamo è il \textbf{numero di Prandtl magnetico}, rapporto tra la viscosità cinematica $\nu$ e la diffusività magnetica $\eta$ già incontrata (cap.~2),
+\begin{equation}
+\mathrm{Pm}=\frac\nu\eta\ \propto\ \frac{T^4}{n}.
+\end{equation}
+\begin{center}
+\small
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+ & base zona convettiva solare & corona & ISM caldo & ammasso\\
+\hline
+$\mathrm{Pm}$ & $\sim10^{-1}$ & $\sim10^{10}$ & $\sim10^{11}$ & $\sim10^{27}$\\
+\hline
+\end{tabular}
+\end{center}
+Valori così diversi da 1 rendono molto difficili le simulazioni: per $\mathrm{Pm}\gg1$ la diffusività magnetica è piccola e domina la viscosità cinematica (negli ammassi la diffusività magnetica si può trascurare del tutto).
+
+\section{Quando l'espansione fallisce}
+La legge di Fourier è stata ricavata per $\mathrm{Kn}\ll1$. Con $\nabla T\sim T/L_T$ dà
+\begin{equation}
+q\simeq\frac52\,nTv_t\,\frac{\lambda_{\rm mfp}}{L_T},
+\end{equation}
+che supera il massimo flusso possibile, con tutte le particelle che fluiscono liberamente, $q_{\rm sat}\sim nTv_t$, quando $\lambda_{\rm mfp}\gtrsim L_T/2$. A lezione: se $\lambda$ diventa molto maggiore di $L$ il flusso potrebbe addirittura superare la velocità della luce; è una situazione non fisica, e bisogna sapere come risolverla.
+Inoltre il calore è portato da elettroni di $2$--$3\,v_{te}$, il cui cammino libero è $(2$--$3)^4\simeq10$--$80$ volte più lungo: l'espansione fallisce prima di quanto $\mathrm{Kn}$ suggerisca. Le soluzioni sono:
+\begin{itemize}
+\item un \textbf{flux limiter}: un flusso saturato $q\simeq0.4\,nT(2T/\pi m_e)^{1/2}$, cioè un coefficiente che dipende dalla temperatura e va a zero dove i gradienti sono molto forti (il docente ha ricordato di aver studiato flux limiter per i fotoni nella propria tesi);
+\item le chiusure \emph{Landau-fluid}, che imitano la risposta cinetica (modulo 9a);
+\item la teoria cinetica.
+\end{itemize}
+Casi in cui conta: i flare solari e la regione di transizione corona--cromosfera (forti $\nabla T$), l'evaporazione di nubi fredde in gas caldo, il vento solare, dove il flusso di calore degli elettroni è limitato dalle instabilità cinetiche e non dalle collisioni.
+
+\section{Trasporto in un plasma magnetizzato}
+\subsection{Un passo diverso lungo e attraverso $\mathbf{B}$}
+Il campo magnetico rompe l'isotropia: ci sono due tipi di passeggiata casuale. Lungo $\mathbf{B}$ il passo è il cammino libero medio; attraverso $\mathbf{B}$ è il raggio di girazione $\rho=v_t/\Omega$. Con il coefficiente di diffusione $\sim\ell^2/\tau$:
+\begin{equation}
+D_\parallel\sim\frac{\lambda_{\rm mfp}^2}{\tau}=v_t^2\tau,\qquad D_\perp\sim\frac{\rho^2}{\tau}=\frac{v_t^2}{\Omega^2\tau},\qquad\frac{D_\perp}{D_\parallel}\sim\frac{1}{(\Omega\tau)^2},
+\end{equation}
+con $\Omega=qB/mc$ (con segno).
+
+\subsection{La stessa cosa dalle equazioni fluide}
+Fluido isotermo e stazionario, con attrito $-mn\nu\mathbf{u}$:
+\begin{equation}
+0=-T\nabla n+\frac{qn}{c}\,\mathbf{u}\times\mathbf{B}-mn\nu\,\mathbf{u}.
+\end{equation}
+Dividendo per $mn\nu$ e ponendo $D=T/m\nu$, $\mathbf{u}_\parallel$ e $\mathbf{u}_\perp$ rispetto a $\hat{\mathbf{b}}=\mathbf{B}/B$, $a=\Omega\tau$:
+\begin{equation}
+n\mathbf{u}=-D\nabla n+a\,n\,\mathbf{u}\times\hat{\mathbf{b}}.
+\end{equation}
+Lungo $\mathbf{B}$: $n\mathbf{u}_\parallel=-D\nabla_\parallel n$. Nel piano trasverso, con $\mathbf{G}=-D\nabla_\perp n$:
+\begin{equation}
+n\mathbf{u}_\perp+a\,\hat{\mathbf{b}}\times(n\mathbf{u}_\perp)=\mathbf{G}.
+\end{equation}
+Si applica $\hat{\mathbf{b}}\times$: $\hat{\mathbf{b}}\times\mathbf{G}=\hat{\mathbf{b}}\times n\mathbf{u}_\perp-a\,n\mathbf{u}_\perp$. Sostituendo $\hat{\mathbf{b}}\times n\mathbf{u}_\perp=\hat{\mathbf{b}}\times\mathbf{G}+a\,n\mathbf{u}_\perp$ nella prima equazione:
+\begin{equation}
+n\mathbf{u}_\perp(1+a^2)=\mathbf{G}-a\,\hat{\mathbf{b}}\times\mathbf{G}\quad\Rightarrow\quad n\mathbf{u}_\perp=-\frac{D}{1+\Omega^2\tau^2}\nabla_\perp n+\frac{\Omega\tau D}{1+\Omega^2\tau^2}\,\hat{\mathbf{b}}\times\nabla n .
+\end{equation}
+Per $\Omega\tau\gg1$ la diffusione trasversa cala di $(\Omega\tau)^{-2}$, e il secondo termine tende a $(cT/qB)\,\hat{\mathbf{b}}\times\nabla n$, il flusso diamagnetico non collisionale del modulo 9a.
+
+\subsection{I coefficienti di Braginskii}
+Il flusso di calore in un plasma magnetizzato si decompone in tre parti:
+\begin{equation}
+\mathbf{q}=-\kappa_\parallel\,\hat{\mathbf{b}}(\hat{\mathbf{b}}\cdot\nabla T)-\kappa_\perp\nabla_\perp T-\kappa_\wedge\,\hat{\mathbf{b}}\times\nabla T .
+\end{equation}
+\begin{center}
+\small
+\begin{tabular}{|c|l|l|}
+\hline
+ & elettroni & ioni\\
+\hline
+$\kappa_\parallel$ & $3.16\,nT\tau_e/m_e$ & $3.9\,nT\tau_i/m_i$ (minore di $(m_e/m_i)^{1/2}$)\\
+\hline
+$\kappa_\perp$ & $4.66\,nT/(m_e\Omega_e^2\tau_e)$ & $2\,nT/(m_i\Omega_i^2\tau_i)$ (dominano gli ioni)\\
+\hline
+$\kappa_\wedge$ & $\frac52\,nT/(m_e\Omega_e)$ & $\frac52\,nT/(m_i\Omega_i)$ (senza $\tau$: diamagnetico)\\
+\hline
+\end{tabular}
+\end{center}
+Valgono se $\mathrm{Kn}\ll1$ lungo $\mathbf{B}$. Anche la viscosità ha la stessa struttura, con cinque coefficienti; per l'attrito $\eta_\parallel=0.51\,\eta_\perp$ (modulo 9a). Il rapporto tra i flussi è
+\begin{equation}
+\frac{\kappa_\perp}{\kappa_\parallel}\sim\frac{1}{(\Omega_e\tau_e)^2}\left(\frac{m_i}{m_e}\right)^{1/2}:\qquad10^{-12}\ \text{nella corona},\quad10^{-24}\ \text{in un ammasso}.
+\end{equation}
+A lezione: per capire perché gli elettroni dominano lungo $\mathbf{B}$ e gli ioni attraverso $\mathbf{B}$, basta notare che $\kappa_\parallel\propto\tau/m$ (l'elettrone è più leggero e più veloce), mentre $\kappa_\perp\propto m/\tau\cdot(1/q^2B^2)$ è più grande per la specie pesante, che ha un raggio di girazione maggiore.
+
+\section{Dove si applica: corona, ammassi, galassie}
+\subsection{Quale trasporto, dove}
+Nel piano $(\mathrm{Kn},\Omega_e\tau_e)$ quasi tutti i plasmi sono magnetizzati ($\Omega_e\tau_e\gg1$). Solo il mezzo interstellare, la corona e i nuclei degli ammassi sono collisionali lungo $\mathbf{B}$ (trasporto di Braginskii); il vento solare, la magnetosfera e i plasmi da fusione non lo sono: il loro trasporto è cinetico (e nei tokamak neoclassico o turbolento). Un plasma non magnetizzato ha invece trasporto isotropo alla Spitzer.
+\subsection{Il calore segue le linee di campo}
+In una simulazione, con la stessa macchia calda e lo stesso tempo, un coefficiente isotropo fa allargare la gaussiana iniziale in modo isotropo; con $\kappa_\perp/\kappa_\parallel=10^{-3}$ la temperatura si diffonde lungo la linea di campo che passa per la macchia e forma una struttura ad anello. È ciò che si osserva nei \emph{loop} coronali: fasci di linee di campo ciascuna con la propria $T$, nette attraverso $\mathbf{B}$.
+Un controllo: in un loop con $B=10$~G, $n=10^9$~cm$^{-3}$, $T=100$~eV si ha $\Omega_e=1.76\times10^7B=1.8\times10^8$~s$^{-1}$ e $\tau_e=1/\nu_{ei}\simeq0.017$~s, quindi $\Omega_e\tau_e\sim3\times10^6$ e $\kappa_\perp/\kappa_\parallel\sim5\times10^{-12}$: il trasporto è solo lungo $\mathbf{B}$, per cui i loop sono sottili.
+
+\subsection{La corona: conduzione contro radiazione}
+Un loop con semilunghezza $L=10^4$~km, $n=10^9$~cm$^{-3}$, $T=100$~eV ($1.2\times10^6$~K) ha
+\begin{equation}
+t_{\rm cond}\simeq\frac{3nk_BT\,L^2}{\kappa_\parallel T}\approx300\ \mathrm{s},\qquad t_{\rm rad}\simeq\frac{3nk_BT}{n^2\Lambda(T)}\approx5000\ \mathrm{s}\quad(\Lambda\approx10^{-22}\ \mathrm{erg\,cm^3s^{-1}}).
+\end{equation}
+La conduzione è rapida lungo il loop e nulla attraverso: il calore depositato in corona è trasportato lungo le gambe fino alla regione di transizione densa, dove è irradiato. Bilanciando riscaldamento, conduzione e radiazione si ottiene la legge di scala dei loop (Rosner, Tucker \& Vaiana 1978),
+\begin{equation}
+T_{\max}\simeq1.4\times10^3\,(pL)^{1/3}\ \mathrm{K}\quad(\mathrm{cgs}),
+\end{equation}
+cioè circa $10^6$~K per questi valori ($p=2nk_BT\simeq0.33$~dyn/cm$^2$, $pL\simeq3\times10^8$). I profili di $T$ e $n$ lungo i loop misurati da Hinode, SDO, Solar Orbiter testano la legge $T^{5/2}$ e localizzano il riscaldamento.
+
+\subsection{Ammassi di galassie}
+Gas caldo, $T\sim5$~keV, $n\sim10^{-3}$--$10^{-2}$~cm$^{-3}$: $\lambda_{\rm mfp}\sim0.3$--$10$~kpc. I \emph{cold front} osservati da Chandra sono bordi netti tra gas a temperature diverse, più sottili di qualche kpc, quindi più sottili di $\lambda_{\rm mfp}$: la conduzione di Spitzer li cancellerebbe in pochi Myr, molto meno della loro età. La spiegazione è che il campo è drappeggiato lungo il fronte e $\kappa_\perp/\kappa_\parallel\sim10^{-24}$ (Vikhlinin, Markevitch \& Murray 2001). Anche lungo $\mathbf{B}$ la conduzione è inferiore a quella di Spitzer: a $\beta\sim100$ le instabilità cinetiche diffondono gli elettroni.
+
+\subsection{La Galassia: trasporto turbolento}
+A lezione: nella galassia i raggi cosmici si propagano nel campo magnetico galattico, e il coefficiente di diffusione ha una struttura tensoriale determinata da quel campo. Per capire dove vanno i raggi cosmici e come evolve la galassia (e quindi la formazione stellare) bisogna stimare bene questi coefficienti. Si è scoperto che non sono i coefficienti microscopici ora visti, ma coefficienti macroscopici dovuti alla turbolenza prodotta dalle supernove, che rendono turbolento il plasma, per decine di rotazioni della galassia (30--40 a lezione). La struttura tensoriale resta, ma il trasporto è fissato dalla turbolenza indotta nel mezzo e non dalle leggi semplici di laboratorio.
+
+\section{Plasmi parzialmente ionizzati (nelle slide, non svolto a lezione)}
+Nelle slide ci sono anche i plasmi con neutri: il docente ha detto che la parte sulla diffusione ambipolare è nelle slide ma non è stata discussa. Si riportano i risultati.
+
+Con elettroni, ioni e neutri, i neutri non sentono la forza di Lorentz ma solo le collisioni con gli ioni. La forza magnetica spinge ioni (ed elettroni legati) attraverso i neutri:
+\begin{equation}
+\mathbf{v}_D\equiv\mathbf{u}_i-\mathbf{u}_n=\frac{\mathbf{j}\times\mathbf{B}}{c\,\rho_i\nu_{in}}=\frac{(\nabla\times\mathbf{B})\times\mathbf{B}}{4\pi\rho_i\nu_{in}} .
+\end{equation}
+Il campo è congelato negli ioni, $\partial_t\mathbf{B}=\nabla\times(\mathbf{u}_i\times\mathbf{B})$, e con $\mathbf{u}_i=\mathbf{u}_n+\mathbf{v}_D$:
+\begin{equation}
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{u}_n\times\mathbf{B})+\nabla\times\left[\frac{\left((\nabla\times\mathbf{B})\times\mathbf{B}\right)\times\mathbf{B}}{4\pi\rho_i\nu_{in}}\right],\qquad\eta_{\rm AD}=\frac{B^2}{4\pi\rho_i\nu_{in}}=\frac{v_{A,i}^2}{\nu_{in}} .
+\end{equation}
+La diffusività ambipolare è non lineare in $B$ e agisce solo sulla parte di $\mathbf{j}$ perpendicolare a $\mathbf{B}$ (perché $((\nabla\times\mathbf{B})\times\mathbf{B})\times\mathbf{B}=-B^2(\nabla\times\mathbf{B})_\perp$): un campo force-free non diffonde. Il tempo di attraversamento di una scala $L$ è $t_{\rm AD}=L/v_D=L^2/\eta_{\rm AD}$.
+\emph{Frazione di ionizzazione $x=n_i/n_n$}: nucleo di nube molecolare $\sim10^{-7}$ (i raggi cosmici ionizzano, $x\propto n^{-1/2}$), cromosfera $10^{-4}$--$10^{-1}$, disco protoplanetario (zona morta) $<10^{-12}$.
+\emph{Esempio: un nucleo di nube molecolare.} $n_{\rm H_2}=10^4$~cm$^{-3}$ ($\rho=3.9\times10^{-20}$~g/cm$^3$), $B=30~\mu$G, $L=0.1$~pc. Ionizzazione da raggi cosmici: $\rho_i\simeq C\rho^{1/2}$, $C\simeq3\times10^{-16}$ (cgs), quindi $\rho_i\approx6\times10^{-26}$~g/cm$^3$. Attrito: $\rho_i\nu_{in}=\gamma\rho_i\rho$, $\gamma\simeq3.5\times10^{13}$~cm$^3$g$^{-1}$s$^{-1}$. Allora
+\begin{equation}
+t_{\rm AD}=\frac{4\pi\gamma\rho_i\rho L^2}{B^2}\approx3\ \mathrm{Myr},\qquad t_{\rm ff}=\left(\frac{3\pi}{32G\rho}\right)^{1/2}\approx0.3\ \mathrm{Myr},\qquad t_{\rm AD}\approx10\,t_{\rm ff}:
+\end{equation}
+un nucleo magnetizzato perde lentamente il suo sostegno, poi collassa.
+\emph{Cromosfera: resistività di Cowling.} Nella legge di Ohm a un fluido compare una resistenza extra per la corrente attraverso $\mathbf{B}$, $\eta_C=\eta+\xi_n^2\eta_{\rm AD}$ con $\xi_n=\rho_n/\rho$; il suo riscaldamento è attrito ione--neutro. A circa 1000 km ($n_n\sim10^{14}$~cm$^{-3}$, $x\sim10^{-3}$, $T=6000$~K, $B=100$~G) $\eta\approx3\times10^7$~cm$^2$/s e $\eta_{\rm AD}\approx6\times10^9$~cm$^2$/s (circa 200 volte maggiore).
+
+\section{Domande di verifica: trasporto}
+\begin{enumerate}
+\item \textit{Perché $f_1$ non contiene $\nabla n$ né il campo elettrico?} Perché i termini in $\nabla\ln n$ e la forza si cancellano usando l'equazione di Eulero: un gas isotermo in equilibrio idrostatico resta maxwelliano.
+\item \textit{Perché la conducibilità termica non dipende dalla densità? E quella elettrica?} $\kappa\propto nT\tau/m$ con $\tau\propto T^{3/2}/n$, quindi $n$ si cancella; anche $\sigma=ne^2\tau_e/m_e$ non dipende da $n$.
+\item \textit{Perché gli elettroni dominano la conduzione lungo $\mathbf{B}$ e gli ioni attraverso?} Lungo $\mathbf{B}$ $\kappa\propto\tau/m$, favorevole agli elettroni; attraverso $\mathbf{B}$ $\kappa_\perp\propto m/\tau$, più grande per gli ioni (raggio di girazione maggiore).
+\item \textit{Stimare $\Omega_e\tau_e$ in un loop con $B=10$~G.} $\sim3\times10^6$ (vedi sopra): il trasporto è solo lungo $\mathbf{B}$, i loop sono sottili.
+\item \textit{Perché la diffusione ambipolare non agisce su un campo force-free?} Perché $\mathbf{j}\parallel\mathbf{B}$, quindi $\mathbf{j}\times\mathbf{B}=0$ e $\mathbf{v}_D=0$.
+\item \textit{Come scala $t_{\rm AD}$ con la densità se $x\propto n^{-1/2}$ e $B$ è fisso?} $t_{\rm AD}\propto\rho_i\rho L^2\propto x\rho^2L^2\propto n^{3/2}L^2$, a $L$ fissata.
+\end{enumerate}
+
+\section{Onde in un plasma freddo e magnetizzato}
+\subsection{Richiami e piano di lavoro}
+Senza campo magnetico un plasma ha le oscillazioni di Langmuir, $\omega^2=\omega_p^2+3k^2v_t^2$ (caso termico), e la luce, $\omega^2=\omega_p^2+k^2c^2$: sotto $\omega_p$ l'onda è evanescente e viene riflessa (da qui la propagazione radio a lunga distanza con la ionosfera), sopra si propaga e interagisce col plasma. Nel modulo 9b l'MHD di Hall ha dato whistler e onde ciclotroniche ioniche lungo $\mathbf{B}_0$. Ora si aprono tutte le onde di piccola ampiezza di un plasma freddo e magnetizzato, $\omega/k\gg v_t$ (nessun smorzamento di Landau, cap.~6): è il limite giusto per onde radio da pulsar, ionosfera, vento solare. A lezione il campo magnetico è stato descritto come ``il vaso di Pandora'': non appena lo si accende, la fisica diventa molto più ricca.
+Le equazioni di Maxwell vedono il plasma solo attraverso la corrente $\mathbf{j}$. Il piano è:
+\begin{enumerate}
+\item moto di ciascuna specie nel campo dell'onda, $\mathbf{v}_s(\mathbf{E})$;
+\item corrente, $\mathbf{j}=\sum_sn_sq_s\mathbf{v}_s$, quindi $\mathbf{j}(\mathbf{E})$ (tensore di conducibilità);
+\item Amp\`ere con $\mathbf{j}(\mathbf{E})$: il plasma diventa un dielettrico, $\mathbf{D}(\mathbf{E})$;
+\item Faraday + Amp\`ere: si elimina $\mathbf{B}$, si ottiene un'equazione per il solo $\mathbf{E}$.
+\end{enumerate}
+Si considera $\mathbf{B}_0=B_0\hat{\mathbf{z}}$ uniforme, piccole perturbazioni $\propto e^{i(\mathbf{k}\cdot\mathbf{x}-\omega t)}$, plasma freddo (senza pressione), quasi-neutralità.
+
+\subsection{Passo 1: una specie in un'onda}
+Con la frequenza di girazione con segno $\Omega_s=q_sB_0/(m_sc)$ (negativa per gli elettroni), l'equazione del moto è la forza di Lorentz divisa per la massa, con $\partial_t\to-i\omega$:
+\begin{equation}
+-i\omega\mathbf{v}=\frac{q_s}{m_s}\mathbf{E}+\Omega_s\,\mathbf{v}\times\hat{\mathbf{z}},\qquad\mathbf{v}\times\hat{\mathbf{z}}=(v_y,-v_x,0).
+\end{equation}
+In componenti:
+\begin{equation}
+-i\omega v_x-\Omega_sv_y=\frac{q_s}{m_s}E_x,\qquad\Omega_sv_x-i\omega v_y=\frac{q_s}{m_s}E_y,\qquad-i\omega v_z=\frac{q_s}{m_s}E_z .
+\end{equation}
+Lungo $z$ il moto è indipendente dal campo magnetico; nel piano $xy$ le componenti si mescolano: un sistema $2\times2$ di determinante $\Omega_s^2-\omega^2$. Risolvendo,
+\begin{equation}
+v_x=\frac{iq_s}{m_s}\frac{\omega E_x+i\Omega_sE_y}{\omega^2-\Omega_s^2},\qquad v_y=\frac{iq_s}{m_s}\frac{\omega E_y-i\Omega_sE_x}{\omega^2-\Omega_s^2},\qquad v_z=\frac{iq_s}{m_s\omega}E_z .
+\end{equation}
+\begin{itemize}
+\item Per $\omega\ll|\Omega_s|$: $v_x\to cE_y/B_0$, $v_y\to-cE_x/B_0$, uguale per tutte le specie: è la deriva $\mathbf{E}\times\mathbf{B}$ del modulo 3a.
+\item Per $\omega=|\Omega_s|$: la risposta diverge (risonanza), formalmente la velocità diverge; $v_z$ non sente $B_0$.
+\end{itemize}
+
+\subsection{Passo 2: la corrente e le componenti circolari}
+Inserendo le velocità in $\mathbf{j}=\sum n_sq_s\mathbf{v}_s$ si ottiene $\mathbf{j}=\boldsymbol\sigma\cdot\mathbf{E}$ con
+\begin{equation}
+\boldsymbol\sigma=\sum_s\frac{n_sq_s^2}{m_s}\,\frac{i}{\omega^2-\Omega_s^2}\begin{pmatrix}\omega&i\Omega_s&0\\-i\Omega_s&\omega&0\\0&0&(\omega^2-\Omega_s^2)/\omega\end{pmatrix}.
+\end{equation}
+Il tensore non è diagonale: i termini fuori diagonale, di tipo Hall, mostrano che un campo lungo $y$ guida una corrente lungo $x$. La forma è fissata dalla simmetria: $B_0$ non seleziona nessuna direzione nel piano $xy$, quindi $\sigma_\perp$ è invariante per rotazioni attorno a $z$ (elementi diagonali uguali e fuori diagonale opposti), e $z$ è disaccoppiato.
+Si vuole diagonalizzare, in modo che ogni componente di $\mathbf{j}$ dipenda dalla stessa componente di $\mathbf{E}$. Come nella polarizzazione, si combinano $x$ e $y$ con il fattore $\pm i$:
+\begin{equation}
+E_\pm=E_x\pm iE_y,\qquad J_\pm=J_x\pm iJ_y .
+\end{equation}
+Si verifica che $J_\pm=\left(\frac{n_sq_s^2}{m_s}\frac{i}{\omega^2-\Omega_s^2}\right)(\omega\pm\Omega_s)E_\pm$, e il fattore $\omega\pm\Omega_s$ semplifica un fattore di $\omega^2-\Omega_s^2$:
+\begin{equation}
+J_\pm=\sigma_\pm E_\pm,\quad J_z=\sigma_zE_z,\qquad\sigma_\pm=\sum_s\frac{in_sq_s^2}{m_s(\omega\mp\Omega_s)},\quad\sigma_z=\sum_s\frac{in_sq_s^2}{m_s\omega}.
+\end{equation}
+$E_\pm$ sono i due versi di rotazione del campo nel piano $xy$ (quale sia quale si vede con le onde): una carica in $\mathbf{B}_0$ percorre un cerchio, quindi un campo rotante è il modo naturale di spingerla. Ogni risonanza appartiene a un solo verso: $\sigma_+$ a $\omega=\Omega_s$, $\sigma_-$ a $\omega=-\Omega_s$. Le due specie ruotano in versi opposti perché $\Omega_s$ contiene il segno della carica.
+
+\subsection{Passo 3: Amp\`ere e il tensore dielettrico}
+Amp\`ere con la corrente del plasma, $\nabla\times\mathbf{B}=\frac{4\pi}{c}\mathbf{j}+\frac1c\partial_t\mathbf{E}$, per onde piane diventa
+\begin{equation}
+i\mathbf{k}\times\mathbf{B}=\frac{4\pi}{c}\mathbf{j}-\frac{i\omega}{c}\mathbf{E}=-\frac{i\omega}{c}\,\mathbf{D},\qquad\mathbf{D}=\mathbf{E}+\frac{4\pi i}{\omega}\mathbf{j} .
+\end{equation}
+Con $\omega_{ps}^2=4\pi n_sq_s^2/m_s$:
+\begin{equation}
+D_\pm=\varepsilon_\pm E_\pm,\quad D_z=PE_z,\qquad\varepsilon_\pm=1-\sum_s\frac{\omega_{ps}^2}{\omega(\omega\mp\Omega_s)},\quad P=1-\sum_s\frac{\omega_{ps}^2}{\omega^2}.
+\end{equation}
+Il plasma si comporta come un mezzo dielettrico polarizzato, con una permittività diversa per componente; è paradossale perché un dielettrico è un isolante, mentre qui ci sono molte cariche libere. A lezione: è il tensore dielettrico che di solito si introduce quando si scrivono le equazioni di Maxwell nella materia.
+
+\subsection{Passo 4: l'equazione d'onda}
+La legge di Faraday, $\nabla\times\mathbf{E}=-\frac1c\partial_t\mathbf{B}$, dà $\mathbf{k}\times\mathbf{E}=(\omega/c)\mathbf{B}$. Applicando $\mathbf{k}\times$ e usando Amp\`ere ($\mathbf{k}\times\mathbf{B}=-(\omega/c)\mathbf{D}$):
+\begin{equation}
+\mathbf{k}\times(\mathbf{k}\times\mathbf{E})=\frac\omega c\,\mathbf{k}\times\mathbf{B}=-\frac{\omega^2}{c^2}\mathbf{D}.
+\end{equation}
+Con l'indice di rifrazione $\mathbf{n}=c\mathbf{k}/\omega$ e l'identità $\mathbf{n}\times(\mathbf{n}\times\mathbf{E})=\mathbf{n}(\mathbf{n}\cdot\mathbf{E})-n^2\mathbf{E}$ (il prodotto vettoriale non è associativo):
+\begin{equation}
+\mathbf{n}(\mathbf{n}\cdot\mathbf{E})-n^2\mathbf{E}+\mathbf{D}(\mathbf{E})=0.
+\end{equation}
+Sono tre equazioni lineari per $\mathbf{E}$; per avere soluzioni non banali il determinante deve annullarsi, e questa è la relazione di dispersione. Il termine di plasma $\mathbf{D}(\mathbf{E})$ è diagonale nelle componenti circolari e in $z$; il termine geometrico dipende dalla direzione di $\mathbf{k}$. Per $\mathbf{k}\parallel\mathbf{B}_0$ la situazione è ancora simmetrica attorno a $z$ e il sistema è diagonale (si parte da qui, per capire la fisica passo per passo); per $\mathbf{k}$ obliquo $z$ si accoppia alle componenti trasverse.
+
+\section{Onde lungo il campo magnetico}
+\subsection{Tre modi: R, L e Langmuir}
+Con $\mathbf{n}=n\hat{\mathbf{z}}$ si ha $\mathbf{n}(\mathbf{n}\cdot\mathbf{E})=n^2E_z\hat{\mathbf{z}}$, che cancella $-n^2E_z\hat{\mathbf{z}}$, quindi
+\begin{equation}
+(\varepsilon_--n^2)E_-=0,\qquad(\varepsilon_+-n^2)E_+=0,\qquad PE_z=0 .
+\end{equation}
+Ogni equazione è un modo a sé: $n^2=\varepsilon_-$ con solo $E_-\neq0$; $n^2=\varepsilon_+$ con solo $E_+\neq0$; $P=0$, cioè $\omega=\omega_p$, con solo $E_z\neq0$ ($\mathbf{E}\parallel\mathbf{k}\parallel\mathbf{B}_0$): l'oscillazione di Langmuir, indipendente da $\mathbf{B}_0$. I due modi trasversi sono polarizzati circolarmente.
+
+\subsection{Il senso di rotazione e le risonanze}
+Un elettrone ($q=-e$) che si muove lungo $+x$ sente $\mathbf{F}\propto-\hat{\mathbf{x}}\times\hat{\mathbf{z}}=+\hat{\mathbf{y}}$: gira da $x$ verso $y$, in senso antiorario visto da $+z$ (destrorso attorno a $\mathbf{B}_0$, regola della mano sinistra); gli ioni, con carica opposta, ruotano in senso orario. Il modo con solo $E_-$ ha $E_+=0$, cioè $E_y=iE_x$:
+\begin{equation}
+\mathbf{E}=\mathrm{Re}\left[E_0(\hat{\mathbf{x}}+i\hat{\mathbf{y}})e^{-i\omega t}\right]=E_0(\hat{\mathbf{x}}\cos\omega t+\hat{\mathbf{y}}\sin\omega t),
+\end{equation}
+antiorario, con gli elettroni. Il modo con solo $E_+$ ruota in senso orario, con gli ioni. $\varepsilon_-$ diverge a $\omega=-\Omega_s$, cioè per gli elettroni a $\omega=|\Omega_e|$; $\varepsilon_+$ diverge a $\omega=\Omega_s$, per gli ioni a $\omega=\Omega_i$: un campo che ruota con la particella alla sua frequenza di girazione la spinge sempre nello stesso verso (risonanza ciclotronica). Dunque:
+\begin{equation}
+\text{onda R (destrorsa): }n_R^2=R\equiv\varepsilon_-,\ \text{risonanza a }|\Omega_e|;\qquad\text{onda L (sinistrorsa): }n_L^2=L\equiv\varepsilon_+,\ \text{risonanza a }\Omega_i .
+\end{equation}
+Lungo $\mathbf{B}_0$ vale $P(n^2-R)(n^2-L)=0$. Se $n_R\neq n_L$ il mezzo è circolarmente birifrangente, perché elettroni e ioni seguono versi di rotazione diversi. Una polarizzazione lineare è la somma $\frac12(R+L)$ e il suo piano ruota quando le due onde si sfasano: è la rotazione di Faraday.
+
+\subsection{Cut-off}
+Per idrogeno, con $\Omega_e=-|\Omega_e|$:
+\begin{equation}
+n_R^2=1-\frac{\omega_{pe}^2}{\omega(\omega-|\Omega_e|)}-\frac{\omega_{pi}^2}{\omega(\omega+\Omega_i)},\qquad n_L^2=1-\frac{\omega_{pe}^2}{\omega(\omega+|\Omega_e|)}-\frac{\omega_{pi}^2}{\omega(\omega-\Omega_i)} .
+\end{equation}
+Un cut-off è dove $n^2=0$ ($k\to0$): l'onda diventa evanescente e viene riflessa. Ad alta frequenza i termini ionici sono minori di $m_e/m_i$, e $R=0$, $L=0$ danno $\omega^2\mp\omega|\Omega_e|-\omega_{pe}^2=0$:
+\begin{equation}
+\omega_R=\frac12\left[|\Omega_e|+\left(\Omega_e^2+4\omega_{pe}^2\right)^{1/2}\right],\qquad\omega_L=\frac12\left[-|\Omega_e|+\left(\Omega_e^2+4\omega_{pe}^2\right)^{1/2}\right],\qquad\omega_L<\omega_{pe}<\omega_R .
+\end{equation}
+Per $B_0=0$ si ha $\omega_R=\omega_L=\omega_{pe}$ e $n^2=1-\omega_{pe}^2/\omega^2$: la luce in un plasma. Con $\mathbf{B}_0$ la luce si divide in due onde circolari con cut-off e velocità di fase diverse; ``sotto'' il cut-off l'onda è riflessa, ed è l'analogo della frequenza di plasma.
+
+\subsection{Il diagramma di dispersione}
+Lo spettro è più complicato: ci sono almeno tre modi di oscillazione. Per idrogeno, con $\omega_{pe}=2|\Omega_e|$ (figura delle slide):
+\begin{itemize}
+\item la retta $\omega=kc$ (luce), i cut-off $\omega_L$ e $\omega_R$, le frequenze $|\Omega_e|$ e $\Omega_i$;
+\item a bassi $k$ (sotto $\Omega_i$) R e L sono indistinguibili: è l'onda di Alfv\'en;
+\item a $k$ più alti ci sono due rami: il ramo R (tra $\Omega_i$ e $|\Omega_e|$) è il modo \emph{whistler}, con risonanza a $|\Omega_e|$; il ramo L tende a $\Omega_i$ ed è l'onda ciclotronica ionica.
+\end{itemize}
+
+\subsection{Whistler}
+Si considera l'onda R con $\Omega_i\ll\omega<|\Omega_e|$ e $\omega_{pe}\gg|\Omega_e|$: gli ioni non rispondono e
+\begin{equation}
+n^2=R\simeq1-\frac{\omega_{pe}^2}{\omega(\omega-|\Omega_e|)}\simeq\frac{\omega_{pe}^2}{\omega|\Omega_e|}\quad\Rightarrow\quad\omega=\frac{k^2c^2|\Omega_e|}{\omega_{pe}^2}=k^2d_e^2|\Omega_e| .
+\end{equation}
+Poiché $d_e^2|\Omega_e|=d_i^2\Omega_i=cB_0/(4\pi ne)=d_iv_A$, è la stessa onda ottenuta con l'MHD di Hall (modulo 9b), $\omega=k^2d_iv_A$: vista dal lato fluido e dal lato delle particelle. La velocità di gruppo è
+\begin{equation}
+v_g=\frac{d\omega}{dk}=\frac{2\omega}{k}=\frac{2c\,(\omega|\Omega_e|)^{1/2}}{\omega_{pe}},
+\end{equation}
+quindi le alte frequenze sono più veloci: un fulmine produce un ``click'' che arriva come tono discendente. Lungo un cammino
+\begin{equation}
+t(f)=\int\frac{ds}{v_g}=\frac{D}{f^{1/2}},\qquad D=\frac{1}{2c\sqrt{2\pi}}\int\frac{\omega_{pe}}{|\Omega_e|^{1/2}}\,ds .
+\end{equation}
+A lezione: i whistler sono stati scoperti in modo curioso. Si sentivano nei telefoni da campo durante la prima guerra mondiale, senza che nessuno ne capisse la causa; Storey (1953) mostrò che sono segnali di fulmini guidati lungo le linee del campo terrestre fino all'altro emisfero, e $D$ diede la prima misura di $n_e$ nella magnetosfera. Oggi si studiano con i satelliti nelle fasce di Van Allen (Van Allen Probes): i \emph{chorus}, generati da elettroni iniettati nelle tempeste, accelerano gli elettroni delle fasce a energie dell'ordine del MeV in poche ore (Thorne et al.~2013); i \emph{hiss} li disperdono nel cono di perdita (modulo 4b).
+
+\subsection{Il limite di Alfv\'en}
+Per $\omega\ll\Omega_i$ si espande ogni specie, $\frac{1}{\omega(\omega\pm\Omega_s)}\simeq\pm\frac{1}{\omega\Omega_s}-\frac{1}{\Omega_s^2}$, e si somma su tutte le specie. Il primo termine,
+\begin{equation}
+\sum_s\frac{\omega_{ps}^2}{\omega\Omega_s}=\frac{4\pi c}{\omega B_0}\sum_sn_sq_s=0,
+\end{equation}
+si annulla per quasi-neutralità; il secondo vale
+\begin{equation}
+\sum_s\frac{\omega_{ps}^2}{\Omega_s^2}=\frac{4\pi c^2}{B_0^2}\sum_sn_sm_s=\frac{c^2}{v_A^2},\qquad v_A=\frac{B_0}{\sqrt{4\pi\rho}},
+\end{equation}
+dove $v_A$ è la velocità di Alfv\'en. Quindi
+\begin{equation}
+R\simeq L\simeq1+\frac{c^2}{v_A^2}\quad\Rightarrow\quad\omega=\frac{kv_A}{(1+v_A^2/c^2)^{1/2}}\simeq kv_A .
+\end{equation}
+A bassa frequenza il plasma è un dielettrico con $\varepsilon\simeq c^2/v_A^2\gg1$: è l'onda di Alfv\'en, uguale per entrambe le polarizzazioni, l'onda di shear dell'MHD (modulo 12b), portata dalla massa degli ioni e dalla tensione del campo. A lezione: a ogni campo magnetico si può associare una velocità, quella delle onde di Alfv\'en, una delle onde più importanti osservate in astrofisica; è una delle formule più importanti del corso. Per $\omega\to\Omega_i$ si divide nei rami ciclotronico ionico (L) e whistler (R).
+
+\section{La rotazione di Faraday}
+Una polarizzazione lineare è somma di R e L. Molto sopra le risonanze e i cut-off ($\omega\gg\omega_{pe},|\Omega_e|$):
+\begin{equation}
+n_{R,L}\simeq1-\frac{\omega_{pe}^2}{2\omega^2}\left(1\pm\frac{|\Omega_e|}{\omega}\right)\quad\Rightarrow\quad n_L-n_R=\frac{\omega_{pe}^2|\Omega_e|}{\omega^3}.
+\end{equation}
+Le fasi si separano e il piano di polarizzazione ruota di metà della differenza di fase:
+\begin{equation}
+\Delta\chi=\frac{\omega}{2c}\int(n_L-n_R)\,ds=\mathrm{RM}\,\lambda^2,\qquad\mathrm{RM}=\frac{e^3}{2\pi m_e^2c^4}\int n_eB_\parallel\,ds .
+\end{equation}
+Infatti $\omega_{pe}^2|\Omega_e|=4\pi n e^3B_\parallel/(m_e^2c)$ e $\omega=2\pi c/\lambda$. In unità pratiche
+\begin{equation}
+\mathrm{RM}=0.812\ \frac{\mathrm{rad}}{\mathrm{m}^2}\int\frac{n_e}{\mathrm{cm}^{-3}}\,\frac{B_\parallel}{\mu\mathrm{G}}\,\frac{ds}{\mathrm{pc}},
+\end{equation}
+con $\mathrm{RM}>0$ per $\mathbf{B}$ verso l'osservatore; $\mathrm{RM}$ è la pendenza di $\chi$ in funzione di $\lambda^2$. In radioastronomia, misurando e invertendo questa relazione si stima il campo magnetico dell'oggetto lungo la linea di vista. A lezione: è la rotazione di Faraday usata per determinare i campi magnetici nelle galassie.
+
+\section{Onde oblique, misure di DM e RM (nelle slide, non svolto a lezione)}
+Il docente ha detto che per le onde oblique e perpendicolari la relazione generale è complicata e che i concetti principali sono già stati visti (Alfv\'en e whistler). Si riportano i risultati delle slide.
+
+\subsection{Onde oblique}
+Per $\mathbf{k}$ nel piano $xz$ ad angolo $\theta$ da $\mathbf{B}_0$, $\mathbf{n}(\mathbf{n}\cdot\mathbf{E})$ accoppia $E_z$ con $E_x$: non esiste una base che diagonalizzi insieme plasma e geometria. In coordinate cartesiane, con $E_\pm$ invertiti e $S=\frac12(R+L)$, $D=\frac12(R-L)$:
+\begin{equation}
+D_x=SE_x-iDE_y,\qquad D_y=iDE_x+SE_y,\qquad D_z=PE_z,\qquad\boldsymbol\varepsilon=\begin{pmatrix}S&-iD&0\\iD&S&0\\0&0&P\end{pmatrix}.
+\end{equation}
+Per $B_0=0$, $R=L=P$ e $D=0$ ($\varepsilon$ scalare, modulo 6a). L'equazione d'onda diventa
+\begin{equation}
+\begin{pmatrix}S-n^2\cos^2\theta&-iD&n^2\sin\theta\cos\theta\\iD&S-n^2&0\\n^2\sin\theta\cos\theta&0&P-n^2\sin^2\theta\end{pmatrix}\begin{pmatrix}E_x\\E_y\\E_z\end{pmatrix}=0 .
+\end{equation}
+Il determinante nullo, con $S^2-D^2=RL$ (che elimina i termini in $n^6$), dà
+\begin{equation}
+An^4-Bn^2+C=0,\qquad A=S\sin^2\theta+P\cos^2\theta,\quad B=RL\sin^2\theta+PS(1+\cos^2\theta),\quad C=PRL .
+\end{equation}
+Due radici in $n^2$: al più due modi elettromagnetici per ogni $\omega$, $\theta$. Per $\theta=0$ si ritrova $P(n^2-R)(n^2-L)=0$. Cut-off ($n\to0$): $C=0$, cioè $P$, $R$ o $L=0$. Risonanza ($n\to\infty$): $A=0$ (l'onda è assorbita dalle particelle).
+
+\subsection{Onde perpendicolari: modi O e X}
+Per $\theta=\pi/2$ la relazione si fattorizza, $(n^2-P)(Sn^2-RL)=0$.
+\begin{itemize}
+\item \textbf{Modo ordinario (O)}: $n^2=P$, $\mathbf{E}\parallel\mathbf{B}_0$; gli elettroni si muovono lungo $\mathbf{B}_0$ e non lo sentono: $\omega^2=\omega_{pe}^2+k^2c^2$, cut-off a $\omega_{pe}$.
+\item \textbf{Modo straordinario (X)}: $n^2=RL/S$, $\mathbf{E}\perp\mathbf{B}_0$, ellittico e in parte longitudinale ($E_x/E_y=iD/S$), cut-off $\omega_R$ e $\omega_L$.
+\end{itemize}
+Risonanza $S=0$: per gli elettroni la frequenza ibrida alta $\omega_{UH}^2=\omega_{pe}^2+\Omega_e^2$ (oscillazione di plasma più girazione, entrambe di richiamo); con gli ioni, in un plasma denso, l'ibrida bassa $\omega_{LH}\simeq(|\Omega_e|\Omega_i)^{1/2}$. Sotto $\omega_{LH}$ il modo X diventa l'onda magnetosonica veloce dell'MHD (modulo 12b).
+\emph{Ionosfera.} Un ionosonda invia impulsi verso l'alto con $f$ da 1 a 20 MHz e misura gli echi (Breit \& Tuve 1926): il modo O è riflesso a $f=f_{pe}(h)$, quindi l'altezza dell'eco dà $n_e(h)$; il modo X a $f_R\simeq f_{pe}+f_{ce}/2$ con $f_{ce}\approx1.4$~MHz, e le due tracce dello ionogramma sono separate di circa 0.7 MHz. La frequenza massima riflessa dallo strato F (5--10 MHz) dà $n_e\sim10^{5}$--$10^6$~cm$^{-3}$: da qui la propagazione delle onde corte attorno alla Terra. Per $0<\theta<\pi/2$ i modi interpolano tra R/L e O/X; il diagramma CMA (Clemmow, Mullaly, Allis) mappa nel piano $(\omega_{pe}^2/\omega^2,|\Omega_e|/\omega)$ le regioni in cui ciascun modo si propaga.
+
+\subsection{Misurare la Galassia}
+Molto sopra $\omega_{pe}$, la velocità di gruppo è $v_g=c(1-\omega_{pe}^2/\omega^2)^{1/2}$ e
+\begin{equation}
+t(f)=\int\frac{ds}{v_g}\simeq\frac Lc+\frac{e^2}{2\pi m_ec}\,\frac{\mathrm{DM}}{f^2},\qquad\mathrm{DM}=\int n_e\,ds,\qquad\Delta t=4.15\ \mathrm{ms}\ \frac{\mathrm{DM}}{\mathrm{pc\,cm^{-3}}}\left(\frac{f}{\mathrm{GHz}}\right)^{-2}
+\end{equation}
+(i segnali a bassa $f$ arrivano in ritardo; Crab: $\mathrm{DM}=57$~pc~cm$^{-3}$). Si usa $f_{pe}^2=n_ee^2/\pi m_e$. Lo stesso elettrone dà ritardo e rotazione, quindi dividendo si elimina la distanza:
+\begin{equation}
+\langle B_\parallel\rangle=\frac{\int n_eB_\parallel\,ds}{\int n_e\,ds}=1.232\ \mu\mathrm{G}\ \frac{\mathrm{RM}/\mathrm{rad\,m^{-2}}}{\mathrm{DM}/\mathrm{pc\,cm^{-3}}}.
+\end{equation}
+È il campo parallelo pesato con $n_e$, col suo segno. Con oltre mille pulsar (Parkes, Arecibo, FAST, LOFAR, MeerKAT) si trova un campo regolare di circa $2~\mu$G lungo i bracci, con inversioni tra alcuni di essi (Han et al.~2018). I \emph{fast radio burst} (Lorimer et al.~2007) hanno DM molto maggiore di quello galattico, e quelli con redshift noto permettono di contare i barioni ionizzati ``mancanti'' tra le galassie (Macquart et al.~2020); alcuni ripetitori hanno $\mathrm{RM}$ fino a $10^5$~rad~m$^{-2}$. Confronto: per i pulsar $t\propto f^{-2}$, per i whistler $t\propto f^{-1/2}$; in entrambi i casi arrivano prima le alte frequenze.
+
+\section{Domande di verifica: onde nel plasma freddo}
+\begin{enumerate}
+\item \textit{Perché il modo O non dipende da $B_0$ e l'X sì?} Nel modo O $\mathbf{E}\parallel\mathbf{B}_0$ e gli elettroni si muovono lungo $\mathbf{B}_0$; nel modo X $\mathbf{E}\perp\mathbf{B}_0$ e la forza magnetica entra attraverso $R$, $L$, $S$.
+\item \textit{Quale tra R e L ha una risonanza a $|\Omega_e|$, e perché?} La R: ha $\varepsilon_-$, con denominatore $\omega+\Omega_e$, e il suo campo ruota in senso antiorario, come gli elettroni.
+\item \textit{Mostrare che il whistler a freddo e quello dell'MHD di Hall sono la stessa onda.} Sono entrambi $\omega=k^2d_iv_A$ (vedi sopra).
+\item \textit{Perché arrivano per ultime le basse frequenze nei pulsar e nei whistler?} Perché in entrambi $v_g$ cresce con la frequenza ($t\propto f^{-2}$ e $t\propto f^{-1/2}$).
+\item \textit{Un pulsar ha $\mathrm{DM}=100$ e $\mathrm{RM}=-60$: quanto vale $\langle B_\parallel\rangle$?} $1.232\times(-60)/100\approx-0.74~\mu$G, diretto via dall'osservatore.
+\item \textit{Perché a bassa frequenza il plasma è un dielettrico con $\varepsilon\simeq c^2/v_A^2$?} Perché $\sum\omega_{ps}^2/\Omega_s^2=c^2/v_A^2\gg1$ (vedi limite di Alfv\'en).
+\end{enumerate}
+
+\section{MHD ideale: le leggi di conservazione}
+\subsection{Le equazioni dell'MHD ideale}
+Dal modulo 9b, per $L\gg d_i,\rho_i$ e $R_m=UL/\eta\gg1$:
+\begin{equation}
+\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{U})=0,\quad\rho\frac{d\mathbf{U}}{dt}=-\nabla p+\frac{\mathbf{j}\times\mathbf{B}}{c},\quad\mathbf{j}=\frac{c}{4\pi}\nabla\times\mathbf{B},\quad\frac{d}{dt}\left(\frac{p}{\rho^\gamma}\right)=0,\quad\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B}),\quad\nabla\cdot\mathbf{B}=0 .
+\end{equation}
+Valgono per un fluido magnetizzato con dimensioni molto maggiori delle scale di collisione; il campo $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c$ segue da $\mathbf{U}$ e $\mathbf{B}$ (nel sistema del fluido è nullo; la corrente nasce dalla differenza di moto tra ioni ed elettroni). L'equazione di induzione è quella del caso più semplice, con diffusività nulla. Oggi: cosa conservano queste equazioni e cosa significano fisicamente. In una riga: il campo si comporta come corde elastiche congelate nel fluido, e le corde conservano i loro nodi.
+
+\subsection{Quantità di moto: dalla forza di Lorentz a un tensore degli sforzi}
+Con $\mathbf{j}=(c/4\pi)\nabla\times\mathbf{B}$ e l'identità $(\nabla\times\mathbf{B})\times\mathbf{B}=(\mathbf{B}\cdot\nabla)\mathbf{B}-\nabla(B^2/2)$:
+\begin{equation}
+\frac{\mathbf{j}\times\mathbf{B}}{c}=\frac{(\mathbf{B}\cdot\nabla)\mathbf{B}}{4\pi}-\nabla\frac{B^2}{8\pi} .
+\end{equation}
+Poiché $\nabla\cdot\mathbf{B}=0$, $(\mathbf{B}\cdot\nabla)\mathbf{B}=\nabla\cdot(\mathbf{B}\mathbf{B})$: la forza è una divergenza,
+\begin{equation}
+\frac{\mathbf{j}\times\mathbf{B}}{c}=-\nabla\cdot\mathsf{M},\qquad\mathsf{M}=\frac{B^2}{8\pi}\mathsf{I}-\frac{\mathbf{B}\mathbf{B}}{4\pi}.
+\end{equation}
+Aggiungendo $\rho\,d\mathbf{U}/dt=\partial_t(\rho\mathbf{U})+\nabla\cdot(\rho\mathbf{U}\mathbf{U})$ (con la continuità):
+\begin{equation}
+\frac{\partial(\rho\mathbf{U})}{\partial t}+\nabla\cdot\left[\rho\mathbf{U}\mathbf{U}+\left(p+\frac{B^2}{8\pi}\right)\mathsf{I}-\frac{\mathbf{B}\mathbf{B}}{4\pi}\right]=0 .
+\end{equation}
+La quantità di moto è scambiata tra fluido e campo solo attraverso sforzi superficiali (il termine con la divergenza si può trasformare in un integrale di superficie): $\mathsf{M}$ è il \textbf{tensore degli sforzi di Maxwell}. Con $\hat{\mathbf{z}}\parallel\mathbf{B}$,
+\begin{equation}
+\mathsf{M}=\mathrm{diag}\left(\frac{B^2}{8\pi},\frac{B^2}{8\pi},-\frac{B^2}{8\pi}\right):
+\end{equation}
+attraverso $\mathbf{B}$ c'è una pressione $B^2/8\pi$ che tende ad aprire le linee; lungo $\mathbf{B}$ c'è una tensione $B^2/8\pi$ che le stira (le linee si comportano come elastici che si respingono). Un campo rettilineo uniforme non esercita nessuna forza: contano solo i gradienti e la curvatura. Il campo magnetico si comporta quindi in parte come una pressione e in parte come una tensione.
+
+\subsection{Pressione e tensione magnetica}
+Con $\mathbf{B}=B\hat{\mathbf{b}}$ e $\ell$ la lunghezza d'arco lungo la linea di campo:
+\begin{equation}
+(\mathbf{B}\cdot\nabla)\mathbf{B}=B\frac{\partial}{\partial\ell}(B\hat{\mathbf{b}})=B^2\frac{\partial\hat{\mathbf{b}}}{\partial\ell}+\hat{\mathbf{b}}\frac{\partial}{\partial\ell}\frac{B^2}{2},\qquad\frac{\partial\hat{\mathbf{b}}}{\partial\ell}=\frac{\hat{\mathbf{n}}}{R_c} .
+\end{equation}
+La parte parallela cancella la parte parallela di $-\nabla(B^2/8\pi)$ e resta
+\begin{equation}
+\frac{\mathbf{j}\times\mathbf{B}}{c}=-\nabla_\perp\frac{B^2}{8\pi}+\frac{B^2}{4\pi}\frac{\hat{\mathbf{n}}}{R_c},
+\end{equation}
+cioè un gradiente di pressione magnetica attraverso il campo più una tensione verso il centro di curvatura ($R_c$ è il raggio di curvatura). Non c'è forza lungo $\mathbf{B}$: la forza di Lorentz è sempre perpendicolare al campo. Un campo uniforme e rettilineo non esercita forza; un campo con linee circolari e $B$ costante ($R_c$ finito) sì, per la tensione.
+Il parametro che confronta pressione del gas e pressione magnetica è il \textbf{beta del plasma},
+\begin{equation}
+\beta=\frac{8\pi p}{B^2}.
+\end{equation}
+Se $\beta\ll1$ il termine di pressione del gas è trascurabile rispetto a quello magnetico: per avere equilibrio la forza di Lorentz deve essere quasi nulla, $\mathbf{j}\times\mathbf{B}\simeq0$ (campo \emph{force-free}), con pressione e tensione che si compensano.
+
+\subsection{Beta basso: la corona solare}
+Per una regione attiva, $n\sim10^9$~cm$^{-3}$, $T\sim10^6$~K, $B\sim100$~G:
+\begin{equation}
+\beta=\frac{16\pi nk_BT}{B^2}\approx\frac{8\pi\times0.28}{10^4}\sim10^{-3}.
+\end{equation}
+(Verifica: $2nk_BT=0.28$~dyn/cm$^2$; $16\pi nk_BT\simeq6.9$.) Il gas non può spostare le linee di campo, quindi il campo è force-free,
+\begin{equation}
+\nabla\times\mathbf{B}=\alpha\mathbf{B},
+\end{equation}
+cioè la corrente è parallela al campo. Il plasma caldo è confinato lungo le linee e le traccia: sono i \emph{coronal loop} osservati da SDO/AIA, Hinode, Solar Orbiter. Quando il campo accumula troppa energia erutta, in flare e espulsioni di massa coronale.
+A lezione: l'equazione force-free è ``maledetta'', una delle più difficili. Prendendo la divergenza, $0=\nabla\cdot(\alpha\mathbf{B})=\mathbf{B}\cdot\nabla\alpha$: $\alpha$ è costante lungo ciascuna linea di campo, ma in generale può dipendere dalla posizione. Inoltre, poiché $\nabla\times\mathbf{B}$ è un vettore polare e $\mathbf{B}$ è assiale, $\alpha$ non può essere un semplice scalare: sotto inversione di parità deve cambiare segno (uno pseudoscalare). Per $\alpha$ uniforme l'equazione è lineare (Woltjer, nelle prossime lezioni). A lezione è stato ricordato un commento di Parker sulla difficoltà di questa equazione; è comunque molto usata in astrofisica per il plasma caldo confinato lungo le linee di campo, come nei loop coronali.
+
+\subsection{Equilibrio di pressione: macchie solari e magnetopausa}
+\subsubsection*{Macchia solare}
+Per un tubo verticale rettilineo (tensione trascurabile) l'equilibrio trasverso è
+\begin{equation}
+p_{\rm in}+\frac{B^2}{8\pi}=p_{\rm out}.
+\end{equation}
+In fotosfera $p_{\rm out}\approx10^5$~dyn/cm$^2$: anche con $p_{\rm in}=0$ si ha $B\le(8\pi p_{\rm out})^{1/2}\approx1.6$~kG. Si osservano $2$--$3.5$~kG (a lezione 2.35 kG): la macchia è più fredda e più trasparente, quindi si vede più in profondità, dove la pressione è maggiore (depressione di Wilson). Dove il campo è più forte c'è meno gradiente di pressione e ci si aspetta una temperatura minore.
+\subsubsection*{Magnetopausa}
+Il vento solare comprime il dipolo terrestre, $B\simeq2B_0(R_E/r)^3$, e la pressione dinamica del vento bilancia quella magnetica:
+\begin{equation}
+\rho_{sw}V^2=\frac{(2B_0)^2}{8\pi}\left(\frac{R_E}{r}\right)^6 .
+\end{equation}
+Con $n=5$~cm$^{-3}$, $V=400$~km/s, $B_0=0.31$~G: $\rho_{sw}V^2\simeq1.3\times10^{-8}$~dyn/cm$^2$, $(2B_0)^2/8\pi\simeq1.5\times10^{-2}$~dyn/cm$^2$, da cui $r\approx10\,R_E$, come misurano tutte le missioni magnetosferiche (Chapman \& Ferraro 1931). Con un vento quattro volte più denso, $r\propto\rho_{sw}^{-1/6}$ e la distanza scende di un fattore $4^{1/6}\simeq1.26$, a circa $8\,R_E$.
+
+\subsection{Energia (1): energia magnetica e flusso di Poynting}
+Dalla legge di Faraday, $\partial_t\mathbf{B}=-c\nabla\times\mathbf{E}$, moltiplicata scalarmente per $\mathbf{B}/4\pi$, usando $\nabla\cdot(\mathbf{E}\times\mathbf{B})=\mathbf{B}\cdot\nabla\times\mathbf{E}-\mathbf{E}\cdot\nabla\times\mathbf{B}$:
+\begin{equation}
+\frac{\partial}{\partial t}\frac{B^2}{8\pi}=-\frac{c}{4\pi}\,\mathbf{B}\cdot\nabla\times\mathbf{E}=-\nabla\cdot\mathbf{S}-\mathbf{j}\cdot\mathbf{E},\qquad\mathbf{S}=\frac{c}{4\pi}\,\mathbf{E}\times\mathbf{B}.
+\end{equation}
+Con la legge di Ohm ideale, $\mathbf{E}=-\mathbf{U}\times\mathbf{B}/c$:
+\begin{equation}
+\mathbf{j}\cdot\mathbf{E}=-\mathbf{j}\cdot\frac{\mathbf{U}\times\mathbf{B}}{c}=\mathbf{U}\cdot\frac{\mathbf{j}\times\mathbf{B}}{c},\qquad\mathbf{S}=\frac{1}{4\pi}\left[B^2\mathbf{U}-(\mathbf{U}\cdot\mathbf{B})\mathbf{B}\right]=\frac{B^2}{4\pi}\mathbf{U}_\perp .
+\end{equation}
+Il campo perde energia alla velocità con cui la forza di Lorentz fa lavoro sul fluido: non c'è riscaldamento ohmico, perché la conducibilità è stata presa infinita. Il flusso di Poynting è l'entalpia magnetica $B^2/4\pi$ (densità di energia più pressione) trasportata dal flusso perpendicolare.
+
+\subsection{Energia (2): l'energia totale si conserva}
+Il prodotto scalare dell'equazione del moto con $\mathbf{U}$ dà l'energia cinetica, e dall'adiabaticità $d(p\rho^{-\gamma})/dt=0$ l'energia interna:
+\begin{align}
+\frac{\partial}{\partial t}\frac{\rho U^2}{2}+\nabla\cdot\left(\frac{\rho U^2}{2}\mathbf{U}\right)&=-\mathbf{U}\cdot\nabla p+\mathbf{U}\cdot\frac{\mathbf{j}\times\mathbf{B}}{c},\\
+\frac{\partial}{\partial t}\frac{p}{\gamma-1}+\nabla\cdot\left(\frac{\gamma p}{\gamma-1}\mathbf{U}\right)&=\mathbf{U}\cdot\nabla p .
+\end{align}
+(La seconda segue da $\partial_tp+\mathbf{U}\cdot\nabla p+\gamma p\,\nabla\cdot\mathbf{U}=0$.) Sommando con l'equazione dell'energia magnetica i termini di scambio si cancellano a coppie:
+\begin{equation}
+\frac{\partial}{\partial t}\left(\frac{\rho U^2}{2}+\frac{p}{\gamma-1}+\frac{B^2}{8\pi}\right)+\nabla\cdot\left[\left(\frac{\rho U^2}{2}+\frac{\gamma p}{\gamma-1}\right)\mathbf{U}+\frac{B^2}{4\pi}\mathbf{U}_\perp\right]=0 .
+\end{equation}
+Insieme a $\partial_t\mathbf{B}+\nabla\cdot(\mathbf{U}\mathbf{B}-\mathbf{B}\mathbf{U})=0$ (l'induzione in forma conservativa) si hanno le otto equazioni in forma di conservazione, la base di ogni codice MHD (volumi finiti, cattura degli shock: modulo 14). A lezione l'ultima parte (l'energia) è stata solo impostata e il docente ha detto che la riprenderà con calma la volta successiva; qui è completata con le slide.
+
+\section{Domande di verifica: MHD ideale (fino a pagina 9)}
+\begin{enumerate}
+\item \textit{Mostrare che un campo rettilineo uniforme non esercita forza e che un campo con linee circolari a $B$ costante sì.} Per un campo uniforme $(\mathbf{B}\cdot\nabla)\mathbf{B}=0$ e $\nabla B^2=0$. Per linee circolari $\nabla B^2=0$ ma $(\mathbf{B}\cdot\nabla)\mathbf{B}=-(B^2/R_c)\hat{\mathbf{n}}_{\rm out}\neq0$: resta la tensione.
+\item \textit{Un loop coronale ha $\beta\sim10^{-3}$: perché il campo è quasi force-free?} Perché la pressione del gas non può bilanciare la forza di Lorentz, quindi $\mathbf{j}\times\mathbf{B}\simeq0$.
+\item \textit{Stimare la distanza della magnetopausa per un vento quattro volte più denso.} $r\propto\rho_{sw}^{-1/6}$, quindi $\approx8\,R_E$.
+\end{enumerate}
+Le domande 4--6 del modulo 12a (rotazione rigida, gauge dell'elicità, conservazione dell'elicità) riguardano la parte successiva della lezione.
+
+\section{Riepilogo}
+\begin{center}
+\small
+\begin{tabular}{|l|l|}
+\hline
+Chapman--Enskog & $f=f_M+f_1$, $f_1\sim\mathrm{Kn}\,f_M$; $f_1$ guidata da $\nabla T$ e dallo shear\\
+\hline
+Flusso di calore & $\mathbf{q}=-\kappa\nabla T$, $\kappa=\frac52 nT\tau/m\propto T^{5/2}$, indipendente da $n$\\
+\hline
+Viscosità & $\mu=p\tau$, $\mathrm{Pm}=\nu/\eta\propto T^4/n$\\
+\hline
+Plasma magnetizzato & $\kappa_\perp/\kappa_\parallel\sim(\Omega\tau)^{-2}$; coefficienti di Braginskii; $\kappa_\wedge$ diamagnetico\\
+\hline
+Neutri (non svolto) & $\eta_{\rm AD}=B^2/4\pi\rho_i\nu_{in}$, $t_{\rm AD}\approx10\,t_{\rm ff}$\\
+\hline
+Plasma freddo & $D_\pm=\varepsilon_\pm E_\pm$, $\varepsilon_\pm=1-\sum\omega_{ps}^2/\omega(\omega\mp\Omega_s)$, $P$\\
+\hline
+Lungo $\mathbf{B}_0$ & $n^2=R,L$; $P=0$; whistler $\omega=k^2d_e^2|\Omega_e|$; Alfv\'en $\omega=kv_A$\\
+\hline
+Faraday & $\mathrm{RM}=\frac{e^3}{2\pi m_e^2c^4}\int n_eB_\parallel ds$, $\Delta\chi=\mathrm{RM}\lambda^2$\\
+\hline
+Quantit\`a di moto MHD & $\partial_t(\rho\mathbf{U})+\nabla\cdot[\rho\mathbf{U}\mathbf{U}+(p+B^2/8\pi)\mathsf{I}-\mathbf{B}\mathbf{B}/4\pi]=0$\\
+\hline
+Pressione e tensione & $\mathbf{j}\times\mathbf{B}/c=-\nabla_\perp(B^2/8\pi)+(B^2/4\pi)\hat{\mathbf{n}}/R_c$\\
+\hline
+Beta & $\beta=8\pi p/B^2$; $\beta\ll1\Rightarrow\nabla\times\mathbf{B}=\alpha\mathbf{B}$\\
+\hline
+Energia & $\partial_t(\rho U^2/2+p/(\gamma-1)+B^2/8\pi)+\nabla\cdot[\dots+(B^2/4\pi)\mathbf{U}_\perp]=0$\\
+\hline
+\end{tabular}
+\end{center}
+Il trasporto è anisotropo in presenza di $\mathbf{B}$ e porta il calore lungo le linee di campo; in un plasma freddo e magnetizzato la luce si divide in onde R e L, la cui differenza di fase produce la rotazione di Faraday; nell'MHD ideale il campo esercita una pressione attraverso le linee e una tensione lungo di esse, e l'energia totale (cinetica, interna e magnetica) si conserva. Il prossimo argomento (seconda parte del modulo 12a) è il flusso congelato (teorema di Alfv\'en), l'effetto $\Omega$, la spirale di Parker e l'elicità magnetica.
