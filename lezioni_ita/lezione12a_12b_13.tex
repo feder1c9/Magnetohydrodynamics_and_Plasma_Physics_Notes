@@ -1,0 +1,878 @@
+\chapter{Lezione 13 - 17 novembre 2026}
+
+In questa lezione si conclude il modulo M12a (teorema di Alfvén e sue conseguenze), si svolge il modulo M12b (onde MHD lineari e loro dissipazione) e si introduce il modulo M13 (stabilità locale di plasmi rotanti e magnetizzati), concentrandosi sull'instabilità di Tayler.
+
+%=====================================================================
+\section{Ideal MHD: conservation laws, frozen-in field and magnetic topology (M12a, continuazione)}
+%=====================================================================
+
+\subsection{Richiamo: le equazioni della MHD ideale}
+
+Stiamo studiando le proprietà della magnetoidrodinamica \emph{ideale}, cioè senza dissipazione (diffusività magnetica $\eta=0$). Le equazioni sono
+\begin{gather}
+\frac{\partial\rho}{\partial t}+\nabla\cdot(\rho\mathbf{U})=0,\qquad
+\rho\frac{\mathrm{d}\mathbf{U}}{\mathrm{d}t}=-\nabla p+\frac{\mathbf{j}\times\mathbf{B}}{c},\qquad
+\mathbf{j}=\frac{c}{4\pi}\nabla\times\mathbf{B},\\
+\frac{\mathrm{d}}{\mathrm{d}t}\left(\frac{p}{\rho^{\gamma}}\right)=0,\qquad
+\frac{\partial\mathbf{B}}{\partial t}=\nabla\times(\mathbf{U}\times\mathbf{B}),\qquad
+\nabla\cdot\mathbf{B}=0,
+\end{gather}
+valide per $L\gg d_i,\rho_i$ e $R_m=UL/\eta\gg1$. Nella lezione precedente abbiamo visto che queste equazioni si possono scrivere in forma conservativa (massa, momento, energia) e che la forza di Lorentz si decompone in pressione magnetica $B^2/8\pi$ ortogonale alle linee di campo e tensione magnetica lungo di esse. Vogliamo ora mostrare una proprietà fondamentale: in questo limite le linee di flusso del campo magnetico seguono le linee del fluido.
+
+\subsection{Il teorema di Alfvén}
+
+\subsubsection{Impostazione}
+
+Consideriamo una superficie $S(t)$ che si muove con il fluido: a un certo istante prendiamo una sezione di area del fluido, che chiaramente cambierà nel tempo. Il suo bordo $C(t)$ è orientato concordemente con la normale $\hat{\mathbf{n}}$. Il flusso magnetico attraverso di essa è
+\begin{equation}
+\Phi(t)=\int_{S(t)}\mathbf{B}(\mathbf{x},t)\cdot\mathrm{d}\mathbf{S}.
+\end{equation}
+All'istante $t+\mathrm{d}t$ la superficie è $S(t+\mathrm{d}t)$, identificata in modo univoco facendo evolvere con il fluido tutti i punti di $S(t)$ (quelli interni e quelli del bordo) fino a $t+\mathrm{d}t$. Le traiettorie dei punti del bordo spazzano una superficie laterale, il ``nastro'' (\emph{ribbon}).
+
+Nell'intervallo $\mathrm{d}t$ cambiano sia $\mathbf{B}$ sia la superficie, quindi l'incremento di flusso ha due contributi: uno dovuto alla variazione dell'integrando e uno dovuto alla variazione della superficie:
+\begin{equation}
+\Phi(t+\mathrm{d}t)-\Phi(t)=\mathrm{d}t\int_{S(t)}\frac{\partial\mathbf{B}}{\partial t}\cdot\mathrm{d}\mathbf{S}
++\left[\int_{S(t+\mathrm{d}t)}-\int_{S(t)}\right]\mathbf{B}(t+\mathrm{d}t)\cdot\mathrm{d}\mathbf{S}.
+\label{eq:alfven1}
+\end{equation}
+
+\subsubsection{Il contributo del bordo}
+
+Le superfici $S(t+\mathrm{d}t)$, $S(t)$ e il nastro racchiudono un volume sottile $\delta V$. Le normali uscenti sono $+\hat{\mathbf{n}}$ su $S(t+\mathrm{d}t)$, $-\hat{\mathbf{n}}$ su $S(t)$ (per chiudere la superficie bisogna cambiare segno) e, sul nastro, l'elemento di area è $\mathrm{d}\mathbf{l}\times\mathbf{U}\,\mathrm{d}t$: l'elemento $\mathrm{d}\mathbf{l}$ del bordo, spostandosi di $\mathbf{U}\,\mathrm{d}t$, spazza un parallelogramma.
+
+\paragraph{Verifica dell'orientazione.} Prendiamo un disco nel piano $z=0$, con bordo percorso in senso antiorario, e $\mathbf{U}=U\hat{\mathbf{z}}$. Allora $\mathrm{d}\mathbf{l}=\mathrm{d}l\,\hat{\boldsymbol{\phi}}$ e $\hat{\boldsymbol{\phi}}\times\hat{\mathbf{z}}=\hat{\mathbf{s}}$: il vettore punta proprio verso l'esterno della superficie laterale, come deve essere.
+
+Applicando il teorema di Gauss al volume $\delta V$:
+\begin{equation}
+\left[\int_{S(t+\mathrm{d}t)}-\int_{S(t)}\right]\mathbf{B}\cdot\mathrm{d}\mathbf{S}+\mathrm{d}t\oint_{C}\mathbf{B}\cdot(\mathrm{d}\mathbf{l}\times\mathbf{U})=\int_{\delta V}\nabla\cdot\mathbf{B}\,\mathrm{d}V=0 .
+\end{equation}
+Il bordo contribuisce così: quello che guadagna la superficie in moto, lo perde il nastro.
+
+\subsubsection{Il flusso è congelato}
+
+Sul nastro $\mathbf{B}(t+\mathrm{d}t)=\mathbf{B}(t)+O(\mathrm{d}t)$ e l'area è $O(\mathrm{d}t)$, quindi al primo ordine possiamo usare $\mathbf{B}(t)$. Con la permutazione ciclica del prodotto misto
+\begin{equation}
+\mathbf{B}\cdot(\mathrm{d}\mathbf{l}\times\mathbf{U})=(\mathbf{U}\times\mathbf{B})\cdot\mathrm{d}\mathbf{l},
+\end{equation}
+il termine di bordo diventa la circuitazione del vettore $\mathbf{U}\times\mathbf{B}$ lungo $C$; applicando Stokes su $S(t)$:
+\begin{equation}
+\left[\int_{S(t+\mathrm{d}t)}-\int_{S(t)}\right]\mathbf{B}\cdot\mathrm{d}\mathbf{S}=-\mathrm{d}t\oint_C(\mathbf{U}\times\mathbf{B})\cdot\mathrm{d}\mathbf{l}=-\mathrm{d}t\int_S\nabla\times(\mathbf{U}\times\mathbf{B})\cdot\mathrm{d}\mathbf{S}.
+\end{equation}
+Inserendo nella \eqref{eq:alfven1} e dividendo per $\mathrm{d}t$:
+\begin{equation}
+\frac{\mathrm{d}\Phi}{\mathrm{d}t}=\int_{S(t)}\left[\frac{\partial\mathbf{B}}{\partial t}-\nabla\times(\mathbf{U}\times\mathbf{B})\right]\cdot\mathrm{d}\mathbf{S}.
+\end{equation}
+
+\begin{quote}
+\textbf{Risultato chiave (teorema di Alfvén, 1942).} Per l'equazione di induzione ideale, $\partial_t\mathbf{B}=\nabla\times(\mathbf{U}\times\mathbf{B})$, il termine in parentesi è nullo e
+\[
+\frac{\mathrm{d}\Phi}{\mathrm{d}t}=0\quad\text{per ogni superficie materiale}:
+\]
+il flusso è \emph{congelato} nel fluido (\emph{frozen-in}).
+\end{quote}
+
+Con la resistività l'equazione di induzione ha un termine in più, e la parentesi vale $\eta\nabla^2\mathbf{B}$: la non conservazione del flusso è proporzionale alla diffusività magnetica, e il flusso ``sfugge'' sul tempo di diffusione $L^2/\eta$. Gli effetti diffusivi fanno sì che il teorema possa essere violato.
+
+\subsubsection{Le linee di campo si muovono con il fluido}
+
+Prendiamo un tubo di flusso sottile: la sua superficie laterale non è attraversata da flusso. Muoviamola con il fluido: per il teorema di Alfvén continua a non essere attraversata da flusso, quindi è ancora la superficie laterale di un tubo di flusso.
+
+\begin{quote}
+\textbf{Risultato chiave.} Elementi di fluido che stanno sulla stessa linea di campo restano sulla stessa linea di campo. Le linee di campo possono essere etichettate dagli elementi di fluido, e non possono rompersi o riconnettersi.
+\end{quote}
+
+\begin{itemize}
+\item La topologia del campo (quali linee sono concatenate o annodate) è fissata finché $R_m\to\infty$.
+\item Per cambiarla serve una regione in cui la MHD ideale non vale: resistività, effetto Hall, inerzia degli elettroni (modulo 9b), cioè la riconnessione (modulo 15).
+\end{itemize}
+
+\subsubsection{Stime: contrazione a flusso costante}
+
+Il teorema permette stime immediate. Il flusso è campo per area, e l'area va come il raggio al quadrato: in assenza di diffusività
+\begin{equation}
+BR^2\simeq\text{cost}\qquad\Longrightarrow\qquad B\propto R^{-2}.
+\end{equation}
+
+\paragraph{Da nana bianca a stella di neutroni.} Se misuriamo (ad esempio con l'effetto Zeeman) un campo $B_{\mathrm{WD}}\sim10^3$--$10^5\,$G su una nana bianca e supponiamo che la stella si contragga semplicemente fino alle dimensioni di una stella di neutroni,
+\begin{equation}
+B_{\mathrm{WD}}R_{\mathrm{WD}}^2=B_{\mathrm{NS}}R_{\mathrm{NS}}^2\quad\Longrightarrow\quad
+\frac{B_{\mathrm{NS}}}{B_{\mathrm{WD}}}=\left(\frac{R_{\mathrm{WD}}}{R_{\mathrm{NS}}}\right)^2\sim\left(\frac{10^4\,\mathrm{km}}{10\,\mathrm{km}}\right)^2=10^6 ,
+\end{equation}
+cioè ci si aspetta un campo enorme, perché il rapporto dei campi va come il quadrato del rapporto dei raggi.
+
+\paragraph{Il Sole compresso a stella di neutroni.} Con $R_\odot$ e $B\sim1\,$G, schiacciando il Sole fino a $10\,$km si ottiene $B\sim(7\times10^5/10)^2\,\mathrm{G}\approx5\times10^9\,$G. Si osservano però campi fino a $10^{12}\,$G: servono campi più forti nei progenitori, oppure un meccanismo di amplificazione durante il collasso (vedi l'effetto $\Omega$ più avanti).
+
+\paragraph{Dal Sole a una gigante rossa.} Con la stessa legge, stimando $B\sim1\,$G nel nucleo solare (non nella zona convettiva), si può stimare il campo atteso nel nucleo quando il Sole sarà diventato una gigante rossa e il nucleo si sarà contratto.
+
+Ovviamente tutto ciò vale in condizioni ideali.
+
+\subsection{Stretching da un flusso di taglio}
+
+Le linee di campo sono attaccate al fluido: un flusso che dipende da $y$ ``stira'' il campo nella propria direzione. Consideriamo il flusso di taglio $\mathbf{U}=Sy\,\hat{\mathbf{x}}$ con $\rho$ uniforme. Le traiettorie sono $x=x_0+Sty_0$, $y=y_0$, quindi $\partial x/\partial y_0=St$. Con campo iniziale $\mathbf{B}_0=B_0\hat{\mathbf{y}}$:
+\begin{equation}
+B_x=B_0St,\qquad B_y=B_0 .
+\end{equation}
+\begin{itemize}
+\item \textbf{Direzione:} gli elementi in $(x_0,y_0)$ e $(x_0,y_0+\delta y_0)$ finiscono separati da $(St\,\delta y_0,\delta y_0)$ e sono ancora sulla stessa linea: $B_x/B_y=St$.
+\item \textbf{Intensità:} un segmento materiale $\delta x\,\hat{\mathbf{x}}$ non viene deformato; il suo flusso $B_y\delta x$ (per unità di $z$) è congelato, quindi $B_y=B_0$.
+\item \textbf{Verifica:} con $\mathbf{B}$ uniforme, $\nabla\times(\mathbf{U}\times\mathbf{B})=(\mathbf{B}\cdot\nabla)\mathbf{U}=SB_y\hat{\mathbf{x}}$.
+\end{itemize}
+Quindi $|\mathbf{B}|=B_0(1+S^2t^2)^{1/2}$: cresce senza limite finché $R_m=\infty$, alimentato dal flusso. In un corpo rotante il taglio è la rotazione differenziale.
+
+\subsection{Rotazione differenziale in coordinate cilindriche: l'effetto $\Omega$}
+
+Usiamo coordinate cilindriche $(s,\phi,z)$, dove il raggio cilindrico si indica con $s$ per distinguerlo dal raggio sferico $r$. Supponiamo simmetria assiale ($\partial_\phi=0$) e
+\begin{equation}
+\mathbf{U}=s\,\Omega(s,z)\,\hat{\boldsymbol{\phi}},\qquad
+\mathbf{B}=\mathbf{B}_p+B_\phi\hat{\boldsymbol{\phi}},\qquad
+\mathbf{B}_p=B_s\hat{\mathbf{s}}+B_z\hat{\mathbf{z}},
+\end{equation}
+dove $\mathbf{B}_p$ è la componente \emph{poloidale} (radiale e lungo $z$) e $B_\phi$ quella \emph{toroidale}. Se $\Omega$ non è costante si ha rotazione differenziale.
+
+Calcoliamo prima
+\begin{equation}
+\mathbf{U}\times\mathbf{B}=s\Omega\,\hat{\boldsymbol{\phi}}\times(B_s\hat{\mathbf{s}}+B_z\hat{\mathbf{z}})=s\Omega\,(B_z\hat{\mathbf{s}}-B_s\hat{\mathbf{z}})\equiv\mathbf{A},\qquad A_\phi=0 .
+\end{equation}
+Poi il rotore. Parte poloidale dell'equazione di induzione:
+\begin{equation}
+(\nabla\times\mathbf{A})_s=\frac{1}{s}\partial_\phi A_z-\partial_zA_\phi=0,\qquad
+(\nabla\times\mathbf{A})_z=\frac{1}{s}\partial_s(sA_\phi)-\frac{1}{s}\partial_\phi A_s=0 .
+\end{equation}
+Parte toroidale:
+\begin{align}
+(\nabla\times\mathbf{A})_\phi&=\partial_zA_s-\partial_sA_z=\partial_z(s\Omega B_z)+\partial_s(s\Omega B_s)\nonumber\\
+&=s\left(B_s\partial_s\Omega+B_z\partial_z\Omega\right)+\Omega\underbrace{\left[\partial_s(sB_s)+s\,\partial_zB_z\right]}_{s\,\nabla\cdot\mathbf{B}=0}.
+\end{align}
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+\frac{\partial\mathbf{B}_p}{\partial t}=0,\qquad\frac{\partial B_\phi}{\partial t}=s\,(\mathbf{B}_p\cdot\nabla)\,\Omega .
+\]
+Il campo poloidale non cambia nel tempo, mentre quello toroidale cresce. In particolare, con solo campo radiale, $\partial_tB_\phi=sB_s\,\Omega'(s)$.
+\end{quote}
+
+Poiché $\mathbf{B}_p$ non cambia, la sorgente di $B_\phi$ è costante: $B_\phi(t)=B_\phi(0)+s(\mathbf{B}_p\cdot\nabla\Omega)\,t$.
+\begin{itemize}
+\item Entra solo il gradiente di $\Omega$: la rotazione rigida non stira le linee.
+\item Localmente è il flusso di taglio di prima: nel sistema che ruota con $\Omega(s_0)$, $U_\phi\simeq s_0\Omega'(s-s_0)$, quindi $S=s\,\mathrm{d}\Omega/\mathrm{d}s$, $B_s\leftrightarrow B_y$, $B_\phi\leftrightarrow B_x$.
+\item Poloidale $\to$ toroidale: è l'\textbf{effetto $\Omega$}, uno degli ingredienti della dinamo ($\alpha$--$\Omega$, moduli 16--19). Si arresta quando la diffusione o la tensione di $B_\phi$ diventano importanti.
+\end{itemize}
+
+In simmetria sferica, con un profilo di tipo solare $\Omega=\Omega_{\mathrm{eq}}(1-0.25\cos^2\theta)$ (equatore $25\,$d, poli $\sim35\,$d), le linee di campo poloidali vengono avvolte progressivamente, di più dove la rotazione differenziale è maggiore (Babcock 1961). Il campo poloidale, in questo modello, sta fermo: è la rotazione differenziale che lo avvolge. Il problema della dinamo, che vedremo nella seconda parte del corso, è trovare un meccanismo che \emph{rigeneri} il campo poloidale e chiuda il ciclo, perché senza campo poloidale l'effetto $\Omega$ non funziona.
+
+\paragraph{Applicazione: stelle di neutroni.} Abbiamo visto che il semplice collasso a flusso costante dà $\sim10^9\,$G, non $10^{12}\,$G. Una stella di neutroni appena formata dal collasso di una supernova ha dimensioni di circa una cinquantina di chilometri e ruota con periodi dell'ordine del millisecondo, con una rotazione differenziale enorme: l'effetto $\Omega$ durante il collasso è il meccanismo che può amplificare il campo fino ai valori osservati.
+
+\subsection{La spirale di Parker}
+
+Un'altra conseguenza fondamentale del teorema di Alfvén (Parker 1958). Oltre qualche raggio solare il vento solare è essenzialmente radiale, con velocità $V$, e $R_m\gg1$. Una linea di campo è ancorata a un punto alla base che ruota con il Sole: al tempo $t'$ il punto di ancoraggio si trova a $\phi_0+\Omega_\odot t'$ (con $r=r_0$).
+\begin{itemize}
+\item Un elemento di vento che lo lascia al tempo $t'$ si muove radialmente:
+\begin{equation}
+r=r_0+V(t-t'),\qquad\phi=\phi_0+\Omega_\odot t'.
+\end{equation}
+\item È partito sulla linea, quindi ci rimane: la linea è il luogo di tutti gli elementi emessi da uno stesso punto di ancoraggio.
+\end{itemize}
+Eliminando $t'$:
+\begin{equation}
+\phi-\phi_0=\Omega_\odot\left[t-\frac{r-r_0}{V}\right],
+\end{equation}
+una spirale che ruota rigidamente con $\Omega_\odot$ (spirale di Archimede). $\mathbf{B}$ è tangente ad essa:
+\begin{equation}
+\frac{B_\phi}{B_r}=r\sin\theta\,\frac{\partial\phi}{\partial r}=-\frac{\Omega_\odot r\sin\theta}{V}.
+\end{equation}
+Il flusso attraverso una sfera è conservato, quindi $B_r\propto r^{-2}$.
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+\frac{B_\phi}{B_r}=-\frac{\Omega_\odot r\sin\theta}{V},\qquad B_r\propto\frac{1}{r^2},\qquad B_\phi\propto\frac1r .
+\]
+\end{quote}
+
+\begin{itemize}
+\item Come un irrigatore da giardino: ogni goccia si muove radialmente, ma il getto è una spirale. È detta anche ``soluzione ballerina'' (\emph{ballerina skirt}), perché ricorda la gonna di una ballerina che ruota.
+\item L'angolo con la direzione radiale (\emph{pitch angle}) è $\tan\psi=\Omega_\odot r/V$: $\approx45^\circ$ a $1\,$au, $\approx80^\circ$ a Giove; lontano domina $B_\phi$.
+\item La spirale è più ``larga'' ad alte latitudini (fattore $\sin\theta$).
+\item Parker (1958); Mariner 2 (1962); oggi Wind, ACE, Parker Solar Probe, Solar Orbiter. Si cerca di riconoscere questa struttura nei dati di vento solare; Solar Orbiter è importante perché è una delle prime missioni che osserverà i poli del Sole.
+\end{itemize}
+
+\subsection{Topologia magnetica ed elicità (dalle slide, non svolto a lezione)}
+
+\subsubsection{Elicità magnetica}
+Con $\mathbf{B}=\nabla\times\mathbf{A}$, $\mathbf{E}=-\frac1c\partial_t\mathbf{A}-\nabla\varphi$, si definisce $H=\int_V\mathbf{A}\cdot\mathbf{B}\,\mathrm{d}V$. Si trova
+\begin{equation}
+\frac{\mathrm{d}H}{\mathrm{d}t}=-2c\int_V\mathbf{E}\cdot\mathbf{B}\,\mathrm{d}V-c\oint_{\partial V}(\varphi\mathbf{B}+\mathbf{E}\times\mathbf{A})\cdot\mathrm{d}\mathbf{S}.
+\end{equation}
+In MHD ideale $\mathbf{E}\cdot\mathbf{B}=-(\mathbf{U}\times\mathbf{B})\cdot\mathbf{B}/c=0$: con $\mathbf{B}\cdot\hat{\mathbf{n}}=0$ e $\mathbf{U}\cdot\hat{\mathbf{n}}=0$ al bordo, $H$ è conservata (Woltjer 1958). Sotto una trasformazione di gauge $\mathbf{A}\to\mathbf{A}+\nabla\chi$, $H$ cambia di $\oint\chi\mathbf{B}\cdot\mathrm{d}\mathbf{S}$, nullo se nessuna linea di campo esce da $V$. Anche l'elicità incrociata $H_c=\int\mathbf{U}\cdot\mathbf{B}\,\mathrm{d}V$ è conservata (flusso barotropico).
+
+\subsubsection{L'elicità conta le concatenazioni}
+Per due tubi di flusso sottili, non torti, con flussi $\Phi_1,\Phi_2$: $H=2L\Phi_1\Phi_2$, con $L$ il numero di allacciamento di Gauss
+\begin{equation}
+L=\frac{1}{4\pi}\oint_{C_1}\oint_{C_2}\frac{(\mathbf{x}_1-\mathbf{x}_2)\cdot(\mathrm{d}\mathbf{x}_1\times\mathrm{d}\mathbf{x}_2)}{|\mathbf{x}_1-\mathbf{x}_2|^3},
+\end{equation}
+un intero (Moffatt 1969). $H$ è un invariante topologico: il congelamento del flusso vieta di slacciare i tubi.
+
+\subsubsection{Stati rilassati}
+Minimizzando l'energia $W=\int B^2/8\pi\,\mathrm{d}V$ a $H$ fissata si ottiene $\nabla\times\mathbf{B}=\alpha\mathbf{B}$ con $\alpha$ uniforme: un campo \emph{force-free lineare} (Woltjer 1958). Taylor (1974): in un plasma turbolento con $\eta$ piccola la riconnessione distrugge l'energia più velocemente dell'elicità, e il plasma rilassa allo stato di Woltjer con la stessa $H$. In un cilindro $B_z=B_0J_0(\alpha r)$, $B_\theta=B_0J_1(\alpha r)$; per $\alpha a>2.405$ $B_z$ si inverte al bordo: il \emph{reversed-field pinch} (RFX-mod a Padova). Sul Sole l'elicità si accumula nella corona e viene espulsa con le CME.
+
+\subsubsection{Il numero di Reynolds magnetico}
+Avvezione $UB/L$ contro diffusione $\eta B/L^2$: $R_m=UL/\eta$, $\tau_\eta=L^2/\eta$. Valori tipici: sodio liquido (Riga, VKS) $R_m\sim10$--$10^2$; nucleo esterno terrestre $\sim10^3$; zona convettiva solare $\sim10^{10}$; mezzo interstellare $\sim10^{19}$. Il flusso è congelato quasi ovunque nel cosmo; la diffusione agisce solo in strati sottili.
+
+%=====================================================================
+\section{Linear MHD waves and their dissipation (M12b)}
+%=====================================================================
+
+\subsection{Motivazione}
+
+Abbiamo visto che la forza di Lorentz ha due componenti: la pressione magnetica $B^2/8\pi$, ortogonale alle linee di campo, e la tensione $B^2/4\pi$ lungo di esse. Le linee di campo si comportano esattamente come una corda di chitarra, che oscilla perché ha come forza di richiamo (\emph{restoring force}) la propria tensione: $(\text{velocità})^2=\text{tensione}/\text{massa per unità di lunghezza}$. Un gas invece porta il suono perché resiste alla compressione. Un fluido magnetizzato ha tensione, pressione magnetica e pressione del gas, tutte insieme. La tensione magnetica è una componente del tensore degli sforzi di Maxwell e produce effetti molto particolari.
+
+\textbf{Domanda:} quali sono le piccole oscillazioni di un fluido magnetizzato uniforme? Quanto velocemente si propagano, in quale direzione trasportano energia, cosa comprimono e cosa le smorza?
+
+\textbf{Metodo:} linearizzare la MHD ideale attorno allo stato di quiete, cercare onde piane e ridurre tutto a un problema agli autovalori per la velocità.
+
+\subsection{Linearizzazione attorno a uno stato uniforme}
+
+\paragraph{Equilibrio.} $\rho_0$, $p_0$ uniformi, $\mathbf{B}_0=B_0\hat{\mathbf{z}}$ uniforme, $\mathbf{U}_0=0$. È un equilibrio: non ci sono gradienti, nessun flusso, e $\mathbf{j}_0=(c/4\pi)\nabla\times\mathbf{B}_0=0$ (non c'è corrente).
+
+\paragraph{Perturbazione.} $\rho=\rho_0+\rho_1$, $p=p_0+p_1$, $\mathbf{B}=\mathbf{B}_0+\mathbf{b}$, $\mathbf{U}=\mathbf{u}$; teniamo i termini al primo ordine.
+\begin{itemize}
+\item $\mathbf{u}\cdot\nabla$ che agisce su una perturbazione è del secondo ordine: $\mathrm{d}/\mathrm{d}t\to\partial_t$.
+\item $\mathbf{j}\times\mathbf{B}=\mathbf{j}_1\times\mathbf{B}_0+O(2)$, poiché $\mathbf{j}_0=0$.
+\end{itemize}
+Si ottiene
+\begin{gather}
+\frac{\partial\rho_1}{\partial t}+\rho_0\nabla\cdot\mathbf{u}=0,\qquad
+\rho_0\frac{\partial\mathbf{u}}{\partial t}=-\nabla p_1+\frac{(\nabla\times\mathbf{b})\times\mathbf{B}_0}{4\pi},\\
+\frac{\partial}{\partial t}\left(p_1-c_s^2\rho_1\right)=0,\qquad
+\frac{\partial\mathbf{b}}{\partial t}=\nabla\times(\mathbf{u}\times\mathbf{B}_0),\qquad c_s^2=\frac{\gamma p_0}{\rho_0}.
+\end{gather}
+Nell'equazione di induzione sopravvive solo il termine $\mathbf{u}\times\mathbf{B}_0$, perché $\mathbf{U}_0=0$.
+
+\paragraph{La legge adiabatica.} Per trasformazioni adiabatiche $p\rho^{-\gamma}=\text{cost}$. Sviluppando al primo ordine:
+\begin{equation}
+(p_0+p_1)(\rho_0+\rho_1)^{-\gamma}\simeq p_0\rho_0^{-\gamma}\left(1+\frac{p_1}{p_0}-\gamma\frac{\rho_1}{\rho_0}\right).
+\end{equation}
+Poiché tutto questo è costante, la derivata temporale deve annullarsi:
+\begin{equation}
+\frac{\partial}{\partial t}\left(\frac{p_1}{p_0}-\gamma\frac{\rho_1}{\rho_0}\right)=0
+\quad\Longrightarrow\quad p_1=\frac{\gamma p_0}{\rho_0}\rho_1=c_s^2\rho_1
+\end{equation}
+per una perturbazione che parte dalla quiete. È la relazione che definisce la velocità del suono in un fluido ideale. Abbiamo otto equazioni a coefficienti costanti.
+
+\subsection{Onde piane: tutto in funzione di $\mathbf{u}$}
+
+I coefficienti sono costanti: le equazioni sono invarianti per traslazioni, quindi i modi di Fourier evolvono indipendentemente e ogni perturbazione è sovrapposizione di $\exp[i(\mathbf{k}\cdot\mathbf{x}-\omega t)]$:
+\begin{equation}
+\partial_t\to-i\omega,\qquad\nabla\to i\mathbf{k}.
+\end{equation}
+L'equilibrio è anche invariante per rotazioni attorno a $\mathbf{B}_0$: scegliamo l'asse $x$ lungo la parte di $\mathbf{k}$ ortogonale a $\mathbf{B}_0$,
+\begin{equation}
+\mathbf{k}=(k_\perp,0,k_\parallel)=k(\sin\theta,0,\cos\theta),\qquad\theta=\text{angolo tra }\mathbf{k}\text{ e }\mathbf{B}_0 .
+\end{equation}
+Continuità, legge adiabatica e induzione danno $\rho_1$, $p_1$, $\mathbf{b}$ direttamente in termini di $\mathbf{u}$. Con l'identità $\mathbf{k}\times(\mathbf{u}\times\mathbf{B}_0)=\mathbf{u}(\mathbf{k}\cdot\mathbf{B}_0)-\mathbf{B}_0(\mathbf{k}\cdot\mathbf{u})$:
+\begin{equation}
+\rho_1=\rho_0\frac{\mathbf{k}\cdot\mathbf{u}}{\omega},\qquad
+p_1=c_s^2\rho_0\frac{\mathbf{k}\cdot\mathbf{u}}{\omega},\qquad
+\mathbf{b}=-\frac{B_0}{\omega}\left[k_\parallel\mathbf{u}-(\mathbf{k}\cdot\mathbf{u})\hat{\mathbf{z}}\right].
+\end{equation}
+Resta solo l'equazione del momento: tre equazioni per le tre componenti di $\mathbf{u}$, cioè un problema agli autovalori.
+
+\subsection{La forza di richiamo}
+
+Per la forza di Lorentz, con $(\mathbf{k}\times\mathbf{b})\times\mathbf{B}_0=(\mathbf{k}\cdot\mathbf{B}_0)\mathbf{b}-(\mathbf{b}\cdot\mathbf{B}_0)\mathbf{k}$:
+\begin{equation}
+\frac{(i\mathbf{k}\times\mathbf{b})\times\mathbf{B}_0}{4\pi}=\frac{iB_0}{4\pi}\Big[\underbrace{k_\parallel\mathbf{b}}_{\text{tensione}}-\underbrace{b_z\mathbf{k}}_{\text{pressione magnetica}}\Big]:
+\end{equation}
+la parte longitudinale è la tensione (piegamento delle linee), la parte con $b_z$ è il gradiente di $B_0b_z/4\pi$, cioè la perturbazione di $B^2/8\pi$.
+
+Dall'equazione del momento, $-i\omega\rho_0\mathbf{u}=-i\mathbf{k}p_1+(\dots)$, inserendo $p_1$ e $\mathbf{b}$ (con $b_z=(B_0/\omega)[\mathbf{k}\cdot\mathbf{u}-k_\parallel u_z]$) e moltiplicando per $i\omega/\rho_0$:
+\begin{equation}
+\omega^2\mathbf{u}=c_s^2\mathbf{k}(\mathbf{k}\cdot\mathbf{u})+v_A^2\Big\{k_\parallel\big[k_\parallel\mathbf{u}-(\mathbf{k}\cdot\mathbf{u})\hat{\mathbf{z}}\big]+\mathbf{k}\big[\mathbf{k}\cdot\mathbf{u}-k_\parallel u_z\big]\Big\},\qquad
+v_A^2=\frac{B_0^2}{4\pi\rho_0}.
+\end{equation}
+Il coefficiente dei termini magnetici è il quadrato di una velocità, la \textbf{velocità di Alfvén} $v_A$, già incontrata la volta scorsa: è una tensione per unità di massa, esattamente come quella che si scriverebbe per una corda di chitarra. È la velocità che caratterizza le perturbazioni la cui forza di richiamo è la tensione magnetica.
+
+\subsection{Il problema agli autovalori in componenti}
+
+Scrivendo $\mathbf{k}\cdot\mathbf{u}=k_\perp u_x+k_\parallel u_z$ in ciascuna componente:
+\begin{align}
+x&:\ c_s^2k_\perp(k_\perp u_x+k_\parallel u_z)+v_A^2\big[k_\parallel^2u_x+k_\perp^2u_x\big],\\
+y&:\ v_A^2k_\parallel^2u_y,\\
+z&:\ c_s^2k_\parallel(k_\perp u_x+k_\parallel u_z)+v_A^2\big[k_\parallel^2u_z-k_\parallel(\mathbf{k}\cdot\mathbf{u})+k_\parallel(\mathbf{k}\cdot\mathbf{u})-k_\parallel^2u_z\big]=c_s^2k_\parallel(\mathbf{k}\cdot\mathbf{u}),
+\end{align}
+cioè, in forma matriciale,
+\begin{equation}
+\omega^2\begin{pmatrix}u_x\\u_y\\u_z\end{pmatrix}=
+\begin{pmatrix}
+k^2v_A^2+k_\perp^2c_s^2 & 0 & k_\perp k_\parallel c_s^2\\
+0 & k_\parallel^2v_A^2 & 0\\
+k_\perp k_\parallel c_s^2 & 0 & k_\parallel^2c_s^2
+\end{pmatrix}
+\begin{pmatrix}u_x\\u_y\\u_z\end{pmatrix}.
+\end{equation}
+\begin{itemize}
+\item Componente $z$: non c'è forza magnetica lungo $\mathbf{B}_0$; la forza di Lorentz è perpendicolare a $\mathbf{B}$ (modulo 12a).
+\item La componente $y$ si disaccoppia da $x$ e $z$: il problema è simmetrico per $y\to-y$.
+\item La matrice è reale e simmetrica: $\omega^2$ è reale e i tre autovettori sono ortogonali.
+\end{itemize}
+
+\subsection{L'onda di Alfvén}
+
+La sola riga $y$ dà
+\begin{equation}
+\omega^2=k_\parallel^2v_A^2,\qquad\mathbf{u}=u_y\hat{\mathbf{y}},
+\end{equation}
+perché $(\omega^2-k_\parallel^2v_A^2)u_y=0$ per qualunque $u_y$. La velocità è perpendicolare sia a $\mathbf{k}$ sia a $\mathbf{B}_0$.
+\begin{itemize}
+\item $\mathbf{k}\cdot\mathbf{u}=0$, perché $\mathbf{k}$ non ha componente lungo $y$: quindi $\rho_1=p_1=0$. L'onda è \textbf{incompressibile}: non produce onde sonore.
+\item $\mathbf{b}=-(B_0k_\parallel/\omega)\,u_y\hat{\mathbf{y}}$, quindi $b_z=0$: $|\mathbf{B}|$ non cambia al primo ordine, non c'è pressione magnetica. La forza di richiamo è solo la tensione.
+\item Per $\omega=k_\parallel v_A>0$ (propagazione lungo $+\mathbf{B}_0$):
+\begin{equation}
+\frac{\mathbf{b}}{(4\pi\rho_0)^{1/2}}=-\mathbf{u}\qquad\text{(relazione di Walén)},
+\end{equation}
+con segno $+$ per propagazione lungo $-\mathbf{B}_0$: campo magnetico e velocità sono anticorrelati. Nel vento solare si osserva proprio che le fluttuazioni di campo e velocità sono (spesso, non sempre) anticorrelate: queste equazioni semplici iniziano a spiegare fenomeni molto complessi.
+\end{itemize}
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+\omega=k_\parallel v_A=kv_A\cos\theta,\qquad v_A=\frac{B_0}{(4\pi\rho_0)^{1/2}}:
+\]
+un'onda trasversa e incompressibile delle linee di campo, guidata dalla loro tensione (Alfvén 1942).
+\end{quote}
+
+\subsubsection{Dove va l'energia}
+
+\paragraph{Velocità di gruppo.} $\omega=v_A\mathbf{k}\cdot\hat{\mathbf{z}}$ è lineare in $\mathbf{k}$:
+\begin{equation}
+\mathbf{v}_g=\frac{\partial\omega}{\partial\mathbf{k}}=v_A\hat{\mathbf{z}}\qquad\text{per ogni }\mathbf{k}.
+\end{equation}
+L'energia viaggia lungo $\mathbf{B}_0$ con velocità $v_A$, qualunque sia la direzione di $\mathbf{k}$: ogni linea di campo è una corda che porta il proprio segnale, senza dispersione (la velocità di gruppo non dipende da $k$) e senza allargarsi trasversalmente.
+
+\paragraph{Equipartizione.} Con $|\mathbf{b}|=(B_0/v_A)|\mathbf{u}|=(4\pi\rho_0)^{1/2}|\mathbf{u}|$:
+\begin{equation}
+\frac{|\mathbf{b}|^2}{8\pi}=\frac{4\pi\rho_0|\mathbf{u}|^2}{8\pi}=\frac{\rho_0|\mathbf{u}|^2}{2}:
+\end{equation}
+le energie di perturbazione cinetica e magnetica sono uguali in ogni punto e in ogni istante (il termine incrociato $\mathbf{B}_0\cdot\mathbf{b}/4\pi$ si annulla perché $b_z=0$).
+
+\paragraph{Il campo di equipartizione.} Uguagliando energia cinetica e magnetica, $\tfrac12\rho U^2\sim B^2/8\pi$, si definisce il campo di equipartizione $B_{\mathrm{eq}}=(4\pi\rho)^{1/2}U$: dà un'idea di quanto campo magnetico si può produrre trasformando l'energia cinetica del fluido in energia magnetica. Ad esempio, il campo di equipartizione nella zona convettiva solare si ottiene usando le velocità convettive tipiche e la densità: se un meccanismo di dinamo funziona bene, trasferisce l'energia della convezione turbolenta in energia magnetica fino a questo livello.
+
+\paragraph{Collegamento con il modulo 11.} Le onde R e L del plasma freddo per $\omega\ll\Omega_i$ davano $\omega=kv_A/(1+v_A^2/c^2)^{1/2}$: è la stessa onda, vista dalle particelle. La MHD vale per $\omega\ll\Omega_i$, $k\rho_i\ll1$.
+
+\subsection{Onde magnetosoniche veloci e lente}
+
+\subsubsection{Relazione di dispersione}
+
+Eliminata la $y$, resta un sistema $2\times2$ per $(u_x,u_z)$. Una soluzione non nulla richiede
+\begin{equation}
+\det\begin{pmatrix}
+k^2v_A^2+k_\perp^2c_s^2-\omega^2 & k_\perp k_\parallel c_s^2\\
+k_\perp k_\parallel c_s^2 & k_\parallel^2c_s^2-\omega^2
+\end{pmatrix}=0,
+\end{equation}
+\begin{equation}
+\omega^4-\omega^2\Big[k^2v_A^2+\underbrace{(k_\perp^2+k_\parallel^2)}_{k^2}c_s^2\Big]+k^2v_A^2k_\parallel^2c_s^2+\underbrace{k_\perp^2k_\parallel^2c_s^4-k_\perp^2k_\parallel^2c_s^4}_{0}=0 .
+\end{equation}
+Un'equazione quadratica in $\omega^2$; con $k_\parallel=k\cos\theta$:
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+\frac{\omega^2}{k^2}=\frac12\left[v_A^2+c_s^2\pm\left((v_A^2+c_s^2)^2-4v_A^2c_s^2\cos^2\theta\right)^{1/2}\right]
+\]
+Segno $+$: onda magnetosonica \textbf{veloce} (\emph{fast}); segno $-$: onda magnetosonica \textbf{lenta} (\emph{slow}). Entrambe comprimono ($\mathbf{k}\cdot\mathbf{u}\neq0$). La relazione è simmetrica per $v_A\leftrightarrow c_s$.
+\end{quote}
+
+Lungo $y$ la velocità del suono non giocava alcun ruolo; nelle direzioni $x$, $z$ invece il suono interagisce con il campo: si possono produrre onde sonore da onde magnetiche.
+
+\subsubsection{Ordinamento dei tre rami}
+
+La soluzione esplicita è complicata; conviene ragionare graficamente. Sia
+\begin{equation}
+f(X)=X^2-Xk^2(v_A^2+c_s^2)+k^2k_\parallel^2v_A^2c_s^2,\qquad X=\omega^2,
+\end{equation}
+una parabola con concavità verso l'alto e radici $X=\omega_s^2\le\omega_f^2$; $f(X)\le0$ significa che $X$ sta tra le radici. Valutiamo $f$ nelle frequenze interessanti:
+\begin{align}
+f(k_\parallel^2c_s^2)&=k_\parallel^2c_s^4(k_\parallel^2-k^2)=-k_\perp^2k_\parallel^2c_s^4\le0,\\
+f(k_\parallel^2v_A^2)&=k_\parallel^2v_A^4(k_\parallel^2-k^2)\le0,\\
+f(k^2v_A^2)&=-k^2k_\perp^2v_A^2c_s^2\le0,\qquad f(k^2c_s^2)=-k^2k_\perp^2v_A^2c_s^2\le0 .
+\end{align}
+Sono tutte negative, quindi tutte queste frequenze stanno tra le due radici.
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+\omega_s^2\le k_\parallel^2\min(v_A^2,c_s^2),\qquad\omega_f^2\ge k^2\max(v_A^2,c_s^2),
+\]
+\[
+\omega_s\le\omega_A=k_\parallel v_A\le\omega_f .
+\]
+I nomi sono meritati: in ogni direzione slow $\le$ Alfvén $\le$ fast.
+\end{quote}
+
+\subsubsection{Limiti lungo e attraverso il campo}
+
+\paragraph{$\theta=0$ ($k_\perp=0$).} La quadratica si fattorizza, $(\omega^2-k^2v_A^2)(\omega^2-k^2c_s^2)=0$, e la matrice è diagonale:
+\begin{itemize}
+\item $u_z$: $\omega=kc_s$, un'onda sonora lungo $\mathbf{B}_0$; $\mathbf{b}=0$, perché $\mathbf{u}\parallel\mathbf{B}_0$ non piega le linee e non c'è forza di Lorentz: solo moti di pressione.
+\item $u_x$: $\omega=kv_A$, un'onda trasversa, degenere con l'onda di Alfvén ($u_x$ e $u_y$ sono equivalenti).
+\end{itemize}
+fast $=\max(v_A,c_s)$, slow $=\min(v_A,c_s)$: quale delle due sia ``l'onda sonora'' dipende da $\beta$.
+
+\paragraph{$\theta=\pi/2$ ($k_\parallel=0$).} Si elimina la componente longitudinale: $\omega^2\left[\omega^2-k^2(v_A^2+c_s^2)\right]=0$.
+\begin{itemize}
+\item fast: $\omega=k(v_A^2+c_s^2)^{1/2}$, $\mathbf{u}=u_x\hat{\mathbf{x}}\parallel\mathbf{k}$; comprime insieme gas e campo, $b_z/B_0=\rho_1/\rho_0$, e la forza di richiamo è data da entrambe le pressioni, magnetica e del gas: $c_s^2+v_A^2$.
+\item slow e Alfvén: $\omega=0$; con $k_\parallel=0$ le linee non sono piegate e non c'è tensione.
+\end{itemize}
+
+\subsubsection{Polarizzazione delle onde magnetosoniche}
+
+$u_y=b_y=0$, e $\mathbf{u}$ sta nel piano $(\mathbf{k},\mathbf{B}_0)$. Dall'induzione: $b_x=-(B_0/\omega)k_\parallel u_x$, $b_z=(B_0/\omega)k_\perp u_x$, quindi $\mathbf{k}\cdot\mathbf{b}=0$.
+
+\paragraph{Pressione del gas contro pressione magnetica.} La riga $z$ dà $u_z=k_\perp k_\parallel c_s^2u_x/(\omega^2-k_\parallel^2c_s^2)$, quindi
+\begin{equation}
+\mathbf{k}\cdot\mathbf{u}=k_\perp u_x\left[1+\frac{k_\parallel^2c_s^2}{\omega^2-k_\parallel^2c_s^2}\right]=\frac{k_\perp u_x\,\omega^2}{\omega^2-k_\parallel^2c_s^2},\qquad
+\frac{p_1}{B_0b_z/4\pi}=\frac{c_s^2}{v_A^2}\,\frac{\omega^2}{\omega^2-k_\parallel^2c_s^2}.
+\end{equation}
+Per l'ordinamento, $\omega_f^2\ge k_\parallel^2c_s^2\ge\omega_s^2$:
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\begin{itemize}
+\item fast: le perturbazioni di pressione del gas e magnetica sono \emph{in fase}, si sommano;
+\item slow: sono \emph{in controfase}, si cancellano parzialmente, e per questo l'onda è lenta;
+\item Alfvén: $\mathbf{u}$, $\mathbf{b}$ lungo $\hat{\mathbf{y}}$, nulla viene compresso. Fast e slow: $\mathbf{u}$, $\mathbf{b}$ nel piano $(\mathbf{k},\mathbf{B}_0)$; $\rho_1$, $p_1$, $|\mathbf{B}|$ perturbati.
+\end{itemize}
+\end{quote}
+
+\subsubsection{Bassi e alti $\beta$}
+
+Il parametro guida è il beta di plasma, rapporto tra pressione del gas e pressione magnetica:
+\begin{equation}
+\beta=\frac{8\pi p_0}{B_0^2}=\frac{2}{\gamma}\frac{c_s^2}{v_A^2}.
+\end{equation}
+$\beta\ll1$ significa velocità del suono molto più piccola della velocità di Alfvén; $\beta\gg1$ il contrario. Espandendo la radice per $c_s\ll v_A$ o $c_s\gg v_A$:
+\begin{equation}
+\left[(v_A^2+c_s^2)^2-4v_A^2c_s^2\cos^2\theta\right]^{1/2}\simeq v_A^2+c_s^2-\frac{2v_A^2c_s^2\cos^2\theta}{v_A^2+c_s^2}.
+\end{equation}
+
+\paragraph{$\beta\ll1$ (corona, magnetosfere).}
+\begin{itemize}
+\item fast: $\omega^2\simeq k^2(v_A^2+c_s^2\sin^2\theta)\simeq k^2v_A^2$, isotropa: l'onda compressionale del campo stesso;
+\item slow: $\omega\simeq k_\parallel c_s$, suono guidato lungo $\mathbf{B}_0$: le linee si comportano come tubi rigidi.
+\end{itemize}
+
+\paragraph{$\beta\gg1$ (interni stellari).}
+\begin{itemize}
+\item fast: $\omega\simeq kc_s$, suono ordinario, reso un po' più rigido (\emph{stiff}) dal campo;
+\item slow: $\omega\simeq k_\parallel v_A$; dalla polarizzazione $\mathbf{k}\cdot\mathbf{u}\to0$: quasi incompressibile, un'onda simile all'Alfvén ma polarizzata nel piano $(\mathbf{k},\mathbf{B}_0)$.
+\end{itemize}
+
+\paragraph{Esempio: corona.} Con $n=10^9\,\mathrm{cm^{-3}}$, $T=10^6\,$K, $B=10\,$G: $v_A\approx690\,$km/s, $c_s\approx170\,$km/s, $\beta\approx0.07$. L'approssimazione di basso $\beta$ è adeguata.
+
+\subsection{Velocità di fase e di gruppo: diagrammi di Friedrichs}
+
+Tutti e tre i rami hanno la forma $\omega=kV(\theta)$: non c'è dispersione in $|\mathbf{k}|$, solo anisotropia (dipendenza della frequenza da $\theta$). Con il gradiente in coordinate polari nel piano $(k_\perp,k_\parallel)$, $\nabla_{\mathbf{k}}=\hat{\mathbf{k}}\,\partial_k+\hat{\boldsymbol{\theta}}\,k^{-1}\partial_\theta$:
+\begin{equation}
+\mathbf{v}_g=\frac{\partial\omega}{\partial\mathbf{k}}=V(\theta)\,\hat{\mathbf{k}}+\frac{\mathrm{d}V}{\mathrm{d}\theta}\,\hat{\boldsymbol{\theta}}:
+\end{equation}
+la velocità di fase più una componente trasversa a $\mathbf{k}$, dovunque $V$ dipenda dalla direzione.
+\begin{itemize}
+\item \textbf{Diagramma di fase (di Friedrichs):} $V(\theta)\hat{\mathbf{k}}$ al variare di $\theta$ (fronti piani dopo un tempo unitario). $\theta=0$ è l'asse orizzontale (lungo $\mathbf{B}_0$), $\theta=\pi/2$ quello verticale.
+\item \textbf{Diagramma di gruppo:} $\mathbf{v}_g(\theta)$; il fronte di una perturbazione puntiforme dopo un tempo unitario.
+\end{itemize}
+
+\paragraph{Modo lento vicino a $\theta=\pi/2$.} Espandendo la radice in $\cos^2\theta$:
+\begin{equation}
+V_s^2\simeq\frac{v_A^2c_s^2}{v_A^2+c_s^2}\cos^2\theta\equiv c_T^2\cos^2\theta,
+\end{equation}
+come per l'onda di Alfvén, con la \emph{velocità di tubo} $c_T$: lì $\mathbf{v}_g\to\pm c_T\hat{\mathbf{z}}$.
+
+\paragraph{Diagrammi per $c_s/v_A=0.7$.}
+\begin{itemize}
+\item Alfvén: $V=v_A|\cos\theta|$, due cerchi; velocità di gruppo: due punti, $\pm v_A\hat{\mathbf{z}}$.
+\item fast: quasi isotropa, $\max(v_A,c_s)$ lungo $\mathbf{B}_0$ e $(v_A^2+c_s^2)^{1/2}$ attraverso.
+\item slow: energia solo in uno stretto cono attorno a $\mathbf{B}_0$, tra $c_T$ e $\min(v_A,c_s)$, con cuspidi dove il fronte si ripiega.
+\end{itemize}
+L'ordinamento è sempre rispettato: a $\theta=\pi/2$ si vede chiaramente la gerarchia fast, Alfvén, slow.
+
+\subsection{Onde di Alfvén nella corona e nel vento solare}
+
+\begin{itemize}
+\item $v_A=B/(4\pi nm_p)^{1/2}$: $\approx700\,$km/s nella corona ($10\,$G, $10^9\,\mathrm{cm^{-3}}$), $\approx50\,$km/s a $1\,$au ($5\,$nT, $5\,\mathrm{cm^{-3}}$).
+\item Mariner 5 (1967): $\delta\mathbf{U}$ e $\delta\mathbf{B}$ correlati come nella relazione di Walén, con il segno di onde che si propagano allontanandosi dal Sole (Belcher \& Davis 1971); oggi osservato da ogni missione, Parker Solar Probe inclusa.
+\item Flusso di energia (per equipartizione la densità di energia è $\rho\langle\delta U^2\rangle$, trasportata a $v_A$): dai dati delle sonde, prendendo la media quadratica delle fluttuazioni,
+\begin{equation}
+F=\rho\langle\delta U^2\rangle v_A\approx10^6\,\mathrm{erg\,cm^{-2}\,s^{-1}}\qquad\text{per }\delta U=30\,\mathrm{km/s},
+\end{equation}
+superiore alle perdite della corona quieta, $\sim3\times10^5\,\mathrm{erg\,cm^{-2}\,s^{-1}}$.
+\end{itemize}
+
+\paragraph{Il problema del riscaldamento coronale.} La corona ha temperature altissime: dopo la fotosfera la temperatura diminuisce e poi risale (inversione termica), ed è uno dei grandi misteri capire come si riscaldi. Le onde di Alfvén trasportano abbastanza energia per scaldarla. Ma le onde sono incompressibili e corrono lungo il campo: come cedono la loro energia al plasma?
+
+\subsection{Dissipazione}
+
+\subsubsection{Smorzamento resistivo e viscoso}
+
+Aggiungiamo viscosità e resistività. Per l'onda di Alfvén, $\nabla\cdot\mathbf{u}=0$ e $\mathbf{b}\perp\mathbf{B}_0$:
+\begin{equation}
+\frac{\partial\mathbf{u}}{\partial t}=\frac{B_0}{4\pi\rho_0}\frac{\partial\mathbf{b}}{\partial z}+\nu\nabla^2\mathbf{u},\qquad
+\frac{\partial\mathbf{b}}{\partial t}=B_0\frac{\partial\mathbf{u}}{\partial z}+\eta\nabla^2\mathbf{b}.
+\end{equation}
+Per un'onda piana ($\partial_t\to-i\omega$, $\nabla^2\to-k^2$):
+\begin{equation}
+(-i\omega+\nu k^2)\mathbf{u}=ik_\parallel\frac{B_0}{4\pi\rho_0}\mathbf{b},\qquad(-i\omega+\eta k^2)\mathbf{b}=ik_\parallel B_0\mathbf{u}.
+\end{equation}
+Eliminando $\mathbf{b}$: $(\omega+i\nu k^2)(\omega+i\eta k^2)=k_\parallel^2v_A^2$, cioè
+\begin{equation}
+\omega=-\frac{i(\nu+\eta)k^2}{2}\pm\left[k_\parallel^2v_A^2-\frac{(\nu-\eta)^2k^4}{4}\right]^{1/2},
+\end{equation}
+che per $\theta=0$ e $\nu=\eta=0$ riproduce l'onda di Alfvén.
+
+\begin{quote}
+\textbf{Risultato chiave.} Per dissipazione debole, $(\nu+\eta)k^2\ll k_\parallel v_A$:
+\[
+\omega\simeq\pm k_\parallel v_A-i\gamma,\qquad\gamma=\frac{(\nu+\eta)k^2}{2}.
+\]
+$\nu$ drena la metà cinetica dell'energia, $\eta$ quella magnetica. Compare $k^2$, non $k_\parallel^2$.
+\end{quote}
+
+\subsubsection{Quanto è debole?}
+
+Corona ($T=10^6\,$K, $n=10^9\,\mathrm{cm^{-3}}$, $B=10\,$G): resistività di Spitzer $\eta\approx10^4\,\mathrm{cm^2/s}$ (modulo 2b); viscosità ionica trasversa $\nu_\perp\approx0.3\,\rho_i^2/\tau_i\approx3\times10^3\,\mathrm{cm^2/s}$ (modulo 10): sono confrontabili, usiamo $\eta$.
+\begin{itemize}
+\item lunghezza d'onda $10^4\,$km: $\tau=2/(\eta k^2)\approx5\times10^{12}\,\mathrm{s}\approx1.6\times10^5\,$anni;
+\item tempo di attraversamento di un loop, $10^5\,$km a $700\,$km/s: $\approx140\,$s;
+\item per smorzare in $100\,$s serve $\lambda=2\pi(\eta t/2)^{1/2}\approx40\,$m.
+\end{itemize}
+
+\begin{quote}
+\textbf{Risultato chiave.} A $\lambda=10^4\,$km l'onda perde $2\pi\gamma/\omega\approx3\times10^{-12}$ della sua ampiezza per periodo. Con le diffusività microscopiche la dissipazione non è efficiente: serve un processo che porti l'energia a piccole scale.
+\end{quote}
+Due candidati: il \emph{phase mixing} e la cascata turbolenta.
+
+\subsubsection{Phase mixing (dalle slide, saltato a lezione)}
+
+Sia ora $\mathbf{B}_0=B_0\hat{\mathbf{z}}$ con $\rho_0(x)$, quindi $v_A=v_A(x)$ (equilibrio con $p_0+B_0^2/8\pi$ uniforme). Per un'onda $u_y(x,z,t)$, $b_y(x,z,t)$ indipendente da $y$: $\nabla\cdot\mathbf{u}=0$, $b_z=0$, e
+\begin{equation}
+\rho_0(x)\frac{\partial u_y}{\partial t}=\frac{B_0}{4\pi}\frac{\partial b_y}{\partial z},\qquad\frac{\partial b_y}{\partial t}=B_0\frac{\partial u_y}{\partial z}.
+\end{equation}
+Non compare $\partial_x$: ogni superficie $x=$ cost oscilla da sola, con $\omega_A(x)=k_\parallel v_A(x)$. Lanciata in fase, $u_y=A\cos[k_\parallel z-\omega_A(x)t]$:
+\begin{equation}
+k_x=\frac{\partial}{\partial x}(\text{fase})=-k_\parallel v_A'(x)\,t:
+\end{equation}
+linee vicine si sfasano, $|k_x|$ cresce linearmente nel tempo. Aggiungendo $\nu$, $\eta$, localmente si ha un'onda piana con $k^2(t)=k_\parallel^2+k_\parallel^2v_A'^2t^2$, smorzata con $\gamma(t)=(\nu+\eta)k^2(t)/2$. Integrando $\mathrm{d}\ln A/\mathrm{d}t=-\gamma(t)$:
+\begin{equation}
+A=A_0\exp\left[-\frac{(\nu+\eta)k_\parallel^2t}{2}-\frac{(\nu+\eta)k_\parallel^2v_A'^2t^3}{6}\right].
+\end{equation}
+Per $v_A't\gg1$ vince il termine in $t^3$:
+\begin{equation}
+A\simeq A_0e^{-(t/\tau_{\mathrm{pm}})^3},\qquad\tau_{\mathrm{pm}}=\left[\frac{6}{(\nu+\eta)k_\parallel^2v_A'^2}\right]^{1/3}.
+\end{equation}
+$\tau_{\mathrm{pm}}\propto(\nu+\eta)^{-1/3}$, non $(\nu+\eta)^{-1}$. Corona ($v_A=10^3\,$km/s che varia su $10^3\,$km, $\lambda_\parallel=10^5\,$km): $\sim1$ giorno invece di $10^7$ anni (Heyvaerts \& Priest 1983).
+
+%=====================================================================
+\section{Local stability of rotating, magnetised plasmas (M13)}
+%=====================================================================
+
+\subsection{Dove siamo}
+
+Riassumendo: le equazioni della MHD ideale si scrivono in forma conservativa per massa, momento ed energia (M12a); le piccole perturbazioni di un plasma uniforme si propagano come onde con $\omega$ reale, alle velocità $c_s$, $v_A$ e con i modi magnetosonici veloci e lenti (M12b). Tutto ciò che abbiamo visto riguarda oscillazioni stabili attorno a una configurazione banale: campo uniforme, nessun flusso, densità e pressione uniformi. Abbiamo visto anche l'effetto $\Omega$, $\partial_tB_\phi=s(\mathbf{B}_p\cdot\nabla)\Omega$.
+
+Ora il background ha dei gradienti: una corrente ($B_\phi$ che varia con $s$) e un taglio ($\Omega$ che varia con $s$). Entrambi immagazzinano energia libera. Due domande:
+\begin{enumerate}
+\item che cosa tiene in equilibrio una tale configurazione?
+\item una piccola perturbazione cresce?
+\end{enumerate}
+Rispondiamo \emph{localmente}: lunghezze d'onda corte rispetto a $s$ e rispetto alle dimensioni caratteristiche del sistema, in tutte le direzioni (radiale, azimutale e verticale), in modo che il background entri solo attraverso i suoi valori locali e i suoi gradienti.
+
+\subsection{Equilibrio di un cilindro rotante e magnetizzato}
+
+La geometria naturale per un disco (ad esempio una galassia) o per l'asse di una stella è quella cilindrica $(s,\phi,z)$. Supponiamo che tutto dipenda solo da $s$:
+\begin{equation}
+\mathbf{U}=s\,\Omega(s)\,\hat{\boldsymbol{\phi}}\quad\text{(rotazione differenziale)},\qquad
+\mathbf{B}=B_\phi(s)\,\hat{\boldsymbol{\phi}}+B_z\hat{\mathbf{z}}\ (B_z\text{ uniforme}),\qquad\rho\text{ uniforme}.
+\end{equation}
+Il rotore di $\mathbf{B}$, che per la legge di Ampère dà la corrente, è
+\begin{equation}
+\nabla\times\mathbf{B}=\frac1s\frac{\mathrm{d}(sB_\phi)}{\mathrm{d}s}\,\hat{\mathbf{z}}:
+\end{equation}
+la presenza del campo toroidale implica una corrente lungo l'asse. Non c'è corrente quando $B_\phi\propto1/s$: queste configurazioni sono già \emph{force-free} (senza corrente non c'è forza di Lorentz). Inoltre
+\begin{equation}
+(\nabla\times\mathbf{B})\times\mathbf{B}=-\frac{B_\phi}{s}\frac{\mathrm{d}(sB_\phi)}{\mathrm{d}s}\,\hat{\mathbf{s}},\qquad(\mathbf{U}\cdot\nabla)\mathbf{U}=-s\Omega^2\hat{\mathbf{s}}.
+\end{equation}
+Equilibrio radiale del momento (termine $\partial_t$ nullo, configurazioni magnetoidrostatiche), con gravità $-g\hat{\mathbf{s}}$:
+\begin{equation}
+-\rho s\Omega^2=-\frac{\mathrm{d}p}{\mathrm{d}s}-\rho g-\frac{B_\phi}{4\pi s}\frac{\mathrm{d}(sB_\phi)}{\mathrm{d}s}
+=-\frac{\mathrm{d}}{\mathrm{d}s}\left(p+\frac{B_\phi^2}{8\pi}\right)-\rho g-\frac{B_\phi^2}{4\pi s}.
+\end{equation}
+A sinistra la forza centrifuga; a destra il gradiente della pressione totale (gas più magnetica), la gravità e il termine di tensione magnetica $B_\phi^2/4\pi s$: lo \emph{hoop stress} delle linee toroidali curve, che tira verso l'asse.
+
+\paragraph{Come si costruisce un modello: per esclusione.} Bisogna ragionare come un investigatore: si toglie un pezzo alla volta e si vede che cosa succede. Se togliamo il campo magnetico, restano pressione, gravità e rotazione. Tipicamente:
+\begin{itemize}
+\item \textbf{disco sottile:} la rotazione è bilanciata dalla gravità, $s\Omega^2=GM/s^2$ (kepleriano); il gas non gioca un grosso ruolo;
+\item \textbf{pinch} ($\Omega=g=0$): la pressione del gas è controbilanciata da pressione magnetica e hoop stress.
+\end{itemize}
+L'equilibrio fissa $p(s)$, non la stabilità. Questa è determinata da due gradienti:
+\begin{equation}
+\alpha\equiv\frac{\mathrm{d}\ln B_\phi}{\mathrm{d}\ln s}\quad\text{(corrente)},\qquad
+q\equiv-\frac{\mathrm{d}\ln\Omega}{\mathrm{d}\ln s}\quad\text{(taglio; kepleriano }q=\tfrac32).
+\end{equation}
+Per $\alpha=-1$ non c'è corrente.
+
+\subsection{Perturbazioni locali}
+
+\subsubsection{Linearizzazione in coordinate cilindriche: i termini di curvatura}
+
+Perturbazioni $\mathbf{u}$, $\mathbf{b}$, pressione totale $\Pi=p_1+\mathbf{B}\cdot\mathbf{b}/4\pi$; caso ideale e incompressibile. Tutte le quantità perturbate sono al primo ordine perché il background è idrostatico:
+\begin{gather}
+\partial_t\mathbf{u}+(\mathbf{U}\cdot\nabla)\mathbf{u}+(\mathbf{u}\cdot\nabla)\mathbf{U}=-\frac{\nabla\Pi}{\rho}+\frac{(\mathbf{B}\cdot\nabla)\mathbf{b}+(\mathbf{b}\cdot\nabla)\mathbf{B}}{4\pi\rho},\\
+\partial_t\mathbf{b}=\nabla\times(\mathbf{u}\times\mathbf{B}+\mathbf{U}\times\mathbf{b}).
+\end{gather}
+A differenza del caso uniforme, ora nel background c'è la rotazione: $\Omega$ è di ordine zero e $\mathbf{u}$ di ordine uno, quindi i termini $(\mathbf{U}\cdot\nabla)\mathbf{u}$ e $(\mathbf{u}\cdot\nabla)\mathbf{U}$ sono del primo ordine e vanno tenuti tutti.
+
+I versori ruotano con $\phi$: $\partial_\phi\hat{\mathbf{s}}=\hat{\boldsymbol{\phi}}$, $\partial_\phi\hat{\boldsymbol{\phi}}=-\hat{\mathbf{s}}$. Quindi
+\begin{align}
+(\mathbf{U}\cdot\nabla)\mathbf{u}&=\Omega\,\partial_\phi\mathbf{u}=\Omega(\partial_\phi u_s-u_\phi)\hat{\mathbf{s}}+\Omega(\partial_\phi u_\phi+u_s)\hat{\boldsymbol{\phi}}+\Omega\,\partial_\phi u_z\hat{\mathbf{z}},\\
+(\mathbf{u}\cdot\nabla)\mathbf{U}&=u_s\frac{\mathrm{d}(s\Omega)}{\mathrm{d}s}\hat{\boldsymbol{\phi}}-\Omega u_\phi\hat{\mathbf{s}}.
+\end{align}
+Somma: $\Omega\partial_\phi\mathbf{u}-2\Omega u_\phi\hat{\mathbf{s}}+(2\Omega+s\Omega')u_s\hat{\boldsymbol{\phi}}$: sono i termini di \textbf{Coriolis} ed \textbf{epicicli}. I termini magnetici si costruiscono allo stesso modo, con $B_\phi/s$ al posto di $\Omega$.
+
+\subsubsection{Le equazioni linearizzate, componente per componente}
+
+Misuriamo il campo in unità di velocità: $\mathbf{b}\to\mathbf{b}/\sqrt{4\pi\rho}$, e definiamo
+\begin{equation}
+\omega_B\equiv\frac{B_\phi}{s\sqrt{4\pi\rho}},\qquad D_t\equiv\partial_t+\Omega\partial_\phi,\qquad
+\mathcal{B}\equiv\frac{B_\phi s^{-1}\partial_\phi+B_z\partial_z}{\sqrt{4\pi\rho}},\qquad P=\frac{\Pi}{\rho}.
+\end{equation}
+$\omega_B$ è la frequenza di Alfvén nella direzione azimutale. Allora
+\begin{align}
+D_tu_s-2\Omega u_\phi&=-\partial_sP+\mathcal{B}b_s-2\omega_Bb_\phi, & D_tb_s&=\mathcal{B}u_s,\\
+D_tu_\phi+(2\Omega+s\Omega')u_s&=-s^{-1}\partial_\phi P+\mathcal{B}b_\phi+(1+\alpha)\,\omega_Bb_s, & D_tb_\phi&=s\Omega'b_s+\mathcal{B}u_\phi-(\alpha-1)\,\omega_Bu_s,\\
+D_tu_z&=-\partial_zP+\mathcal{B}b_z, & D_tb_z&=\mathcal{B}u_z.
+\end{align}
+\begin{itemize}
+\item $-2\omega_Bb_\phi$: hoop stress perturbato; $(1+\alpha)\omega_Bb_s$: tensione delle linee di background piegate.
+\item $s\Omega'b_s$: il taglio stira $b_s$ in $b_\phi$, l'effetto $\Omega$ del modulo 12a.
+\item $-(\alpha-1)\omega_Bu_s$: uno spostamento radiale porta $B_\phi$ in una regione dove $B_\phi$ è diverso.
+\end{itemize}
+
+\subsubsection{Modi locali (WKB)}
+
+Non possiamo più prendere onde piane globali. Per lunghezze d'onda corte rispetto a $s$ i coefficienti sono congelati ai valori locali e
+\begin{equation}
+(\mathbf{u},\mathbf{b},P)\propto\exp(\sigma t+ik_ss+im\phi+ik_zz),\qquad|\mathbf{k}|s\gg1,\qquad\mathbf{k}=(k_s,m/s,k_z),
+\end{equation}
+dove $k_s$ è il numero d'onda radiale, $m/s$ quello azimutale e $k_z$ quello verticale.
+
+\paragraph{Significato di $\sigma$.} Se $\sigma$ è immaginario l'onda è oscillante (stabile). Se $\sigma$ ha parte reale positiva la perturbazione cresce esponenzialmente: instabilità. In termini di $\sigma^2$: $\sigma^2<0$ oscillazione, $\sigma^2>0$ instabilità.
+
+\begin{itemize}
+\item $\partial\to i\mathbf{k}$; $D_t\to\tilde\sigma=\sigma+im\Omega$ (shift Doppler: rispetto a prima la derivata temporale ``si becca'' anche il pezzo $\mathbf{U}\cdot\nabla$); $\mathcal{B}\to i\omega_A$, con
+\begin{equation}
+\omega_A=\frac{\mathbf{k}\cdot\mathbf{B}}{\sqrt{4\pi\rho}}=\frac{mB_\phi/s+k_zB_z}{\sqrt{4\pi\rho}}.
+\end{equation}
+\item Incompressibile: $\mathbf{k}\cdot\mathbf{u}=0$ (e $\mathbf{k}\cdot\mathbf{b}=0$).
+\item I termini di curvatura e di gradiente restano: sono frequenze ($\Omega$, $\omega_B$), non sono piccoli.
+\end{itemize}
+Una soluzione non nulla richiede un determinante nullo: la relazione di dispersione $\sigma(\mathbf{k})$. Due casi molto interessanti:
+\begin{itemize}
+\item \textbf{Tayler:} $\Omega=0$, $B_z=0$ (solo corrente);
+\item \textbf{MRI} (instabilità magnetorotazionale): $B_\phi=0$, $m=0$ (solo taglio).
+\end{itemize}
+A lezione, per mancanza di tempo, è stata trattata solo l'instabilità di Tayler.
+
+\subsection{Campi toroidali: l'instabilità di Tayler}
+
+\subsubsection{Un campo toroidale da solo}
+
+Niente rotazione, niente campo assiale: $\Omega=0$, $B_z=0$. L'instabilità è puramente toroidale, ma la corrente lungo l'asse c'è. Allora $\tilde\sigma=\sigma$ e $\omega_A=m\,\omega_B$. Le equazioni di induzione danno $\mathbf{b}$ in termini di $\mathbf{u}$:
+\begin{equation}
+b_s=\frac{i\omega_A}{\sigma}u_s,\qquad b_\phi=\frac{i\omega_Au_\phi-(\alpha-1)\omega_Bu_s}{\sigma},\qquad b_z=\frac{i\omega_A}{\sigma}u_z .
+\end{equation}
+La prima lega il campo poloidale (radiale) alla velocità radiale, analogamente a quanto visto per le onde in un mezzo uniforme; la seconda descrive anche la generazione di campo toroidale dallo spostamento radiale nel campo di background. Inserendo nelle equazioni del momento e moltiplicando per $\sigma$, con $X\equiv\sigma^2+\omega_A^2$:
+\begin{align}
+\left[X-2(\alpha-1)\omega_B^2\right]u_s+2i\omega_A\omega_Bu_\phi+i\sigma k_sP&=0,\tag{a}\\
+-2i\omega_A\omega_Bu_s+Xu_\phi+i\sigma k_\phi P&=0,\tag{b}\\
+Xu_z+i\sigma k_zP&=0,\tag{c}\\
+k_su_s+k_\phi u_\phi+k_zu_z&=0.\tag{d}
+\end{align}
+In (b): $i\omega_A[-(\alpha-1)]+i\omega_A(1+\alpha)=2i\omega_A$, moltiplicato per $\omega_B$. Senza curvatura ($\omega_B\to0$ con $\omega_A$ fissato) si ha $X=0$: l'onda di Alfvén del modulo 12b.
+
+\subsubsection{La relazione di dispersione}
+
+Prendiamo $k_s=0$; allora (d) diventa $k_\phi u_\phi+k_zu_z=0$. Calcolando $k_\phi\times$(b)$+k_z\times$(c) e usando (d):
+\begin{equation}
+-2i\omega_A\omega_Bk_\phi u_s+i\sigma k^2P=0,\qquad k^2=k_\phi^2+k_z^2 .
+\end{equation}
+Sostituendo in (b):
+\begin{equation}
+Xu_\phi=2i\omega_A\omega_B\left(1-\frac{k_\phi^2}{k^2}\right)u_s=2i\omega_A\omega_B\frac{k_z^2}{k^2}u_s .
+\end{equation}
+Moltiplicando (a) per $X$ e inserendo:
+\begin{equation}
+\left[X-2(\alpha-1)\omega_B^2\right]Xu_s+2i\omega_A\omega_B\cdot2i\omega_A\omega_B\frac{k_z^2}{k^2}u_s=0 .
+\end{equation}
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\[
+X^2+2(1-\alpha)\,\omega_B^2X-4\omega_A^2\omega_B^2\frac{k_z^2}{k^2}=0,\qquad X=\sigma^2+\omega_A^2 .
+\]
+Un $k_s\neq0$ diluisce soltanto la sorgente di instabilità: i modi più instabili hanno $k_s=0$.
+\end{quote}
+
+È un'equazione di secondo grado in $X$, che si risolve banalmente.
+
+\subsubsection{Modi sausage e kink}
+
+Lunghezze d'onda verticali corte rispetto al raggio, $k_z\gg m/s$: $k_z^2/k^2\to1$.
+
+\paragraph{$m=0$.} $\omega_A=0$, quindi
+\begin{equation}
+X=\sigma^2=2(\alpha-1)\,\omega_B^2 ,
+\end{equation}
+positivo (instabile) se e solo se $\alpha>1$.
+
+\paragraph{$m\ge1$.} $\omega_A=m\omega_B$; la radice positiva dà
+\begin{equation}
+\frac{\sigma^2}{\omega_B^2}=\sqrt{(1-\alpha)^2+4m^2}-(1-\alpha)-m^2 ,
+\end{equation}
+positiva se e solo se $\sqrt{(1-\alpha)^2+4m^2}>m^2+(1-\alpha)$. Se il membro di destra è negativo la disuguaglianza è automatica; altrimenti, elevando al quadrato,
+\begin{equation}
+(1-\alpha)^2+4m^2>m^4+2m^2(1-\alpha)+(1-\alpha)^2\quad\Longleftrightarrow\quad4>m^2+2(1-\alpha).
+\end{equation}
+
+\begin{quote}
+\textbf{Risultato chiave.}
+\begin{itemize}
+\item \textbf{sausage}, $m=0$: instabile se $\alpha>1$;
+\item $m\ge1$: instabile se $\alpha>\dfrac{m^2}{2}-1$;
+\item \textbf{kink}, $m=1$: instabile se $\alpha>-\dfrac12$ (profilo critico $\alpha=-1/2$).
+\end{itemize}
+\end{quote}
+
+\paragraph{Interpretazione fisica.}
+\begin{itemize}
+\item \emph{Sausage} ($m=0$): il tubo di flusso viene strozzato. Nel collo (\emph{neck}) $B_\phi=2I/cs$ è più grande e lo strozza ulteriormente; nel rigonfiamento (\emph{bulge}) $B_\phi$ è più piccolo e il tubo si espande. Un anello di campo toroidale spostato radialmente conserva $B_\phi/s$; se $B_\phi$ del background cresce più rapidamente di $s$ ($\alpha>1$), lo spostamento è amplificato.
+\item \emph{Kink} ($m=1$): il tubo si piega; le linee si addensano dal lato concavo, e la pressione magnetica $B^2/8\pi$ spinge la piega ancora più in fuori.
+\end{itemize}
+
+\subsubsection{Quali profili sono instabili, e dove}
+
+I criteri valgono raggio per raggio. Esempio: una corrente concentrata in $s\lesssim a$,
+\begin{equation}
+B_\phi=\frac{B_0x^2}{1+x^3},\qquad\alpha=\frac{2-x^3}{1+x^3},\qquad x=\frac sa .
+\end{equation}
+\begin{itemize}
+\item sausage dove $\alpha>1$: $s<s_0=2^{-1/3}a$;
+\item kink dove $\alpha>-\tfrac12$: $s<s_1=5^{1/3}a$;
+\item fuori, $B_\phi\propto1/s$ (nessuna corrente, $\alpha=-1$): stabile.
+\end{itemize}
+I tassi di crescita $\sigma(s)$ mostrano dove il profilo è instabile e dove no.
+
+\paragraph{Vicino all'asse.} Lungo l'asse di una stella la geometria è cilindrica. Un campo regolare non deve divergere sull'asse: per condizioni al contorno $B_\phi$ deve andare a zero con qualche potenza di $s$, e un campo regolare ha $B_\phi\propto s$, cioè $\alpha=1$. Dunque
+\begin{quote}
+\textbf{ogni campo toroidale è instabile al kink vicino all'asse}, con $\sigma\sim\omega_B$, un tempo di Alfvén (Tayler 1973).
+\end{quote}
+Più in generale, per $B_\phi\propto s^\alpha$, i campi con $\alpha>1$ sono instabili già per $m=0$ e quelli con $\alpha>-1/2$ per $m=1$: le configurazioni di campo toroidale che ci aspettiamo all'interno di una stella, lungo l'asse, sono tutte instabili. Questa è una conseguenza di importanza enorme.
+
+\subsection{Giganti rosse: un'instabilità che trasporta momento angolare}
+
+\subsubsection{I nuclei ruotano troppo lentamente}
+
+Dopo la sequenza principale il nucleo si contrae e l'inviluppo si espande. Se ogni guscio conservasse il proprio momento angolare, il nucleo accelererebbe di ordini di grandezza.
+\begin{itemize}
+\item \textbf{Modi misti} (Kepler): onde di gravità nel nucleo accoppiate a onde di pressione nell'inviluppo. Il satellite Kepler ha misurato lo splitting rotazionale in moltissime giganti rosse (Beck et al.\ 2012; Deheuvels et al.\ 2012). Con la sola rotazione, nello spettro di potenza i modi $m=-1,0,+1$ di un multipletto sono equispaziati, e la separazione al primo ordine è proporzionale alla rotazione.
+\item Il nucleo ruota solo circa dieci volte più velocemente dell'inviluppo, e rallenta man mano che la stella sale sul ramo delle giganti (Mosser et al.\ 2012).
+\item Qualunque modello evolutivo con solo trasporto idrodinamico (con o senza spin-down), in cui il nucleo si contrae conservando il momento angolare, dà nuclei uno o due ordini di grandezza troppo veloci.
+\end{itemize}
+
+\paragraph{Campi magnetici nei nuclei delle giganti rosse.} Esistono piccole asimmetrie dei multipletti rispetto a $m=0$, che hanno permesso di determinare il campo magnetico che le produce, situato all'interno della zona radiativa. Modi di dipolo soppressi in alcune giganti rosse indicano campi forti nel nucleo (Fuller et al.\ 2015); le asimmetrie dei multipletti dei modi misti hanno misurato campi di $30$--$100\,$kG (Li et al.\ 2022). L'idea è che nel nucleo ci sia un campo magnetico congelato (teorema di Alfvén) che crea un accoppiamento tra nucleo e inviluppo e rallenta la rotazione del nucleo. Il campo c'è: può rimuovere il momento angolare? Il problema è capire quali configurazioni di campo siano stabili, visto che i campi toroidali puri sono tutti instabili.
+
+\subsubsection{Il ciclo di Tayler--Spruit}
+
+Spruit (2002):
+\begin{enumerate}
+\item il nucleo ruota più veloce dell'inviluppo: il taglio avvolge un campo toroidale (effetto $\Omega$, modulo 12a);
+\item $B_\phi$ cresce finché diventa instabile alla Tayler (kink, $m=1$);
+\item i moti instabili creano $B_s$, che viene di nuovo avvolto;
+\item lo sforzo $-B_sB_\phi/4\pi$ trasporta momento angolare verso l'esterno, così che $\Omega_c\simeq10\,\Omega_e$ e non $10^3\,\Omega_e$.
+\end{enumerate}
+La stima originale dà nuclei ancora troppo veloci (Cantiello et al.\ 2014); con una saturazione rivista si ottiene un buon accordo con le osservazioni (Fuller et al.\ 2019). Secondo alcuni questo meccanismo realizza una vera dinamo in una zona radiativa; è ancora oggetto di dibattito, ed è uno dei modi in cui si cerca di spiegare le osservazioni dei campi magnetici nei nuclei delle giganti rosse.
+
+\subsection{Rotazione differenziale: l'instabilità magnetorotazionale (dalle slide, non svolto a lezione)}
+
+\subsubsection{Un campo assiale in un flusso di taglio}
+$B_\phi=0$, $B_z$ uniforme, $\Omega(s)$ con $s\Omega'=-q\Omega$; modi assisimmetrici ($m=0$), quindi $\tilde\sigma=\sigma$, $\omega_A=k_zv_A$. Dalle equazioni per componenti:
+\begin{align}
+\sigma u_s-2\Omega u_\phi&=-ik_sP+i\omega_Ab_s, & \sigma b_s&=i\omega_Au_s,\\
+\sigma u_\phi+(2-q)\Omega u_s&=i\omega_Ab_\phi, & \sigma b_\phi&=-q\Omega b_s+i\omega_Au_\phi,\\
+\sigma u_z&=-ik_zP+i\omega_Ab_z, & \sigma b_z&=i\omega_Au_z,\qquad k_su_s+k_zu_z=0 .
+\end{align}
+Eliminando $\mathbf{b}$ e moltiplicando per $\sigma$ ($X=\sigma^2+\omega_A^2$), l'equazione $z$ e $\mathbf{k}\cdot\mathbf{u}=0$ danno $i\sigma P=Xk_su_s/k_z^2$:
+\begin{equation}
+\frac{k^2}{k_z^2}Xu_s=2\Omega\sigma u_\phi\ \text{(A)},\qquad
+Xu_\phi+\left[(2-q)\Omega\sigma-q\Omega\frac{\omega_A^2}{\sigma}\right]u_s=0\ \text{(B)}.
+\end{equation}
+
+\subsubsection{Criterio di Rayleigh e perché un campo lo viola}
+Da $2\Omega\sigma\times$(B) con (A):
+\begin{equation}
+\frac{k^2}{k_z^2}\left(\sigma^2+\omega_A^2\right)^2+\kappa^2\sigma^2-2q\Omega^2\omega_A^2=0,\qquad
+\kappa^2=2(2-q)\Omega^2=\frac{1}{s^3}\frac{\mathrm{d}(s^2\Omega)^2}{\mathrm{d}s},
+\end{equation}
+dove $\kappa$ è la frequenza epiciclica. Senza campo $\sigma^2=-\kappa^2k_z^2/k^2$: stabile se e solo se $\ell=s^2\Omega$ cresce verso l'esterno (Rayleigh 1917); un anello spostato verso l'esterno conserva $\ell$, ha lì troppo poca forza centrifuga e ricade. Un disco kepleriano ($\ell\propto s^{1/2}$) è Rayleigh-stabile. Con il campo: quadratica in $\sigma^2$ con coefficiente direttore positivo e valore $\omega_A^2(k^2v_A^2-2q\Omega^2)$ in $\sigma^2=0$, quindi c'è una radice positiva se e solo se
+\begin{equation}
+k^2v_A^2<2q\Omega^2=-\frac{\mathrm{d}\Omega^2}{\mathrm{d}\ln s}.
+\end{equation}
+Il campo lega l'anello ai vicini, $\ell$ non è più conservato e il criterio diventa su $\Omega$: qualunque campo debole destabilizza un disco kepleriano (Velikhov 1959; Chandrasekhar 1960; Balbus \& Hawley 1991).
+
+\subsubsection{Tasso di crescita massimo}
+Massimizzando su $\omega_A^2$ (con $k_s=0$): $\sigma^2$ è stazionario dove $\omega_A^2=q\Omega^2-\sigma^2$, e allora $4\Omega^2\sigma^2=q^2\Omega^4$:
+\begin{equation}
+\sigma_{\max}=\frac q2\Omega\quad\text{a}\quad k_z^2v_A^2=q\left(1-\frac q4\right)\Omega^2 .
+\end{equation}
+Kepleriano: $\sigma_{\max}=\tfrac34\Omega$ a $kv_A=(15/16)^{1/2}\Omega$, un fattore $e^{3\pi/2}\approx110$ per orbita, qualunque sia $B$. Immagine della molla: due elementi sulla stessa linea di campo sono legati dalla tensione come da una molla; quello interno orbita più velocemente, la molla lo tira indietro, perde momento angolare e cade verso l'interno; quello esterno viene tirato in avanti e sale. Instabilità a valanga, a meno che la molla non sia rigida, $k^2v_A^2>2q\Omega^2$.
+
+\subsubsection{Dischi di accrescimento}
+Un anello a $s$ ha $\ell=s^2\Omega=\sqrt{GMs}$: per muoversi verso l'interno deve cedere momento angolare al gas esterno, cioè l'accrescimento è trasporto di momento angolare verso l'esterno.
+\begin{itemize}
+\item La viscosità molecolare è troppo piccola per i tassi di accrescimento osservati (Pringle 1981).
+\item Sul modo MRI che cresce, $u_\phi/u_s=X/(2\Omega\sigma)>0$ e $b_\phi/b_s=-(2q\Omega^2-X)/(2\Omega\sigma)<0$: lo sforzo $\rho(u_su_\phi-b_sb_\phi)>0$ trasporta momento angolare verso l'esterno.
+\item L'instabilità satura in turbolenza MHD; il trasporto è turbolento, $\nu_t=\alpha c_sH$ (Shakura \& Sunyaev 1973), con $\alpha\sim10^{-2}$--$10^{-1}$ nelle simulazioni, dominato dallo sforzo di Maxwell.
+\item Dove il gas è troppo debolmente ionizzato la MRI muore: \emph{dead zones} dei dischi protoplanetari (Gammie 1996).
+\end{itemize}
+
+\subsection{Sintesi: due instabilità da un'unica analisi locale}
+
+\begin{center}
+\begin{tabular}{lll}
+\hline
+ & Tayler & MRI\\
+\hline
+energia libera & corrente, $B_\phi(s)$ & taglio, $\Omega(s)$\\
+criterio & $m=0$: $\alpha>1$; $m=1$: $\alpha>-\tfrac12$ & $\mathrm{d}\Omega^2/\mathrm{d}s<0$, $k^2v_A^2<2q\Omega^2$\\
+tasso di crescita & $\sim\omega_B$ & $\tfrac q2\Omega$\\
+dove & nuclei di giganti rosse: & dischi di accrescimento:\\
+ & accoppiamento nucleo--inviluppo & trasporto turbolento\\
+\hline
+\end{tabular}
+\end{center}
+
+Argomenti di approfondimento (possibili progetti d'esame):
+\begin{itemize}
+\item Tayler con un debole $B_z$, soglia $\alpha>-1$ (Bonanno \& Urpin 2008); saturazione ed elicità (Bonanno et al.\ 2012);
+\item $B_\phi$, $B_z$ e $\Omega'$ insieme: MRI elicoidale, onde di taglio; giganti rosse e saturazione della MRI.
+\end{itemize}
+
+\subsection*{Domande di verifica}
+\begin{enumerate}
+\item Da dove vengono i termini $-2\Omega u_\phi$ e $(2\Omega+s\Omega')u_s$? Perché non ci sono in coordinate cartesiane?
+\item Mostrare che un anello di campo toroidale spostato conserva $B_\phi/s$. Perché $\alpha>1$ è instabile per $m=0$?
+\item Per $B_\phi\propto s^\alpha$, quali $m$ sono instabili se $\alpha=2$?
+\item Perché ogni campo toroidale è instabile vicino all'asse, qualunque sia il suo profilo più all'esterno?
+\item Un disco kepleriano è Rayleigh-stabile. Perché un campo arbitrariamente debole cambia le cose?
+\item Perché il nucleo di una gigante rossa deve perdere momento angolare, e come può aiutare un campo Tayler-instabile?
+\end{enumerate}
